@@ -18,6 +18,9 @@ jobs:
       - run: 
           name: AWS CLI Version
           command: aws --version
+      - run:
+          name: Lint Wordshop Web and Api
+          command: ./lint.sh
       - run: 
           name: Build Wordshop Web and Api
           command: ./build.sh
