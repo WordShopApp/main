@@ -1,5 +1,5 @@
 echo "Start Deploying to AWS S3 Bucket"
-aws s3 sync ./dist s3://wordshop.app --region us-east-1 --acl public-read --delete 
+aws s3 sync ./dist/wordshop s3://wordshop.app --region us-east-1 --acl public-read --delete
 echo "Done Deploying to AWS S3 Bucket"
 
 echo "Start Invalidation of AWS CloudFront Cache"
