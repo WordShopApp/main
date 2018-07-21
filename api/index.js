@@ -1,7 +1,8 @@
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
-const express = require('express')
-const app = express()
+const express = require('express');
+const cors = require('cors');
+const app = express();
 const AWS = require('aws-sdk');
 
 const USERS_TABLE = process.env.USERS_TABLE;
@@ -12,20 +13,22 @@ if (IS_OFFLINE === 'true') {
   dynamoDb = new AWS.DynamoDB.DocumentClient({
     region: 'localhost',
     endpoint: 'http://localhost:8000'
-  })
+  });
   console.log(dynamoDb);
 } else {
   dynamoDb = new AWS.DynamoDB.DocumentClient();
 };
 
-app.use(bodyParser.json({ strict: false }));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 // Get User endpoint
-app.get('/users/:userId', function (req, res) {
+app.get('/users/:userId', (req, res) => {
   const params = {
     TableName: USERS_TABLE,
     Key: {
@@ -42,13 +45,13 @@ app.get('/users/:userId', function (req, res) {
       const {userId, name} = result.Item;
       res.json({ userId, name });
     } else {
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: 'User not found' });
     }
   });
-})
+});
 
 // Create User endpoint
-app.post('/users', function (req, res) {
+app.post('/users', (req, res) => {
   const { userId, name } = req.body;
   if (typeof userId !== 'string') {
     res.status(400).json({ error: '"userId" must be a string' });
@@ -71,6 +74,6 @@ app.post('/users', function (req, res) {
     }
     res.json({ userId, name });
   });
-})
+});
 
 module.exports.handler = serverless(app);

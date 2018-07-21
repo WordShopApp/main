@@ -10,8 +10,12 @@
   "dependencies": {
     "aws-sdk": "^2.279.1",
     "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
-    "serverless-http": "^1.6.0"
+    "moment": "^2.22.2",
+    "serverless-http": "^1.6.0",
+    "shortid": "^2.2.12"
   },
   "devDependencies": {
     "serverless-dynamodb-local": "^0.2.30",
