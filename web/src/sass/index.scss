@@ -1,0 +1,39 @@
+@import 'variables'; 
+
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: lighten($ws-base-color, 5%);
+  font-family: Interface, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $ws-font-weight;
+  font-size: 0.9rem;
+}
+
+a {
+  color: $ws-earth-green;
+  &:hover {
+    color:  $ws-earth-blue;
+  }
+}
+
+div, ul {
+  -webkit-overflow-scrolling: touch;
+}
+
+.moment-drop {
+  border-radius: 0.75em;
+  border: 2px dotted darken($ws-earth-blue, 15%);
+  &.over {
+    background-color: lighten($ws-earth-blue, 45%)!important;
+  }
+  .content {
+    color: darken($ws-earth-blue, 15%)!important;
+  }
+}
