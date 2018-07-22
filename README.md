@@ -26,16 +26,16 @@ Install Serverless globally
 $ npm install -g serverless
 ```
 
-Install DynamoDb locally
+Install DynamoDb local
 
 ```
 $ sls dynamodb install
 ```
 
-Install DynamoDb admin
+Install DynamoDb admin globally
 
 ```
-$ npm install dynamodb-admin -g
+$ npm install -g dynamodb-admin
 ```
 
 #### Web
@@ -63,13 +63,13 @@ $ cd main
 $ ./dev.sh
 ```
 
-The Web will be served here: ```http://localhost:4200```
-
-The API will be served here: ```http://localhost:3000```
-
-The DynamoDb admin will be served here: ```http://localhost:8001```
-
-The DynamoDb shell will be served here: ```http://localhost:8000/shell```
+Web: ```http://localhost:4200```
+API: ```http://localhost:3000```
+DynamoDb Admin: ```http://localhost:8001```
+DynamoDb Shell: ```http://localhost:8000/shell```
 
 
-To shutdown the local development environment, simply ```Ctrl+C``` out.
+
+### Shutdown
+
+To shutdown the local development environment, enter ```Ctrl+C```.
