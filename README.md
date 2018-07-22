@@ -32,6 +32,12 @@ Install DynamoDb locally
 $ sls dynamodb install
 ```
 
+Install DynamoDb admin
+
+```
+$ npm install dynamodb-admin -g
+```
+
 #### Web
 
 Install Node Modules for Web
@@ -57,8 +63,13 @@ $ cd main
 $ ./dev.sh
 ```
 
-The Web will be served here: ```http://localhost:4200```.
-The API will be served here: ```http://localhost:3000```.
-The DynamoDb local shell will be served here: ```http://localhost:8000/shell```.
+The Web will be served here: ```http://localhost:4200```
+
+The API will be served here: ```http://localhost:3000```
+
+The DynamoDb admin will be served here: ```http://localhost:8001```
+
+The DynamoDb shell will be served here: ```http://localhost:8000/shell```
+
 
 To shutdown the local development environment, simply ```Ctrl+C``` out.

@@ -1,1 +1,2 @@
-sls offline start --host 0.0.0.0
+export DYNAMO_ENDPOINT=http://localhost:8000;
+((sls offline start) & dynamodb-admin & wait)
