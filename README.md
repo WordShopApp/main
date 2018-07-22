@@ -16,7 +16,7 @@ First, ensure you have the correct version of [NodeJS](https://nodejs.org/en/) i
 Install Node Modules for API
 
 ```
-$ cd main/api
+$ cd ~/main/api
 $ npm install
 ```
 
@@ -43,7 +43,7 @@ $ npm install -g dynamodb-admin
 Install Node Modules for Web
 
 ```
-$ cd main/web
+$ cd ~/main/web
 $ npm install
 ```
 
@@ -59,14 +59,14 @@ $ npm install -g @angular/cli
 To startup the local development environment, run the following command:
 
 ```
-$ cd main
+$ cd ~/main
 $ ./dev.sh
 ```
 
-Web: ```http://localhost:4200```
-API: ```http://localhost:3000```
-DynamoDb Admin: ```http://localhost:8001```
-DynamoDb Shell: ```http://localhost:8000/shell```
+- Web: ```http://localhost:4200```
+- API: ```http://localhost:3000```
+- DynamoDb Admin: ```http://localhost:8001```
+- DynamoDb Shell: ```http://localhost:8000/shell```
 
 
 
