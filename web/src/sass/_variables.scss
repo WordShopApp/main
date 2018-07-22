@@ -1,6 +1,6 @@
-$ws-base-color: #3a3634;
+$ws-base-color: rgb(131, 140, 145);;
 $ws-base-darkened: darken($ws-base-color, 5%);
-$mfe-base-lightened: lighten($ws-base-color, 25%);
+$ws-base-lightened: lighten($ws-base-color, 25%);
 
 $ws-earth-blue: #06daf1;
 $ws-earth-green: #07f2bb;

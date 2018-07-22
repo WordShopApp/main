@@ -1,7 +1,11 @@
 {
   "name": "wordshop-api",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:WordShopApp/main.git"
+  },
   "version": "1.0.0",
-  "description": "",
+  "description": "WordShop API",
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint ."

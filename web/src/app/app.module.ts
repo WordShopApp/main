@@ -1,16 +1,59 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+import { AppRoutes } from './app.routes';
 import { AppComponent } from './app.component';
+
+// Services
+import { AccountService } from './services/account/account.service';
+import { ApiService } from './services/api/api.service';
+import { AuthService } from './services/auth/auth.service';
+import { CognitoService } from './services/cognito/cognito.service';
+import { GravatarService } from './services/gravatar/gravatar.service';
+import { LoggerService } from './services/logger/logger.service';
+import { MessengerService } from './services/messenger/messenger.service';
+import { SettingsService } from './services/settings/settings.service';
+import { StoreService } from './services/store/store.service';
+import { StoreReducer } from './services/store/store.reducer';
+
+// Components
+import { HomeComponent } from './components/home/home.component';
+import { InfoComponent } from './components/info/info.component';
+import { LoginComponent } from './components/login/login.component';
+import { JoinComponent } from './components/join/join.component';
+
+import { CookieService } from 'ng2-cookies';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    InfoComponent,
+    LoginComponent,
+    JoinComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(AppRoutes, { useHash: false })
   ],
-  providers: [],
+  exports: [RouterModule],
+  providers: [
+    AccountService,
+    ApiService,
+    AuthService,
+    CognitoService,
+    CookieService,
+    GravatarService,
+    LoggerService,
+    MessengerService,
+    SettingsService,
+    StoreReducer,
+    StoreService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
