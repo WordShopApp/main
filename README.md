@@ -59,6 +59,6 @@ $ ./dev.sh
 
 The Web will be served here: ```http://localhost:4200```.
 The API will be served here: ```http://localhost:3000```.
-The DynamoDb local shell will be served here: `http://localhost:8000/shell```.
+The DynamoDb local shell will be served here: ```http://localhost:8000/shell```.
 
 To shutdown the local development environment, simply ```Ctrl+C``` out.
