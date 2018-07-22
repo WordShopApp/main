@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CognitoService } from '../cognito/cognito.service';
 import { LoggerService } from '../logger/logger.service';
+import { NavService } from '../nav/nav.service';
 import { StoreService } from '../store/store.service';
 
 @Injectable()
@@ -13,12 +14,14 @@ export class AuthService {
   constructor (
     private cognitoService: CognitoService,
     private loggerService: LoggerService,
+    private navService: NavService,
     private storeService: StoreService,
   ) { }
 
   canActivate () {
-    this.loggerService.log('AuthService.canActivate', this.loggedIn());
     let ca = this.loggedIn();
+    this.loggerService.log('AuthService.canActivate', ca);
+    if (!ca) this.navService.gotoWelcome();
     return ca;
   }
 

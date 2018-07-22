@@ -8,19 +8,6 @@ body, html {
   height: 100%;
   width: 100%;
   background-color: lighten($ws-base-color, 10%);
-  font-family: Interface, sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: $ws-font-weight;
-  font-size: 0.9rem;
-}
-
-a {
-  color: $ws-earth-green;
-  &:hover {
-    color:  $ws-earth-blue;
-  }
 }
 
 div, ul {
@@ -29,11 +16,15 @@ div, ul {
 
 .moment-drop {
   border-radius: 0.75em;
-  border: 2px dotted darken($ws-earth-blue, 15%);
+  border: 2px dotted white;
   &.over {
-    background-color: lighten($ws-earth-blue, 45%)!important;
+    background-color: white!important;
   }
   .content {
-    color: darken($ws-earth-blue, 15%)!important;
+    color: white!important;
   }
+}
+
+.ws-form {
+  min-width: $ws-form-width;
 }

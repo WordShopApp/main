@@ -1,9 +1,10 @@
 <nav class="nav">
   <a class="nav-link" [routerLink]="['/welcome']" preserveFragment>Welcome</a>
-  <a class="nav-link" [routerLink]="['/info']" preserveFragment>Info</a>
   <a class="nav-link" [routerLink]="['/login']" preserveFragment>Login</a>
   <a class="nav-link" [routerLink]="['join']" preserveFragment>Join</a>
 </nav>
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="container app-container">
+  <div class="row justify-content-center align-items-center">
+    <router-outlet></router-outlet>
+  </div>
 </div>
