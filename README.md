@@ -9,7 +9,7 @@ WordShop is a tool for workshopping your writing projects. With it you can excha
 
 ### Prerequisites
 
-First, ensure you have the correct version of [NodeJS](https://nodejs.org/en/) installed via [NVM](https://github.com/creationix/nvm). The version you should install is found in ```.nvmrc```. Then follow the instructions for API and Web below.
+First, ensure you have the correct version of [NodeJS](https://nodejs.org/en/) installed via [NVM](https://github.com/creationix/nvm). The version you should install is found in ```~/main/.nvmrc```. Then follow the instructions for API and Web below.
 
 #### API
 
