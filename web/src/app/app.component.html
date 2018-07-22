@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div class="container">
+  <div *ngIf="loggedIn === true">
+    <router-outlet></router-outlet>
+  </div>
+  <div *ngIf="loggedIn === false">
+    <h1>Welcome to WordShop</h1>
+  </div>
+</div>

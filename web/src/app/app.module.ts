@@ -20,7 +20,9 @@ import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
 
 // Components
-import { HomeComponent } from './components/home/home.component';
+import { RootComponent } from './components/root/root.component';
+import { RootResolver } from './components/root/root.resolver';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InfoComponent } from './components/info/info.component';
 import { LoginComponent } from './components/login/login.component';
 import { JoinComponent } from './components/join/join.component';
@@ -30,10 +32,11 @@ import { CookieService } from 'ng2-cookies';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     InfoComponent,
     LoginComponent,
-    JoinComponent
+    JoinComponent,
+    RootComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { CookieService } from 'ng2-cookies';
     GravatarService,
     LoggerService,
     MessengerService,
+    RootResolver,
     SettingsService,
     StoreReducer,
     StoreService

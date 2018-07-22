@@ -17,6 +17,20 @@ export class AuthService {
     private storeService: StoreService,
   ) { }
 
+  canActivate () {
+    this.loggerService.log('AuthService.canActivate', this.loggedIn());
+    return this.loggedIn();
+  }
+
+  blank (str) {
+    return !str || !str.length || str.trim().length === 0;
+  }
+
+  loggedIn () {
+    let token = this.storeService.local.get(this.tokenKey);
+    return !this.blank(token) ? true : false;
+  }
+
   init () {
     this.initProviders();
   }
