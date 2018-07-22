@@ -15,6 +15,7 @@ import { CognitoService } from './services/cognito/cognito.service';
 import { GravatarService } from './services/gravatar/gravatar.service';
 import { LoggerService } from './services/logger/logger.service';
 import { MessengerService } from './services/messenger/messenger.service';
+import { NavService } from './services/nav/nav.service';
 import { SettingsService } from './services/settings/settings.service';
 import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
@@ -26,6 +27,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InfoComponent } from './components/info/info.component';
 import { LoginComponent } from './components/login/login.component';
 import { JoinComponent } from './components/join/join.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -36,7 +38,8 @@ import { CookieService } from 'ng2-cookies';
     LoginComponent,
     JoinComponent,
     RootComponent,
-    DashboardComponent
+    DashboardComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { CookieService } from 'ng2-cookies';
     GravatarService,
     LoggerService,
     MessengerService,
+    NavService,
     RootResolver,
     SettingsService,
     StoreReducer,

@@ -7,7 +7,6 @@ import { StoreService } from '../store/store.service';
 export class AuthService {
   private authKey = 'auth';
   private tokenKey = 'token';
-  private tokenDelimiter = ':';
 
   private providers: any;
 
@@ -19,7 +18,8 @@ export class AuthService {
 
   canActivate () {
     this.loggerService.log('AuthService.canActivate', this.loggedIn());
-    return this.loggedIn();
+    let ca = this.loggedIn();
+    return ca;
   }
 
   blank (str) {
