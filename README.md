@@ -13,10 +13,13 @@ First, ensure you have the correct version of [NodeJS](https://nodejs.org/en/) i
 
 #### API
 
+```
+$ cd ~/main/api
+```
+
 Install Node Modules for API
 
 ```
-$ cd ~/main/api
 $ npm install
 ```
 
@@ -40,10 +43,13 @@ $ npm install -g dynamodb-admin
 
 #### Web
 
+```
+$ cd ~/main/web
+```
+
 Install Node Modules for Web
 
 ```
-$ cd ~/main/web
 $ npm install
 ```
 
@@ -56,7 +62,7 @@ $ npm install -g @angular/cli
 
 ### Startup
 
-To startup the local development environment, run the following command:
+To startup the local development environment, run the following:
 
 ```
 $ cd ~/main
