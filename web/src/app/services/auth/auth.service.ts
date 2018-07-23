@@ -18,28 +18,35 @@ export class AuthService {
     private storeService: StoreService,
   ) { }
 
-  canActivate () {
-    let ca = this.loggedIn();
-    this.loggerService.log('AuthService.canActivate', ca);
-    if (!ca) this.navService.gotoWelcome();
-    return ca;
+  canActivate (): Promise<boolean> {
+    return this.loggedIn();
   }
 
   blank (str) {
     return !str || !str.length || str.trim().length === 0;
   }
 
-  loggedIn () {
-    let token = this.storeService.local.get(this.tokenKey);
-    return !this.blank(token) ? true : false;
+  loggedIn (): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.cognitoService.token().then(token => {
+        resolve(token ? true : false);
+      }).catch(err => {
+        this.loggerService.error(err);
+        resolve(false);
+      });
+    });
   }
 
   init () {
     this.initProviders();
   }
 
-  signup (email, password): Promise<any> {
-    return this.cognitoService.signup(email, password);
+  join (email, password): Promise<any> {
+    return this.cognitoService.join(email, password);
+  }
+
+  login (email, password): Promise<any> {
+    return this.cognitoService.login(email, password);
   }
 
   loginCognito (email, password): Promise<any> {
@@ -51,7 +58,7 @@ export class AuthService {
     Object.keys(this.providers).map(key => this.providers[key].init());
   }
 
-  login (): Promise<any> {
+  loginOld (): Promise<any> {
     return new Promise((resolve, reject) => {
       this.authToken().then(token => {
         if (token) {
@@ -72,9 +79,8 @@ export class AuthService {
     });
   }
 
-  logout (alsoProviders = true) {
-    if (alsoProviders) Object.keys(this.providers).map(key => this.providers[key].logout());
-    this.clearData();
+  logout () {
+    this.cognitoService.logout();
   }
 
   details () {

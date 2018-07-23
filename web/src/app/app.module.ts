@@ -21,6 +21,7 @@ import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
 
 // Components
+import { AlertComponent } from './components/alert/alert.component';
 import { RootComponent } from './components/root/root.component';
 import { RootResolver } from './components/root/root.resolver';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -39,7 +40,8 @@ import { CookieService } from 'ng2-cookies';
     JoinComponent,
     RootComponent,
     DashboardComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

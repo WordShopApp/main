@@ -10,6 +10,14 @@ export class NavService {
     this.gotoPath('/welcome');
   }
 
+  gotoRoot () {
+    this.gotoPath('/');
+  }
+
+  gotoLogin () {
+    this.gotoPath('/login');
+  }
+
   gotoPath (path: string) {
     this.router.navigate([path]);
   }

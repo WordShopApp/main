@@ -1,0 +1,42 @@
+@import '../../../sass/variables';
+
+.alert-component {
+
+  padding: .75rem 1.25rem;
+  margin-bottom: $ws-default-padding;
+  margin-top: $ws-default-padding;
+  border: 1px solid transparent;
+  border-radius: $ws-default-radius;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+
+  strong {
+    font-weight: bolder;
+  }
+
+  .alert-info {
+    background-color: #d9edf7;
+    border-color: #bcdff1;
+    color: #31708f;
+  }
+
+  .alert-warning {
+    background-color: #fcf8e3;
+    border-color: #faf2cc;
+    color: #8a6d3b;
+  }
+
+  .alert-danger {
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
+  }
+
+  .alert-success {
+    background-color: #dff0d8;
+    border-color: #d0e9c6;
+    color: #3c763d;
+  }
+
+}

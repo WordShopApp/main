@@ -27,8 +27,7 @@ export class AccountService extends ApiService {
     return this.authService.details();
   }
 
-  logout (alsoProviders = true) {
-    this.authService.logout(alsoProviders);
+  logout () {
     this.storeService.dispatch(Actions.Init.Profile, null);
   }
 
@@ -42,9 +41,7 @@ export class AccountService extends ApiService {
   createProfile (userData): Promise<any> {
     return new Promise((resolve, reject) => {
       this.loggerService.info('AccountService', 'Create Account', userData);
-
-      this.authService.login().then(awsCreds => {
-
+        let awsCreds = null;
         let url = this.accountCreateUrl();
         let body = this.apiBody(userData, awsCreds);
         let opts = { headers: this.jsonHeaders() };
@@ -53,9 +50,6 @@ export class AccountService extends ApiService {
           this.loggerService.info('AccountService', 'Create Account Success', profile);
           resolve(profile);
         }).catch(reject);
-
-      }).catch(reject);
-      
     });
   }
 

@@ -1,0 +1,4 @@
+<div *ngIf="showAlert" class="alert-component alert-{{type || defaultType}}" (click)="hide()">
+  <span *ngIf="header"><strong>{{header}}&nbsp;</strong></span>
+  <span *ngIf="message">{{message}}</span>
+</div>
