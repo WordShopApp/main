@@ -25,7 +25,8 @@ export const AppRoutes: Routes  = [
     resolve: { data: RootResolver },
     canActivate: [AuthService],
     children: [
-      { path: '', component: DashboardComponent }
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent }
     ]
   }
 

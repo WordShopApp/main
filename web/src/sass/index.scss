@@ -7,11 +7,18 @@ body, html {
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: $ws-base-color;
+  background-color: lighten($ws-base-color, 25%);
 }
 
 div, ul {
   -webkit-overflow-scrolling: touch;
+}
+
+a {
+  color: darken($ws-base-color, 35%);
+  &:hover {
+    color: darken($ws-base-color, 10%);
+  }
 }
 
 .moment-drop {
@@ -27,4 +34,23 @@ div, ul {
 
 .ws-form {
   min-width: $ws-form-width;
+}
+
+.btn-wordshop {
+  color: #fff;
+  background-color: darken($ws-highlight-color, 10%);
+  border-color: darken($ws-highlight-color, 10%);
+  border-bottom: 2px solid darken($ws-highlight-color, 20%);
+  cursor: pointer;
+  &:hover {
+    background-color: darken($ws-highlight-color, 5%);
+    border-color: darken($ws-highlight-color, 5%);
+    border-bottom: 2px solid darken($ws-highlight-color, 10%);
+  }
+}
+
+@media (max-width: $ws-mobile-breakpoint) {
+  .ws-form {
+    min-width: $ws-form-width-mobile;
+  }
 }

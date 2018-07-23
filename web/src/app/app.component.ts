@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth/auth.service';
 import { MessengerService } from './services/messenger/messenger.service';
 import { NavService } from './services/nav/nav.service';
+import { LoggerService } from './services/logger/logger.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor (
     private authService: AuthService,
+    private loggerService: LoggerService,
     private messengerService: MessengerService,
     private navService: NavService) {}
 
@@ -22,7 +24,7 @@ export class AppComponent implements OnInit {
     this.messengerService.subscribe('global:alert', this.showAlert.bind(this));
     this.authService.loggedIn().then(loggedIn => {
       if (!loggedIn) this.navService.gotoWelcome();
-    }).catch(console.error);
+    }).catch(this.loggerService.error);
   }
 
   logout (evt) {
