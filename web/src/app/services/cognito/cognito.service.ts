@@ -76,6 +76,15 @@ export class CognitoService {
     });
   }
 
+  resendConfirmationEmail (email): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.cognitoUser(email).resendConfirmationCode((err, res) => {
+        if (err) return reject(err);
+        resolve(res);
+      });
+    });
+  }
+
   // https://stackoverflow.com/a/46627024
   token (): Promise<any> {
     return new Promise((resolve, reject) => {

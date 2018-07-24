@@ -62,6 +62,10 @@ export class AuthService {
     return this.cognitoService.resetPassword(email, newPassword, verificationCode);
   }
 
+  resendConfirmationEmail (email): Promise<any> {
+    return this.cognitoService.resendConfirmationEmail(email);
+  }
+
   loginCognito (email, password): Promise<any> {
     return this.cognitoService.login(email, password);
   }

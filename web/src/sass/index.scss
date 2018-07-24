@@ -35,11 +35,18 @@ a {
 .ws-form {
   min-width: $ws-form-width;
   max-width: $ws-form-width-max;
+  border-radius: $ws-default-radius;
+  border: none;
+  border-bottom: 2px solid $ws-base-color;
+  .ws-header {
+    border: none;
+  }
 }
 
 .ws-panel {
   background-color: white;
-  border-radius: 0.25em;
+  border-radius: $ws-default-radius;
+  border-bottom: 2px solid $ws-base-color;
   padding: 24px;
 }
 

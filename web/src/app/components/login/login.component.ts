@@ -4,6 +4,7 @@ import { LoggerService } from '../../services/logger/logger.service';
 import { NavService } from '../../services/nav/nav.service';
 import { AlertTypes } from '../alert/alert.component';
 import { MessengerService } from '../../services/messenger/messenger.service';
+import { StoreService } from '../../services/store/store.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private loggerService: LoggerService,
     private messengerService: MessengerService,
-    private navService: NavService) { }
+    private navService: NavService,
+    private storeService: StoreService
+  ) { }
 
   ngOnInit() {
   }
@@ -38,8 +41,17 @@ export class LoginComponent implements OnInit {
       }).catch(err => {
         this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
         this.loggerService.error(err);
+        if (this.isUnconfirmed(err.code)) {
+          this.storeService.local.set('email', email);
+          this.storeService.local.set('password', password);
+          this.navService.gotoConfirmation();
+        }
       });
     }
+  }
+
+  isUnconfirmed (code) {
+    return code === 'UserNotConfirmedException';
   }
 
   sendMessage(type, header, message) {
