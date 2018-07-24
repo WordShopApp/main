@@ -14,12 +14,11 @@ export class CognitoService {
   join (email, password): Promise<any>  {
     return new Promise((resolve, reject) => {
       let attributes = [];
-      attributes.push([
-        new AmazonCognitoIdentity.CognitoUserAttribute({
-          Name : 'email',
-          Value : email
-        })
-      ]);
+      let emailAttribute = new AmazonCognitoIdentity.CognitoUserAttribute({
+        Name : 'email',
+        Value : email
+      });
+      attributes.push(emailAttribute);
       this.userPool().signUp(email, password, attributes, null, (err, result) => {
         if (err) return reject(err);
         resolve(result);
