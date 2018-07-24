@@ -34,23 +34,17 @@ export class JoinComponent implements OnInit {
     let password = this.passwordInput.nativeElement.value;
     if (email && password) {
       this.authService.join(email, password).then(res => {
-        this.messengerService.send('global:alert', 'Account Created. Please check your email for a confirmation link. You must confirm your email address before you can login.');
+        this.sendMessage(AlertTypes.Success, 'Account Created:', 'Please check your email for a confirmation link. You must confirm your email address before you can login.');
         this.navService.gotoLogin();
       }).catch(err => {
+        this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
         this.loggerService.error(err);
-        this.showAlert('Error:', err.message, AlertTypes.Danger);
       });
     }
   }
 
-  private showAlert (header, message, type) {
-    this.alertShow = false;
-    setTimeout(() => {
-      this.alertHeader = header;
-      this.alertMessage = message;
-      this.alertType = type;
-      this.alertShow = true;
-    }, 0);
+  sendMessage(type, header, message) {
+    this.messengerService.send('global:alert', { type, header, message });
   }
 
 }

@@ -13,17 +13,14 @@ export class CognitoService {
 
   join (email, password): Promise<any>  {
     return new Promise((resolve, reject) => {
-      let poolData = { UserPoolId : this.userPoolId, ClientId : this.appClientId };
-      let userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-
       let attributes = [];
-      let attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute({
-        Name : 'email',
-        Value : email
-      });
-      attributes.push(attributeEmail);
-
-      userPool.signUp(email, password, attributes, null, (err, result) => {
+      attributes.push([
+        new AmazonCognitoIdentity.CognitoUserAttribute({
+          Name : 'email',
+          Value : email
+        })
+      ]);
+      this.userPool().signUp(email, password, attributes, null, (err, result) => {
         if (err) return reject(err);
         resolve(result);
       });
@@ -32,19 +29,11 @@ export class CognitoService {
 
   login (email, password): Promise<any> {
     return new Promise((resolve, reject) => {
-      let authenticationData = {
+      let ad = new AmazonCognitoIdentity.AuthenticationDetails({
         Username : email,
         Password : password,
-      };
-      let authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-      let poolData = { UserPoolId : this.userPoolId, ClientId : this.appClientId };
-      let userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-      let userData = {
-        Username : email,
-        Pool : userPool
-      };
-      let cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-      cognitoUser.authenticateUser(authenticationDetails, {
+      });
+      this.cognitoUser(email).authenticateUser(ad, {
         onSuccess: (result) => {
           let idToken = result.getIdToken().getJwtToken();
           resolve(idToken);
@@ -60,6 +49,32 @@ export class CognitoService {
     let up = this.userPool();
     const user = up.getCurrentUser();
     if (user) user.signOut();
+  }
+
+  forgotPassword (email): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.cognitoUser(email).forgotPassword({
+        onSuccess: function (res) {
+          resolve(res);
+        },
+        onFailure: function(err) {
+          reject(err);
+        }
+      });
+    });
+  }
+
+  resetPassword (email, newPassword, verificationCode): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.cognitoUser(email).confirmPassword(verificationCode, newPassword, {
+        onSuccess: () => {
+          resolve(true);
+        },
+        onFailure: (err) => {
+          reject(err);
+        }
+      });
+    });
   }
 
   // https://stackoverflow.com/a/46627024
@@ -80,6 +95,13 @@ export class CognitoService {
       } else {
         resolve(null);
       }
+    });
+  }
+
+  cognitoUser (email) {
+    return new AmazonCognitoIdentity.CognitoUser({
+      Username: email,
+      Pool: this.userPool()
     });
   }
 

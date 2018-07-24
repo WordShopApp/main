@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { JoinComponent } from './components/join/join.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -14,7 +15,10 @@ export const AppRoutes: Routes  = [
     path: 'login', component: LoginComponent
   },
   {
-    path: 'join', component: JoinComponent
+    path: 'register', component: JoinComponent
+  },
+  {
+    path: 'forgot-password', component: ForgotPasswordComponent
   },
   {
     path: 'welcome', component: WelcomeComponent

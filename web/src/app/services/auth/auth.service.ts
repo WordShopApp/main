@@ -19,7 +19,12 @@ export class AuthService {
   ) { }
 
   canActivate (): Promise<boolean> {
-    return this.loggedIn();
+    return new Promise((resolve, reject) => {
+      this.loggedIn().then(is => {
+        if (!is) this.navService.gotoWelcome();
+        resolve(is);
+      }).catch(reject);
+    });
   }
 
   blank (str) {
@@ -47,6 +52,14 @@ export class AuthService {
 
   login (email, password): Promise<any> {
     return this.cognitoService.login(email, password);
+  }
+
+  forgotPassword (email): Promise<any> {
+    return this.cognitoService.forgotPassword(email);
+  }
+
+  resetPassword (email, newPassword, verificationCode): Promise<any> {
+    return this.cognitoService.resetPassword(email, newPassword, verificationCode);
   }
 
   loginCognito (email, password): Promise<any> {

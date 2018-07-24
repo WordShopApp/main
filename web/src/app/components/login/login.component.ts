@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { NavService } from '../../services/nav/nav.service';
 import { AlertTypes } from '../alert/alert.component';
+import { MessengerService } from '../../services/messenger/messenger.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private loggerService: LoggerService,
+    private messengerService: MessengerService,
     private navService: NavService) { }
 
   ngOnInit() {
@@ -36,23 +38,16 @@ export class LoginComponent implements OnInit {
         if (token) {
           this.navService.gotoRoot();
         } else {
-          this.showAlert('Error:', 'There was a problem logging in. Please try again.', AlertTypes.Danger);
+          this.sendMessage(AlertTypes.Danger, 'Error:', 'There was a problem logging in. Please try again.');
         }
       }).catch(err => {
+        this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
         this.loggerService.error(err);
-        this.showAlert('Error:', err.message, AlertTypes.Danger);
       });
     }
   }
 
-  private showAlert (header, message, type) {
-    this.alertShow = false;
-    setTimeout(() => {
-      this.alertHeader = header;
-      this.alertMessage = message;
-      this.alertType = type;
-      this.alertShow = true;
-    }, 0);
+  sendMessage(type, header, message) {
+    this.messengerService.send('global:alert', { type, header, message });
   }
-
 }

@@ -1,11 +1,11 @@
 <nav class="nav">
   <a class="nav-link" [routerLink]="['/welcome']" preserveFragment>Welcome</a>
   <a class="nav-link" [routerLink]="['/login']" preserveFragment>Login</a>
-  <a class="nav-link" [routerLink]="['join']" preserveFragment>Join</a>
+  <a class="nav-link" [routerLink]="['/register']" preserveFragment>Register</a>
   <a class="nav-link" href="" (click)="logout($event)">Logout</a>
 </nav>
 <div class="container app-container">
-  <app-alert [show]="alertShow" [message]="alertMessage" [timeout]="10000"></app-alert>
+  <app-alert [show]="alertShow" [type]="alertType" [header]="alertHeader" [message]="alertMessage" [timeout]="10000"></app-alert>
   <div class="row justify-content-center align-items-center">
     <router-outlet></router-outlet>
   </div>

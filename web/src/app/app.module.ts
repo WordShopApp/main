@@ -25,6 +25,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { RootComponent } from './components/root/root.component';
 import { RootResolver } from './components/root/root.resolver';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { InfoComponent } from './components/info/info.component';
 import { LoginComponent } from './components/login/login.component';
 import { JoinComponent } from './components/join/join.component';
@@ -41,7 +42,8 @@ import { CookieService } from 'ng2-cookies';
     RootComponent,
     DashboardComponent,
     WelcomeComponent,
-    AlertComponent
+    AlertComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

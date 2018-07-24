@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
 
   alertShow = false;
   alertMessage: string;
+  alertHeader: string;
+  alertType: string;
 
   constructor (
     private authService: AuthService,
@@ -22,9 +24,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit () {
     this.messengerService.subscribe('global:alert', this.showAlert.bind(this));
-    this.authService.loggedIn().then(loggedIn => {
-      if (!loggedIn) this.navService.gotoWelcome();
-    }).catch(this.loggerService.error);
   }
 
   logout (evt) {
@@ -33,11 +32,13 @@ export class AppComponent implements OnInit {
     this.navService.gotoLogin();
   }
 
-  showAlert (msg) {
-    if (msg) {
+  showAlert (opts) {
+    if (opts) {
       this.alertShow = false;
       setTimeout(() => {
-        this.alertMessage = msg;
+        this.alertMessage = opts.message;
+        this.alertHeader = opts.header;
+        this.alertType = opts.type;
         this.alertShow = true;
       }, 0);
     }

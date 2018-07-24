@@ -8,8 +8,10 @@
       </div>
       <div class="form-group">
         <input type="password" class="form-control" #passwordInput placeholder="Password">
+        <small id="forgotPassword" class="form-text text-muted"><a [routerLink]="['/forgot-password']" preserveFragment>Forgot password?</a></small>
       </div>
-      <button (click)="login($event)" type="submit" class="btn btn-wordshop btn-block">Login</button>
+      <button (click)="login($event)" type="submit" class="btn btn-wordshop btn-block">Log in</button>
     </form>
   </div>
 </div>
+<small class="form-text text-muted text-center">(<a [routerLink]="['/register']" preserveFragment>Register</a>)</small>
