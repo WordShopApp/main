@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../../services/store/store.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit() {
     // 'Account Created:', 'Please check your email for a confirmation link. You must confirm your email address before you can login.'

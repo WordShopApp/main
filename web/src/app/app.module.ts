@@ -16,6 +16,7 @@ import { GravatarService } from './services/gravatar/gravatar.service';
 import { LoggerService } from './services/logger/logger.service';
 import { MessengerService } from './services/messenger/messenger.service';
 import { NavService } from './services/nav/nav.service';
+import { RosieService } from './services/rosie/rosie.service';
 import { SettingsService } from './services/settings/settings.service';
 import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
@@ -70,6 +71,7 @@ import { CookieService } from 'ng2-cookies';
     MessengerService,
     NavService,
     RootResolver,
+    RosieService,
     SettingsService,
     StoreReducer,
     StoreService
