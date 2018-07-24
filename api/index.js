@@ -25,11 +25,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse user email from authorization token, look up user and save into req data
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   if (!req.headers.authorization) {
     return res.status(403).json({ error: 'No credentials sent!' });
   }
-  next();
+  return next();
 });
 
 app.get('/', (req, res) => {
@@ -37,8 +37,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/echo', (req, res) => {
-  let token = req.headers.authorization.split(' ')[1];
-  res.status(200).json({ token: token });
+  const token = req.headers.authorization.split(' ')[1];
+  res.status(200).json({ token });
 });
 
 // Get User endpoint
