@@ -30,6 +30,9 @@ import { InfoComponent } from './components/info/info.component';
 import { LoginComponent } from './components/login/login.component';
 import { JoinComponent } from './components/join/join.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { TermsComponent } from './components/terms/terms.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { CookiesComponent } from './components/cookies/cookies.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -43,7 +46,10 @@ import { CookieService } from 'ng2-cookies';
     DashboardComponent,
     WelcomeComponent,
     AlertComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    TermsComponent,
+    PrivacyComponent,
+    CookiesComponent
   ],
   imports: [
     BrowserModule,

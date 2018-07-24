@@ -7,6 +7,9 @@ import { LoginComponent } from './components/login/login.component';
 import { JoinComponent } from './components/join/join.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { TermsComponent } from './components/terms/terms.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { CookiesComponent } from './components/cookies/cookies.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -22,6 +25,15 @@ export const AppRoutes: Routes  = [
   },
   {
     path: 'welcome', component: WelcomeComponent
+  },
+  {
+    path: 'terms', component: TermsComponent
+  },
+  {
+    path: 'privacy', component: PrivacyComponent
+  },
+  {
+    path: 'cookies', component: CookiesComponent
   },
   {
     path: '',
