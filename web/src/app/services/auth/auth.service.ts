@@ -3,6 +3,7 @@ import { CognitoService } from '../cognito/cognito.service';
 import { LoggerService } from '../logger/logger.service';
 import { NavService } from '../nav/nav.service';
 import { StoreService } from '../store/store.service';
+import { StoreActions as Actions } from '../store/store.actions';
 
 @Injectable()
 export class AuthService {
@@ -102,6 +103,7 @@ export class AuthService {
 
   logout () {
     this.cognitoService.logout();
+    this.storeService.dispatch(Actions.Init.Profile, null);
   }
 
   details () {

@@ -5,53 +5,34 @@ import { ApiService } from '../api/api.service';
 import { AuthService } from '../auth/auth.service';
 import { LoggerService } from '../logger/logger.service';
 import { SettingsService } from '../settings/settings.service';
-import { StoreService } from '../store/store.service';
-import { StoreActions as Actions } from '../store/store.actions';
 
 @Injectable()
 export class AccountService extends ApiService {
 
-  constructor (authService: AuthService, private loggerService: LoggerService, _http: HttpClient, _settingsService: SettingsService, private storeService: StoreService) { 
-    super(authService, _http, _settingsService);
-  }
-
-  login () {
-
-  }
-
-  logout () {
-    this.storeService.dispatch(Actions.Init.Profile, null);
-  }
-
-  apiBody (data, auth) {
-    return {
-      data: data,
-      auth: auth
-    };
+  constructor (
+    authService: AuthService,
+    http: HttpClient,
+    settingsService: SettingsService,
+    private loggerService: LoggerService,
+  ) { 
+    super(authService, http, settingsService);
   }
 
   createProfile (userData): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.loggerService.info('AccountService', 'Create Account', userData);
-        let awsCreds = null;
-        let url = this.accountCreateUrl();
-        let body = this.apiBody(userData, awsCreds);
-        let opts = { headers: this.jsonHeaders() };
-        this.post(url, body, opts).then(res => {
-          let profile = res.json();
-          this.loggerService.info('AccountService', 'Create Account Success', profile);
-          resolve(profile);
-        }).catch(reject);
+      this.loggerService.info('AccountService', 'Create Profile', userData);
+      this.post(this.profileUrl(), userData).then(res => {
+        let profile = res.json();
+        this.loggerService.info('AccountService', 'Create Profile Success', profile);
+        resolve(profile);
+      }).catch(reject);
     });
   }
 
-  getProfile (authData: any): Promise<any> {
+  getProfile (): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.loggerService.info('AccountService', 'Get Profile', authData);
-      let url = this.profileUrl();
-      let body = this.apiBody({ identityId: authData.identityId }, authData);
-      let opts = { headers: this.jsonHeaders() };
-      this.post(url, body, opts).then(res => {
+      this.loggerService.info('AccountService', 'Get Profile');
+      this.get(this.profileUrl()).then(res => {
         let profile = res.json();
         this.loggerService.info('AccountService', 'Get Profile Success', profile);
         resolve(profile);
@@ -59,12 +40,8 @@ export class AccountService extends ApiService {
     });
   }
 
-  private accountCreateUrl (): string {
-    return this.url(this._settingsService.app('accountCreate'));
-  }
-
   private profileUrl (): string {
-    return this.url(this._settingsService.app('profile'));
+    return this.url(this._settingsService.app('profilePath'));
   }
 
 }

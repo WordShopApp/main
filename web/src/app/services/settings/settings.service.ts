@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
 export class SettingsService {
 
   private appSettings = {
-    profile: '/account/profile',
-    accountCreate: '/account/create',
+    profilePath: '/profile',
   };
 
   app (key): any {
