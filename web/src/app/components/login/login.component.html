@@ -5,8 +5,13 @@
       <div class="form-group">
         <input type="email" class="form-control" #emailInput aria-describedby="emailHelp" placeholder="Email">
       </div>
-      <div class="form-group">
-        <input type="password" class="form-control" #passwordInput placeholder="Password">
+      <div class="form-group input-group password-form">
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control" #passwordInput placeholder="Password">
+        <div class="input-group-append clickable" (click)="showPassword = !showPassword">
+          <span class="input-group-text text-muted"><i class="fa fa-eye" aria-hidden="true"></i></span>
+        </div>
+      </div>
+      <div class="forgot-password-group">
         <small id="forgotPassword" class="form-text text-muted"><a [routerLink]="['/forgot-password']" preserveFragment>Forgot password?</a></small>
       </div>
       <button (click)="login($event)" type="submit" class="btn btn-wordshop btn-block">Log in</button>

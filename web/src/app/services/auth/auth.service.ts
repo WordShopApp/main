@@ -96,6 +96,10 @@ export class AuthService {
     });
   }
 
+  token (): Promise<any> {
+    return this.cognitoService.token();
+  }
+
   logout () {
     this.cognitoService.logout();
   }

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { AuthService } from '../auth/auth.service';
 import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class ApiService {
 
   constructor (
+    private authService: AuthService,
     protected _http: HttpClient,
     protected _settingsService: SettingsService
   ) { }
@@ -82,25 +84,47 @@ export class ApiService {
   }
 
   get (url, opts?: any): Promise<any> {
-    return this._http.get(url, opts).toPromise();
+    return new Promise((_, reject) => {
+      this.authService.token().then(token => {
+        return this._http.get(url, this.apiOpts(token, opts)).toPromise();
+      }).catch(reject);
+    });
   }
 
   post (url, body, opts?: any): Promise<any> {
-    return this._http.post(url, body, opts).toPromise();
+    return new Promise((_, reject) => {
+      this.authService.token().then(token => {
+        return this._http.post(url, body, this.apiOpts(token, opts)).toPromise();
+      }).catch(reject);
+    });
   }
 
   put (url, body, opts?: any): Promise<any> {
-    return this._http.put(url, body, opts).toPromise();
+    return new Promise((_, reject) => {
+      this.authService.token().then(token => {
+        return this._http.put(url, body, this.apiOpts(token, opts)).toPromise();
+      }).catch(reject);
+    });
   }
 
   delete (url, opts?: any): Promise<any> {
-    return this._http.delete(url, opts).toPromise();
+    return new Promise((_, reject) => {
+      this.authService.token().then(token => {
+        return this._http.delete(url, this.apiOpts(token, opts)).toPromise();
+      }).catch(reject);
+    });
   }
 
   jsonHeaders () {
     return new HttpHeaders({
       'Content-Type': 'application/json;charset=UTF-8'
     });
+  }
+
+  private apiOpts (token, opts) {
+    opts = opts || { headers: this.jsonHeaders() };
+    opts.headers.set('Authorization', token);
+    return opts;
   }
 
 }

@@ -13,6 +13,8 @@ import { StoreService } from '../../services/store/store.service';
 })
 export class LoginComponent implements OnInit {
 
+  showPassword = false;
+
   @ViewChild('emailInput') emailInput: ElementRef;
   @ViewChild('passwordInput') passwordInput: ElementRef;
 

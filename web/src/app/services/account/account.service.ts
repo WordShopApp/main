@@ -11,20 +11,12 @@ import { StoreActions as Actions } from '../store/store.actions';
 @Injectable()
 export class AccountService extends ApiService {
 
-  constructor (private authService: AuthService, private loggerService: LoggerService, _http: HttpClient, _settingsService: SettingsService, private storeService: StoreService) { 
-    super(_http, _settingsService);
-  }
-
-  init () {
-    this.authService.init();
+  constructor (authService: AuthService, private loggerService: LoggerService, _http: HttpClient, _settingsService: SettingsService, private storeService: StoreService) { 
+    super(authService, _http, _settingsService);
   }
 
   login () {
 
-  }
-
-  details () {
-    return this.authService.details();
   }
 
   logout () {

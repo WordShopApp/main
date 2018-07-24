@@ -1,6 +1,8 @@
 @import 'variables'; 
 
 @import '../../node_modules/bootstrap/scss/bootstrap';
+$fa-font-path: "../../node_modules/font-awesome/fonts";
+@import "../../node_modules/font-awesome/scss/font-awesome";
 
 body, html {
   margin: 0;
@@ -63,8 +65,13 @@ a {
   }
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 @media (max-width: $ws-mobile-breakpoint) {
   .ws-form {
     min-width: $ws-form-width-mobile;
+    max-width: $ws-form-width-max-mobile;
   }
 }

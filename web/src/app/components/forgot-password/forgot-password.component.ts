@@ -19,6 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
   email: string;
   pswd: string;
   showResetForm: boolean;
+  showPassword = false;
 
   constructor(
     private authService: AuthService,

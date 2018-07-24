@@ -15,6 +15,8 @@ export class JoinComponent implements OnInit {
 
   @ViewChild('emailInput') emailInput: ElementRef;
   @ViewChild('passwordInput') passwordInput: ElementRef;
+
+  showPassword = false;
   
   constructor(
     private authService: AuthService,
