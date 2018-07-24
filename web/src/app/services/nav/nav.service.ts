@@ -18,6 +18,10 @@ export class NavService {
     this.gotoPath('/login');
   }
 
+  gotoConfirmation () {
+    this.gotoPath('/confirmation');
+  }
+
   gotoPath (path: string) {
     this.router.navigate([path]);
   }

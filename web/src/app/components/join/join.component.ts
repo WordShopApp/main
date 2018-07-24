@@ -4,6 +4,7 @@ import { LoggerService } from '../../services/logger/logger.service';
 import { NavService } from '../../services/nav/nav.service';
 import { AlertTypes } from '../alert/alert.component';
 import { MessengerService } from '../../services/messenger/messenger.service';
+import { StoreService } from '../../services/store/store.service';
 
 @Component({
   selector: 'app-join',
@@ -19,7 +20,9 @@ export class JoinComponent implements OnInit {
     private authService: AuthService,
     private loggerService: LoggerService,
     private navService: NavService,
-    private messengerService: MessengerService) { }
+    private messengerService: MessengerService,
+    private storeService: StoreService
+  ) { }
 
   ngOnInit() {}
 
@@ -29,8 +32,9 @@ export class JoinComponent implements OnInit {
     let password = this.passwordInput.nativeElement.value;
     if (email && password) {
       this.authService.join(email, password).then(res => {
-        this.sendMessage(AlertTypes.Success, 'Account Created:', 'Please check your email for a confirmation link. You must confirm your email address before you can login.');
-        this.navService.gotoLogin();
+        this.storeService.local.set('email', email);
+        this.storeService.local.set('password', password);
+        this.navService.gotoConfirmation();
       }).catch(err => {
         this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
         this.loggerService.error(err);

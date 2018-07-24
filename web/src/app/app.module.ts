@@ -33,6 +33,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { CookiesComponent } from './components/cookies/cookies.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -49,7 +50,8 @@ import { CookieService } from 'ng2-cookies';
     ForgotPasswordComponent,
     TermsComponent,
     PrivacyComponent,
-    CookiesComponent
+    CookiesComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
