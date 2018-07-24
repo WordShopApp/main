@@ -15,11 +15,6 @@ export class LoginComponent implements OnInit {
   @ViewChild('emailInput') emailInput: ElementRef;
   @ViewChild('passwordInput') passwordInput: ElementRef;
 
-  alertHeader: string;
-  alertMessage: string;
-  alertShow: boolean;
-  alertType: string;
-
   constructor(
     private authService: AuthService,
     private loggerService: LoggerService,
