@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const AWS = require('aws-sdk');
+const jwtDecode = require('jwt-decode');
 
 const app = express();
 
@@ -24,10 +25,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// parse user email from authorization token, look up user and save into req data
 app.use((req, res, next) => {
-  if (!req.headers.authorization) {
-    return res.status(403).json({ error: 'No credentials sent!' });
+  const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+  if (token) {
+    let data = null;
+    try {
+      data = jwtDecode(token);
+    } catch (e) {
+      console.log('exception parsing jwt', e);
+    }
+    req.user = data.email;
   }
   return next();
 });
@@ -37,8 +44,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/echo', (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  res.status(200).json({ token });
+  res.status(200).json({ user: req.user });
 });
 
 // Get User endpoint
