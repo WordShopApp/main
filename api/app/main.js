@@ -1,5 +1,3 @@
-'use strict'
-
 const AWS = require('aws-sdk');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -19,13 +17,13 @@ app.use((req, res, next) => {
     try {
       data = jwtDecode(token);
     } catch (e) {
-      console.log('exception parsing jwt', e);
+      console.log('error parsing jwt', e);
     }
     req.user = data.email;
   }
   return next();
 });
 
-require("./router/init")(app);
+require('./router/init')(app);
 
 module.exports = app;

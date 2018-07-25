@@ -1,10 +1,8 @@
-"use strict";
-
 const AWS = require('aws-sdk');
 const moment = require('moment');
 const shortid = require('shortid');
-
 const http = require('../services/utils');
+
 const { IS_OFFLINE } = process.env;
 
 function log (msg, obj) {
@@ -136,7 +134,7 @@ function genUserId () {
 function genUserName (email) {
   // https://stackoverflow.com/a/20864946
   let name = email.split('@')[0].replace(/[\W_]+/g,'');
-  return `${name}{this.genUserId()}`;
+  return `${name}{genTimestamp()}`;
 }
 
 function createNewUser (user) {
@@ -155,7 +153,7 @@ function createNewUser (user) {
 function formatNewUser (data) {
   let now = genTimestamp();
   return {
-    name: this.genUserName(data.email),
+    name: genUserName(data.email),
     email: data.email,
     avatar: data.avatar,
     subscription: data.subscription,
