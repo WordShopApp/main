@@ -43,9 +43,11 @@ function createUserParams (user) {
   return {
     TableName: 'ws_users',
     Item: {
-      user_id: user.id,
+      userId: user.id,
       name: user.name,
       email: user.email,
+      subscription: user.subscription,
+      joinMailingList: user.joinMailingList,
       avatar: user.avatar,
       created: user.created,
       updated: user.updated
@@ -53,7 +55,7 @@ function createUserParams (user) {
   };
 }
 
-function fetchItem (awsCreds, queryParams) {
+function fetchItem (queryParams) {
   return new Promise(function (resolve, reject) {
     //http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#query-property
     dynamodbDocumentClient().query(queryParams, function (err, res) {
@@ -77,7 +79,7 @@ function saveItem (params) {
   });
 }
 
-function createItem (params, awsCreds) {
+function createItem (params) {
   return new Promise(function (resolve, reject) {
     //http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
     dynamodbDocumentClient().put(params, function (err, res) {
@@ -87,9 +89,9 @@ function createItem (params, awsCreds) {
   });
 }
 
-function createUser (user, awsCreds) {
+function createUser (user) {
   return new Promise(function (resolve, reject) {
-    createItem(createUserParams(user), awsCreds).then(function (res) {
+    createItem(createUserParams(user)).then(function (res) {
       resolve(user);
     }).catch(reject);
   });
