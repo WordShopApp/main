@@ -42,6 +42,7 @@ export class JoinComponent implements OnInit {
 
     if (email && password) {
       this.authService.join(email, password).then(acct => {
+        this.sendMessage(AlertTypes.Success, 'Account Created:', 'Welcome to WordShop! One more thing...');
         this.saveTempRegInfo(email, password, acct.userSub, joinMailingList);
         this.navService.gotoConfirmation();
       }).catch(err => {

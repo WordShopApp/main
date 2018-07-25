@@ -19,6 +19,7 @@ app.use((req, res, next) => {
     } catch (e) {
       console.log('error parsing jwt', e);
     }
+    console.log('authorization middleware:', data.email);
     req.user = data.email;
   }
   return next();

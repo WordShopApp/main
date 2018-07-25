@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { StoreService } from '../../services/store/store.service';
-import { StoreActions as Actions } from '../../services/store/store.actions';
+import { StoreProps as Props } from '../../services/store/store.props';
 import { RosieService } from '../../services/rosie/rosie.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private setupSubscriptions () {
-    this.profile$ = this.storeService.subscribe(Actions.Init.Profile, p => this.profile = p);
+    this.profile$ = this.storeService.subscribe(Props.App.Profile, p => this.profile = p);
   }
 
   private teardownSubscriptions () {

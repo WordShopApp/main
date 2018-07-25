@@ -3,6 +3,7 @@ import { AuthService } from './services/auth/auth.service';
 import { MessengerService } from './services/messenger/messenger.service';
 import { NavService } from './services/nav/nav.service';
 import { LoggerService } from './services/logger/logger.service';
+import { StoreService } from './services/store/store.service';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,12 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private loggerService: LoggerService,
     private messengerService: MessengerService,
-    private navService: NavService
+    private navService: NavService,
+    private storeService: StoreService
   ) {}
 
   ngOnInit () {
+    this.storeService.init();
     this.messengerService.subscribe('global:alert', this.showAlert.bind(this));
   }
 

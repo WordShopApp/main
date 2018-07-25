@@ -88,33 +88,37 @@ export class ApiService {
   }
 
   get (url, opts?: any): Promise<any> {
-    return new Promise((_, reject) => {
+    return new Promise((resolve, reject) => {
       this.token().then(t => {
-        return this._http.get(url, this.apiOpts(t, opts)).toPromise();
+        this._http.get(url, this.apiOpts(t, opts))
+          .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });
   }
 
   post (url, body, opts?: any): Promise<any> {
-    return new Promise((_, reject) => {
+    return new Promise((resolve, reject) => {
       this.authService.token().then(token => {
-        return this._http.post(url, body, this.apiOpts(token, opts)).toPromise();
+        this._http.post(url, body, this.apiOpts(token, opts))
+          .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });
   }
 
   put (url, body, opts?: any): Promise<any> {
-    return new Promise((_, reject) => {
+    return new Promise((resolve, reject) => {
       this.authService.token().then(token => {
-        return this._http.put(url, body, this.apiOpts(token, opts)).toPromise();
+        this._http.put(url, body, this.apiOpts(token, opts))
+          .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });
   }
 
   delete (url, opts?: any): Promise<any> {
-    return new Promise((_, reject) => {
+    return new Promise((resolve, reject) => {
       this.authService.token().then(token => {
-        return this._http.delete(url, this.apiOpts(token, opts)).toPromise();
+        this._http.delete(url, this.apiOpts(token, opts))
+          .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });
   }

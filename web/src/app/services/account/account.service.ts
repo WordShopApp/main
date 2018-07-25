@@ -7,7 +7,6 @@ import { GravatarService } from '../gravatar/gravatar.service';
 import { LoggerService } from '../logger/logger.service';
 import { SettingsService } from '../settings/settings.service';
 import { StoreService } from '../store/store.service';
-import { StoreProps as Props } from '../store/store.props';
 
 @Injectable()
 export class AccountService extends ApiService {
@@ -53,8 +52,7 @@ export class AccountService extends ApiService {
   createProfile (userData): Promise<any> {
     return new Promise((resolve, reject) => {
       this.loggerService.info('AccountService', 'Create Profile', userData);
-      this.post(this.profileUrl(), userData).then(res => {
-        let profile = res.json();
+      this.post(this.profileUrl(), userData).then(profile => {
         this.loggerService.info('AccountService', 'Create Profile Success', profile);
         resolve(profile);
       }).catch(reject);
@@ -64,8 +62,7 @@ export class AccountService extends ApiService {
   getProfile (): Promise<any> {
     return new Promise((resolve, reject) => {
       this.loggerService.info('AccountService', 'Get Profile');
-      this.get(this.profileUrl()).then(res => {
-        let profile = res.json();
+      this.get(this.profileUrl()).then(profile => {
         this.loggerService.info('AccountService', 'Get Profile Success', profile);
         resolve(profile);
       }).catch(reject);

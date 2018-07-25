@@ -199,6 +199,7 @@ module.exports.profileCreate = (req, res) => {
 };
 
 module.exports.profileShow = (req, res) => {
+  console.log('GET /profile', 'user', req.user);
   fetchUser(req.user).then(user => {
 
     console.log('GET /profile', 'found', user);
