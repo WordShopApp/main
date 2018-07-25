@@ -164,7 +164,7 @@ function formatNewUser (data) {
 }
 
 module.exports.profileCreate = (req, res) => {
-  let newUser = formatNewUser(req.body.data);
+  let newUser = formatNewUser(req.body);
   fetchUser(newUser.email).then(user => {
     console.log('POST /profile', 'exists', user);
     res.status(http.codes.ok).send(user);
