@@ -17,6 +17,7 @@ export class JoinComponent implements OnInit {
 
   @ViewChild('emailInput') emailInput: ElementRef;
   @ViewChild('passwordInput') passwordInput: ElementRef;
+  @ViewChild('joinMailingListInput') joinMailingListInput: ElementRef;
 
   showPassword = false;
   
@@ -34,21 +35,27 @@ export class JoinComponent implements OnInit {
 
   createAccount (evt) {
     evt.preventDefault();
+
     let email = this.emailInput.nativeElement.value;
     let password = this.passwordInput.nativeElement.value;
+    let joinMailingList = this.joinMailingListInput.nativeElement.checked ? true : false;
+
     if (email && password) {
-      this.authService.join(email, password).then(res => {
-        this.loggerService.info('AuthService.join', res);
-        let gravatar = this.gravatarService.url(email);
-        let subscription = res.userSub;
-        this.accountService.createProfile({ email, gravatar, subscription }).then(profile => {
-          this.loggerService.info('AccountService.createProfile', profile);
-          this.storeService.local.set('email', email);
-          this.storeService.local.set('password', password);
-          this.navService.gotoConfirmation();
-        }).catch(this.handleError);
-      }).catch(this.handleError);
+      this.authService.join(email, password).then(acct => {
+        this.saveTempRegInfo(email, password, acct.userSub, joinMailingList);
+        this.navService.gotoConfirmation();
+      }).catch(err => {
+        this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
+        this.loggerService.error(err);
+      });
     }
+  }
+
+  saveTempRegInfo (email, password, subscription, joinMailingList) {
+    this.storeService.local.set('email', email);
+    this.storeService.local.set('password', password);
+    this.storeService.local.set('subscription', subscription);
+    this.storeService.local.set('joinMailingList', joinMailingList);
   }
 
   handleError (err) {

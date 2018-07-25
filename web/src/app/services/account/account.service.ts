@@ -3,8 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from '../api/api.service';
 import { AuthService } from '../auth/auth.service';
+import { GravatarService } from '../gravatar/gravatar.service';
 import { LoggerService } from '../logger/logger.service';
 import { SettingsService } from '../settings/settings.service';
+import { StoreService } from '../store/store.service';
+import { StoreProps as Props } from '../store/store.props';
 
 @Injectable()
 export class AccountService extends ApiService {
@@ -13,9 +16,34 @@ export class AccountService extends ApiService {
     authService: AuthService,
     http: HttpClient,
     settingsService: SettingsService,
+    private gravatarService: GravatarService,
     private loggerService: LoggerService,
+    private storeService: StoreService
   ) { 
     super(authService, http, settingsService);
+  }
+
+  getOrCreateProfile (): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.getProfile().then(resolve).catch(err => {
+        this.token().then(t => {
+          if (t) {
+            let email = this.storeService.local.get('email');
+            let subscription = this.storeService.local.get('subscription');
+            let joinMailingList = this.storeService.local.get('joinMailingList');
+            let avatar = this.gravatarService.url(email);
+            this.createProfile({ 
+              email, 
+              subscription,
+              avatar,
+              joinMailingList
+            }).then(resolve).catch(reject);
+          } else {
+            reject('Auth Token Not Found');
+          }
+        }).catch(reject);
+      });
+    });
   }
 
   createProfile (userData): Promise<any> {

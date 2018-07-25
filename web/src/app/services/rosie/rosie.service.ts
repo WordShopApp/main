@@ -15,5 +15,7 @@ export class RosieService {
   cleanupRegistrationCredentials () {
     this.storeService.local.remove('email');
     this.storeService.local.remove('password');
+    this.storeService.local.remove('subscription');
+    this.storeService.local.remove('joinMailingList');
   }
 }

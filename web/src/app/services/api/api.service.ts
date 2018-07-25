@@ -83,10 +83,14 @@ export class ApiService {
     return url;
   }
 
+  token (): Promise<any> {
+    return this.authService.token();
+  }
+
   get (url, opts?: any): Promise<any> {
     return new Promise((_, reject) => {
-      this.authService.token().then(token => {
-        return this._http.get(url, this.apiOpts(token, opts)).toPromise();
+      this.token().then(t => {
+        return this._http.get(url, this.apiOpts(t, opts)).toPromise();
       }).catch(reject);
     });
   }

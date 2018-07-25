@@ -157,6 +157,7 @@ function formatNewUser (data) {
     email: data.email,
     avatar: data.avatar,
     subscription: data.subscription,
+    joinMailingList: data.joinMailingList,
     created: now,
     updated: now
   }
