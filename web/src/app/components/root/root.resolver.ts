@@ -25,6 +25,7 @@ export class RootResolver implements Resolve<any> {
         return this.storeService.dispatch(Actions.Init.Profile, profile);
       });
       Promise.all([p]).then(() => {
+        this.loggerService.info('RootResolver.resolve');
         resolve();
       }).catch(err => {
         this.authService.logout();

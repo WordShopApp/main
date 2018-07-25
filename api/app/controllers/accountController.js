@@ -134,10 +134,10 @@ function genUserId () {
   return shortid.generate();
 }
 
-function genUserName (email) {
+function genUserName (email, timestamp) {
   // https://stackoverflow.com/a/20864946
   let name = email.split('@')[0].replace(/[\W_]+/g,'');
-  return `${name}{genTimestamp()}`;
+  return `${name}${timestamp}`;
 }
 
 function createNewUser (user) {
@@ -156,11 +156,12 @@ function createNewUser (user) {
 function formatNewUser (data) {
   let now = genTimestamp();
   return {
-    name: genUserName(data.email),
+    name: genUserName(data.email, now),
     email: data.email,
     avatar: data.avatar,
     subscription: data.subscription,
     join_mailing_list: data.join_mailing_list,
+    new_user: true,
     created: now,
     updated: now
   }
