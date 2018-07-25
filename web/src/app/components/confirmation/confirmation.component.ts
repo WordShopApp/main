@@ -51,7 +51,7 @@ export class ConfirmationComponent implements OnInit {
       if (loggedIn) {
         this.navService.gotoRoot();
       } else {
-        setTimeout(() => this.pollForLogin(email, password), 1000);
+        setTimeout(() => this.pollForLogin(email, password), 3000);
       }
     }).catch(this.loggerService.error);
   }
