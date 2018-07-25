@@ -11,7 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+  console.log('-----------AUTH MIDDLEWARE:authorization', req.headers.authorization);
+  let token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+  console.log('-----------AUTH MIDDLEWARE:token', token);
   if (token) {
     let data = null;
     try {
@@ -19,10 +21,10 @@ app.use((req, res, next) => {
     } catch (e) {
       console.log('error parsing jwt', e);
     }
-    console.log('authorization middleware:', data.email);
+    console.log('-----------AUTH MIDDLEWARE:email', data.email);
     req.user = data.email;
   }
-  return next();
+  next();
 });
 
 require('./router/init')(app);
