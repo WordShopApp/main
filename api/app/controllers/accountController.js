@@ -48,6 +48,7 @@ function createUserParams (user) {
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
+      new_user: true,
       avatar: user.avatar,
       created: user.created,
       updated: user.updated
