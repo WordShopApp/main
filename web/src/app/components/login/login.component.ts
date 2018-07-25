@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
     if (email && password) {
       this.authService.login(email, password).then(token => {
         if (token) {
-          localStorage.setItem('token', token);
           this.navService.gotoRoot();
         } else {
           this.sendMessage(AlertTypes.Danger, 'Error:', 'There was a problem logging in. Please try again.');

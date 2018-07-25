@@ -131,7 +131,7 @@ export class ApiService {
 
   private apiOpts (token, opts) {
     opts = opts || { headers: this.jsonHeaders() };
-    opts.headers = opts.headers.set('Authorization', token);
+    opts.headers = opts.headers.set('Authorization', `Bearer ${token}`);
     return opts;
   }
 

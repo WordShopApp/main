@@ -50,23 +50,11 @@ export class AccountService extends ApiService {
   }
 
   createProfile (userData): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.loggerService.info('AccountService', 'Create Profile', userData);
-      this.post(this.profileUrl(), userData).then(profile => {
-        this.loggerService.info('AccountService', 'Create Profile Success', profile);
-        resolve(profile);
-      }).catch(reject);
-    });
+    return this.post(this.profileUrl(), userData);
   }
 
   getProfile (): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.loggerService.info('AccountService', 'Get Profile');
-      this.get(this.profileUrl()).then(profile => {
-        this.loggerService.info('AccountService', 'Get Profile Success', profile);
-        resolve(profile);
-      }).catch(reject);
-    });
+    return this.get(this.profileUrl());
   }
 
   private profileUrl (): string {
