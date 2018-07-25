@@ -23,6 +23,10 @@ export class AccountService extends ApiService {
     super(authService, http, settingsService);
   }
 
+  toBool (str): boolean {
+    return str === 'true';
+  }
+
   getOrCreateProfile (): Promise<any> {
     return new Promise((resolve, reject) => {
       this.getProfile().then(resolve).catch(err => {
@@ -30,13 +34,13 @@ export class AccountService extends ApiService {
           if (t) {
             let email = this.storeService.local.get('email');
             let subscription = this.storeService.local.get('subscription');
-            let joinMailingList = this.storeService.local.get('joinMailingList');
+            let joinMailingList = this.storeService.local.get('join_mailing_list');
             let avatar = this.gravatarService.url(email);
             this.createProfile({ 
               email, 
               subscription,
               avatar,
-              joinMailingList
+              join_mailing_list: this.toBool(joinMailingList)
             }).then(resolve).catch(reject);
           } else {
             reject('Auth Token Not Found');

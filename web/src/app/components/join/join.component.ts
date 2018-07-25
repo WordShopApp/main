@@ -55,7 +55,7 @@ export class JoinComponent implements OnInit {
     this.storeService.local.set('email', email);
     this.storeService.local.set('password', password);
     this.storeService.local.set('subscription', subscription);
-    this.storeService.local.set('joinMailingList', joinMailingList);
+    this.storeService.local.set('join_mailing_list', joinMailingList);
   }
 
   handleError (err) {

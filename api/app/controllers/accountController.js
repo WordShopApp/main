@@ -43,11 +43,11 @@ function createUserParams (user) {
   return {
     TableName: 'ws_users',
     Item: {
-      userId: user.id,
+      user_id: user.user_id,
       name: user.name,
       email: user.email,
       subscription: user.subscription,
-      joinMailingList: user.joinMailingList,
+      join_mailing_list: user.join_mailing_list,
       avatar: user.avatar,
       created: user.created,
       updated: user.updated
@@ -141,7 +141,7 @@ function genUserName (email) {
 
 function createNewUser (user) {
   return new Promise((resolve, reject) => {
-    user.id = genUserId();
+    user.user_id = genUserId();
     createUser(user).then(resolve).catch(err => {
       if (err.code === 'TODO: some error code for duplicate userId') {
         createNewUser(user).then(resolve).catch(reject);
@@ -159,7 +159,7 @@ function formatNewUser (data) {
     email: data.email,
     avatar: data.avatar,
     subscription: data.subscription,
-    joinMailingList: data.joinMailingList,
+    join_mailing_list: data.join_mailing_list,
     created: now,
     updated: now
   }
