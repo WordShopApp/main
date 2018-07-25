@@ -5,6 +5,8 @@ const cors = require('cors');
 const AWS = require('aws-sdk');
 const jwtDecode = require('jwt-decode');
 
+const app = require('./app/main');
+
 const app = express();
 
 const { USERS_TABLE } = process.env;

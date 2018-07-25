@@ -5,6 +5,8 @@ import { NavService } from '../../services/nav/nav.service';
 import { AlertTypes } from '../alert/alert.component';
 import { MessengerService } from '../../services/messenger/messenger.service';
 import { StoreService } from '../../services/store/store.service';
+import { AccountService } from '../../services/account/account.service';
+import { GravatarService } from '../../services/gravatar/gravatar.service';
 
 @Component({
   selector: 'app-join',
@@ -19,7 +21,9 @@ export class JoinComponent implements OnInit {
   showPassword = false;
   
   constructor(
+    private accountService: AccountService,
     private authService: AuthService,
+    private gravatarService: GravatarService,
     private loggerService: LoggerService,
     private navService: NavService,
     private messengerService: MessengerService,
@@ -34,14 +38,26 @@ export class JoinComponent implements OnInit {
     let password = this.passwordInput.nativeElement.value;
     if (email && password) {
       this.authService.join(email, password).then(res => {
-        this.storeService.local.set('email', email);
-        this.storeService.local.set('password', password);
-        this.navService.gotoConfirmation();
-      }).catch(err => {
-        this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
-        this.loggerService.error(err);
-      });
+        this.loggerService.info('AuthService.join', res);
+        let gravatar = this.gravatarService.url(email);
+        let subscription = res.userSub;
+        this.accountService.createProfile({ email, gravatar, subscription }).then(profile => {
+          this.loggerService.info('AccountService.createProfile', profile);
+          this.storeService.local.set('email', email);
+          this.storeService.local.set('password', password);
+          this.navService.gotoConfirmation();
+        }).catch(this.handleError);
+      }).catch(this.handleError);
     }
+  }
+
+  handleError (err) {
+    this.messengerService.send('global:alert', { 
+      type: AlertTypes.Danger,
+      header: 'Error:',
+      message: err.message 
+    });
+    this.loggerService.error(err);
   }
 
   sendMessage(type, header, message) {
