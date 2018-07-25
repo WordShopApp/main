@@ -197,7 +197,7 @@ module.exports.profileCreate = (req, res) => {
 };
 
 module.exports.profileShow = (req, res) => {
-  fetchUser(identityId, awsCreds).then(user => {
+  fetchUser(req.user).then(user => {
 
     console.log('GET /profile', 'found', user);
     res.status(http.codes.ok).send(user);
