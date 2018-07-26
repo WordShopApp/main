@@ -23,7 +23,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   profile: any;
   profile$: Subscription;
 
-  showHomeIcon = true;
+  showHomeIcon = false;
   showHomeIcon$: Subscription;
 
   constructor (

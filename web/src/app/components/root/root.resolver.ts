@@ -21,6 +21,7 @@ export class RootResolver implements Resolve<any> {
 
   resolve () {
     return new Promise((resolve, reject) => {
+      this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
       let p = this.accountService.getOrCreateProfile().then(profile => {
         return this.storeService.dispatch(Actions.Init.Profile, profile);
       });

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../../services/store/store.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-cookies',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CookiesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit() {
+    this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
   }
 
 }

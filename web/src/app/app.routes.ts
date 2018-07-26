@@ -11,6 +11,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { CookiesComponent } from './components/cookies/cookies.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { AboutComponent } from './components/about/about.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -35,6 +36,9 @@ export const AppRoutes: Routes  = [
   },
   {
     path: 'cookies', component: CookiesComponent
+  },
+  {
+    path: 'about', component: AboutComponent
   },
   {
     path: 'confirmation', component: ConfirmationComponent

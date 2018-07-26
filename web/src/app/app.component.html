@@ -1,16 +1,27 @@
 <div class="container nav-container">
-    <a class="ws-logo" [ngClass]="{ visible: showHomeIcon }" [routerLink]="['/']" preserveFragment>
-      <img src="/assets/images/ws-icon-project.svg">
-    </a>
-    <nav class="nav justify-content-end">
-      <a *ngIf="!profile" class="nav-link" [routerLink]="['/register']" preserveFragment>Register</a>
-      <a *ngIf="!profile" class="nav-link" [routerLink]="['/login']" preserveFragment>Login</a>
-      <a *ngIf="profile" class="nav-link" href="" (click)="logout($event)">Logout</a>
-    </nav>
-  </div>
+  <a class="ws-logo" [ngClass]="{ show: showHomeIcon }" [routerLink]="['/']" preserveFragment>
+    <img src="/assets/images/ws-icon-project.svg">
+  </a>
+  <div class="nav-spacer"></div>
+  <nav class="nav justify-content-end">
+    <a class="nav-link auth-link" [ngClass]="{ show: !profile }" [routerLink]="['/register']" preserveFragment>Register</a>
+    <a class="nav-link auth-link" [ngClass]="{ show: !profile }" [routerLink]="['/login']" preserveFragment>Login</a>
+    <a class="nav-link auth-link" [ngClass]="{ show: profile }" href="" (click)="logout($event)">Logout</a>
+  </nav>
+</div>
 <div class="container app-container">
   <app-alert [show]="alertShow" [type]="alertType" [header]="alertHeader" [message]="alertMessage" [timeout]="10000"></app-alert>
   <div class="row justify-content-center align-items-center">
     <router-outlet></router-outlet>
   </div>
 </div>
+<footer class="footer">
+  <div class="container">
+    <nav class="nav justify-content-center">
+      <a class="nav-link" [routerLink]="['/about']" preserveFragment>About</a>
+      <a class="nav-link" [routerLink]="['/privacy']" preserveFragment>Privacy</a>
+      <a class="nav-link" href="https://code.wordshop.app">Source</a>
+      <a class="nav-link" href="https://twitter.com/WordShopApp">Twitter</a>
+    </nav>
+  </div>
+</footer>

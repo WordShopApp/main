@@ -4,6 +4,8 @@ import { AlertTypes } from '../alert/alert.component';
 import { NavService } from '../../services/nav/nav.service';
 import { MessengerService } from '../../services/messenger/messenger.service';
 import { LoggerService } from '../../services/logger/logger.service';
+import { StoreService } from '../../services/store/store.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-forgot-password',
@@ -25,10 +27,12 @@ export class ForgotPasswordComponent implements OnInit {
     private authService: AuthService,
     private loggerService: LoggerService,
     private messengerService: MessengerService,
-    private navService: NavService
+    private navService: NavService,
+    private storeService: StoreService
   ) { }
 
   ngOnInit() {
+    this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
   }
 
   sendVerificationCode (evt) {

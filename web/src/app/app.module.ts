@@ -22,6 +22,7 @@ import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
 
 // Components
+import { AboutComponent } from './components/about/about.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { RootComponent } from './components/root/root.component';
 import { RootResolver } from './components/root/root.resolver';
@@ -35,6 +36,7 @@ import { TermsComponent } from './components/terms/terms.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { CookiesComponent } from './components/cookies/cookies.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { NavComponent } from './components/nav/nav.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -52,7 +54,9 @@ import { CookieService } from 'ng2-cookies';
     TermsComponent,
     PrivacyComponent,
     CookiesComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    AboutComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

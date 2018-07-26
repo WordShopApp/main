@@ -3,11 +3,11 @@ import { StoreService } from '../../services/store/store.service';
 import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
-  selector: 'app-privacy',
-  templateUrl: './privacy.component.html',
-  styleUrls: ['./privacy.component.scss']
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss']
 })
-export class PrivacyComponent implements OnInit {
+export class AboutComponent implements OnInit {
 
   constructor(private storeService: StoreService) { }
 

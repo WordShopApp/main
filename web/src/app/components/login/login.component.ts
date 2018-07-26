@@ -5,6 +5,7 @@ import { NavService } from '../../services/nav/nav.service';
 import { AlertTypes } from '../alert/alert.component';
 import { MessengerService } from '../../services/messenger/messenger.service';
 import { StoreService } from '../../services/store/store.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
   }
 
   login (evt) {

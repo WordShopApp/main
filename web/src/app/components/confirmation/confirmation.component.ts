@@ -5,6 +5,7 @@ import { AlertTypes } from '../alert/alert.component';
 import { NavService } from '../../services/nav/nav.service';
 import { MessengerService } from '../../services/messenger/messenger.service';
 import { LoggerService } from '../../services/logger/logger.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-confirmation',
@@ -25,6 +26,7 @@ export class ConfirmationComponent implements OnInit {
   ) { }
 
   ngOnInit () {
+    this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
     this.email = this.storeService.local.get('email');
     this.password = this.storeService.local.get('password');
     if (this.email && this.password) {

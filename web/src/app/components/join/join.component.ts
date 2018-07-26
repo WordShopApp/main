@@ -7,6 +7,7 @@ import { MessengerService } from '../../services/messenger/messenger.service';
 import { StoreService } from '../../services/store/store.service';
 import { AccountService } from '../../services/account/account.service';
 import { GravatarService } from '../../services/gravatar/gravatar.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-join',
@@ -31,7 +32,9 @@ export class JoinComponent implements OnInit {
     private storeService: StoreService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
+  }
 
   createAccount (evt) {
     evt.preventDefault();
