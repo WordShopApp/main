@@ -10,6 +10,7 @@ body, html {
   height: 100%;
   width: 100%;
   background-color: lighten($ws-base-color, 35%);
+  min-width: 400px;
 }
 
 div, ul {
@@ -21,6 +22,10 @@ a {
   &:hover {
     color: darken($ws-base-color, 10%);
   }
+}
+
+svg {
+  overflow: visible;
 }
 
 .moment-drop {
