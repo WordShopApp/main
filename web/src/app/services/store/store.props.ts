@@ -2,7 +2,9 @@ export const StoreProps = {
   App: {
     Profile: 'App.Profile'
   },
-  UI: {}
+  UI: {
+    ShowHomeIcon: 'UI.ShowHomeIcon'
+  }
 };
 
 export function propList () {

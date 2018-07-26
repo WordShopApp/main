@@ -2,7 +2,8 @@ $ws-base-color: rgb(131, 140, 145);;
 $ws-base-darkened: darken($ws-base-color, 5%);
 $ws-base-lightened: lighten($ws-base-color, 25%);
 
-$ws-mobile-breakpoint: 768px;
+$ws-tablet-breakpoint: 768px;
+$ws-phone-breakpoint: 576px;
 
 $ws-header-height: 50px;
 

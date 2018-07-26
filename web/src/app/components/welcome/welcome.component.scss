@@ -1,1 +1,23 @@
 @import '../../../sass/variables';
+
+.ws-title {
+  width:600px;
+}
+
+.ws-message {
+  margin-top: 35px;
+  margin-bottom: 35px;
+  max-width: 650px;
+}
+
+@media (max-width: $ws-tablet-breakpoint) {
+    .ws-title {
+      width: 500px;
+    }
+ }
+
+@media (max-width: $ws-phone-breakpoint) {
+  .ws-title {
+    width: 350px;
+  }
+}

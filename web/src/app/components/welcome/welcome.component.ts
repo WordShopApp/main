@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { StoreService } from '../../services/store/store.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor (private storeService: StoreService) { }
 
   ngOnInit() {
+    this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, false);
+  }
+
+  ngOnDestroy() {
+    this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
   }
 
 }

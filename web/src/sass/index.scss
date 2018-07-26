@@ -70,7 +70,29 @@ a {
   cursor: pointer;
 }
 
-@media (max-width: $ws-mobile-breakpoint) {
+$logo-size: 40px;
+.ws-logo {
+  visibility: hidden;
+  width: $logo-size;
+  height: $logo-size;
+  img {
+    width: $logo-size;
+    height: $logo-size;
+    filter: drop-shadow(0 1px 1px #333)
+  }
+}
+
+.nav-container {
+  .ws-logo {
+    flex-grow: 1;
+  }
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+@media (max-width: $ws-tablet-breakpoint) {
   .ws-form {
     min-width: $ws-form-width-mobile;
     max-width: $ws-form-width-max-mobile;

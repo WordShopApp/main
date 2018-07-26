@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="3075px" height="1770px" viewBox="0 0 3075 1770" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-1.9%" y="-0.9%" width="103.7%" height="103.7%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(-4.000000, 0.000000)">
+            <text id="WordShop" font-family="GillSans-Bold, Gill Sans" font-size="600" font-weight="bold" letter-spacing="-20" fill="#2A2A2A">
+                <tspan x="0" y="1634">WordShop</tspan>
+            </text>
+            <g id="wordshop-gray" filter="url(#filter-1)" transform="translate(1000.000000, 0.000000)" fill-rule="nonzero">
+                <circle id="Oval" fill="#ADAEAE" cx="540" cy="540" r="540"></circle>
+                <path d="M540,0 C395.55931,0 264.488276,56.8117241 167.586207,149.170345 L167.586207,484.137931 L539.087586,949.524828 C539.46,949.822759 540,949.562069 540,949.096552 C540,949.562069 540.54,949.841379 540.912414,949.524828 L912.413793,484.137931 L912.413793,149.170345 C815.511724,56.8117241 684.44069,0 540,0 Z" id="Shape" fill="#EBD6BD"></path>
+                <path d="M540,651.724138 C470.209655,651.724138 407.923448,683.751724 366.93931,733.878621 L539.087586,949.524828 C539.46,949.822759 540,949.562069 540,949.096552 C540,949.562069 540.54,949.841379 540.912414,949.524828 L713.06069,733.878621 C672.076552,683.751724 609.790345,651.724138 540,651.724138 Z" id="Shape" fill="#4C4C4C"></path>
+                <path d="M540,0 C474.529655,0 411.833793,11.7868966 353.793103,33.1448276 L353.793103,335.172414 L539.087586,483.411724 C539.46,483.709655 540,483.430345 540,482.964828 C540,483.430345 540.54,483.709655 540.912414,483.411724 L726.206897,335.172414 L726.206897,33.1448276 C668.166207,11.7868966 605.470345,0 540,0 Z" id="Shape" fill="#5F5F5E"></path>
+                <path d="M175.630345,477.695172 L353.793103,335.172414 L353.793103,33.1448276 C283.797931,58.9158621 220.562069,98.6896552 167.586207,149.170345 L167.586207,473.822069 C167.586207,477.974483 172.390345,480.283448 175.630345,477.695172 Z" id="Shape" fill="#3A3A39"></path>
+                <path d="M726.206897,335.172414 L904.369655,477.695172 C907.609655,480.283448 912.413793,477.974483 912.413793,473.822069 L912.413793,149.170345 C859.437931,98.6896552 796.202069,58.9158621 726.206897,33.1448276 L726.206897,335.172414 Z" id="Shape" fill="#3A3A39"></path>
+            </g>
+        </g>
+    </g>
+</svg>

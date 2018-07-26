@@ -1,21 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth/auth.service';
 import { MessengerService } from './services/messenger/messenger.service';
 import { NavService } from './services/nav/nav.service';
 import { LoggerService } from './services/logger/logger.service';
 import { StoreService } from './services/store/store.service';
+import { StoreProps as Props } from './services/store/store.props';
+import { StoreActions as Actions } from './services/store/store.actions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 
   alertShow = false;
   alertMessage: string;
   alertHeader: string;
   alertType: string;
+
+  profile: any;
+  profile$: Subscription;
+
+  showHomeIcon = true;
+  showHomeIcon$: Subscription;
 
   constructor (
     private authService: AuthService,
@@ -27,7 +36,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit () {
     this.storeService.init();
-    this.messengerService.subscribe('global:alert', this.showAlert.bind(this));
+    this.setupSubscriptions();
+  }
+
+  ngAfterViewInit () {}
+
+  ngOnDestroy () {
+    this.teardownSubscriptions();
   }
 
   logout (evt) {
@@ -46,6 +61,19 @@ export class AppComponent implements OnInit {
         this.alertShow = true;
       }, 0);
     }
+  }
+
+  private setupSubscriptions () {
+    this.messengerService.subscribe('global:alert', this.showAlert.bind(this));
+    this.profile$ = this.storeService.subscribe(Props.App.Profile, p => this.profile = p);
+    this.showHomeIcon$ = this.storeService.subscribe(Props.UI.ShowHomeIcon, shi => {
+      if (shi === true || shi === false) setTimeout(() => this.showHomeIcon = shi, 0);
+    });
+  }
+
+  private teardownSubscriptions () {
+    this.profile$.unsubscribe();
+    this.showHomeIcon$.unsubscribe();
   }
 
 }
