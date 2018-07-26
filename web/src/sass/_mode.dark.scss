@@ -1,0 +1,25 @@
+@import 'variables';
+
+body.dark {
+  background-color: darken($ws-base-color, 25%);
+  color: lighten($ws-base-color, 30%);
+
+  hr {
+    border-top: 1px solid $ws-base-color;
+  }
+
+  input, .ws-panel {
+    background-color: darken($ws-base-color, 35%);
+  }
+
+  .ws-panel {
+    border-bottom: 2px solid darken($ws-base-color, 40%);
+  }
+
+  a {
+    color: lighten($ws-base-color, 30%);
+    &:hover {
+      color: lighten($ws-base-color, 50%);
+    }
+  }
+}

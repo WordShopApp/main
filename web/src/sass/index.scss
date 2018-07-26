@@ -9,7 +9,6 @@ body, html {
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: lighten($ws-base-color, 35%);
 }
 
 body {
@@ -22,17 +21,6 @@ body {
 
 div, ul {
   -webkit-overflow-scrolling: touch;
-}
-
-a {
-  color: darken($ws-base-color, 35%);
-  &:hover {
-    color: darken($ws-base-color, 10%);
-  }
-}
-
-svg {
-  overflow: visible;
 }
 
 .auth-link {
@@ -172,3 +160,6 @@ $logo-size: 40px;
     width: 100px;
   }
 }
+
+@import 'mode.light';
+@import 'mode.dark';

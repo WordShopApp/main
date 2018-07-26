@@ -1,0 +1,13 @@
+@import 'variables'; 
+
+body.light {
+  background-color: lighten($ws-base-color, 35%);
+  color: #212529;
+
+  a {
+    color: darken($ws-base-color, 35%);
+    &:hover {
+      color: darken($ws-base-color, 10%);
+    }
+  }
+}
