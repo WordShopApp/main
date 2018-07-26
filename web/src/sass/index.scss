@@ -42,6 +42,8 @@ a {
   border-bottom: 2px solid lighten($ws-base-color, 15%);;
   .ws-header {
     border: none;
+    border-top-left-radius: $ws-default-radius;
+    border-top-right-radius: $ws-default-radius;
   }
 }
 
@@ -78,7 +80,6 @@ $logo-size: 40px;
   img {
     width: $logo-size;
     height: $logo-size;
-    filter: drop-shadow(0 1px 1px #333)
   }
 }
 
@@ -92,9 +93,47 @@ $logo-size: 40px;
   flex-direction: row;
 }
 
+.welcome-container {
+  padding: 24px;
+  padding-top: 0px;
+  max-width: 700px;
+}
+
+.ws-welcome-title {
+  width:600px;
+  margin-top: 50px;
+}
+
+.ws-welcome-icon {
+  width: 175px;
+}
+
+.ws-message {
+  margin-top: 35px;
+  margin-bottom: 35px;
+  max-width: 650px;
+}
+
 @media (max-width: $ws-tablet-breakpoint) {
   .ws-form {
     min-width: $ws-form-width-mobile;
     max-width: $ws-form-width-max-mobile;
+  }
+  .ws-welcome-title {
+    width: 500px;
+    margin-top: 35px;
+  }
+  .ws-welcome-icon {
+    width: 150px;
+  }
+}
+
+@media (max-width: $ws-phone-breakpoint) {
+  .ws-welcome-title {
+    width: 350px;
+    margin-top: 20px;
+  }
+  .ws-welcome-icon {
+    width: 100px;
   }
 }

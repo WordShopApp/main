@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400px" height="400px" viewBox="0 0 400 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="200" cy="200" r="200"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3">
+            <circle id="Oval" fill="#ADAEAE" fill-rule="nonzero" cx="200" cy="200" r="200"></circle>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#B4B6B6" fill-rule="nonzero" xlink:href="#path-1"></use>
+            <g id="Group-2" mask="url(#mask-2)">
+                <g transform="translate(65.000000, 82.000000)" id="Group">
+                    <g>
+                        <path d="M14.4497768,94 L260.098437,94 C268.079167,94 274.548214,101.427442 274.548214,110.590523 L274.548214,317.974405 L0,317.974405 L0,110.590523 C0,101.428382 6.46904762,94 14.4497768,94 Z" id="Shape" fill="#474848" fill-rule="nonzero"></path>
+                        <polygon id="Shape" fill="#707171" fill-rule="nonzero" points="245.749107 318.074033 245.749107 123 209.624256 123 166.274107 123 29 123 29 318.074033"></polygon>
+                        <path d="M101.699479,0 L173.949182,0 C221.83192,0 260.648661,38.8167411 260.648661,86.6994792 L260.648661,93.9247768 L15,93.9247768 L15,86.6994792 C15,38.8167411 53.8167411,0 101.699479,0 L101.699479,0 Z" id="Shape" fill="#F9EAF3" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
