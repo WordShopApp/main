@@ -1,7 +1,7 @@
 <div class="welcome-container text-center">
-  <img class="ws-welcome-icon" src="/assets/images/ws-icon-project.svg">
+  <img class="ws-welcome-icon" src="/assets/images/ws-icon-project-color.svg">
   <br>
-  <img class="ws-welcome-title" src="/assets/images/ws-title-dark.svg">
+  <img class="ws-welcome-title" [src]="darkMode ? '/assets/images/ws-title-dark.svg' : '/assets/images/ws-title-light.svg'">
   <br>
   <div class="ws-message text-left">
     <p>WordShop is a free tool for workshopping your writing projects. With it you can exchange thoughtful critiques of works-in-progress with fellow authors and readers. Any kind of writing is welcome, whether fiction or non-fiction, poetry or blog post, novel or memoir.</p>
