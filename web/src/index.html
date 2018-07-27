@@ -5,30 +5,27 @@
   <title>WordShop</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="apple-touch-icon-60x60.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
-  <link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+  <link rel="icon" type="image/x-icon" href="assets/images/favicons/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/images/favicons/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicons/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/favicons/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicons/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="assets/images/favicons/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/images/favicons/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/images/favicons/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/images/favicons/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="assets/images/favicons/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="assets/images/favicons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="assets/images/favicons/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="assets/images/favicons/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="assets/images/favicons/favicon-128.png" sizes="128x128" />
   <meta name="application-name" content="WordShop"/>
   <meta name="msapplication-TileColor" content="#FFFFFF" />
-  <meta name="msapplication-TileImage" content="mstile-144x144.png" />
-  <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
-  <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
-  <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
-  <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
-  <script>
-    window.global = window;
-  </script>
+  <meta name="msapplication-TileImage" content="assets/images/favicons/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="assets/images/favicons/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="assets/images/favicons/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="assets/images/favicons/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="assets/images/favicons/mstile-310x310.png" />
 </head>
 <body class="dark">
   <main class="ws-main">
@@ -38,11 +35,31 @@
     <div class="container">
       <nav class="nav justify-content-center">
         <a class="nav-link" href="/about">About</a>
-        <a class="nav-link" href="/privacy">Privacy</a>
-        <a class="nav-link" href="https://code.wordshop.app">Source</a>
-        <a class="nav-link" href="https://twitter.com/WordShopApp">Twitter</a>
+        <span class="darkmode-switch switch switch-sm">
+          <input onchange="toggleDarkMode(this)" type="checkbox" class="switch" id="switch-sm">
+          <label for="switch-sm">Dark Mode</label>
+        </span>
       </nav>
-    </div>
-  </footer>    
+  </footer>
+  <script>
+      window.global = window;
+      function setDarkMode (enabled) {
+        if (enabled === true || enabled === 'true') {
+          document.body.classList.remove('light');
+          document.body.classList.add('dark');
+        } else {
+          document.body.classList.remove('dark');
+          document.body.classList.add('light');
+        }
+        localStorage.setItem('darkMode', enabled);
+      }
+      function toggleDarkMode (el) {
+        var enabled = el.checked;
+        setDarkMode(enabled);
+      }
+      setDarkMode(this.localStorage.getItem('darkMode'));
+      let dmcb = document.getElementById('switch-sm');
+      if (dmcb) dmcb.checked = this.localStorage.getItem('darkMode') === 'true';
+    </script>
 </body>
 </html>

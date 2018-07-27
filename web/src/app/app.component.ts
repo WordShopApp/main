@@ -7,6 +7,7 @@ import { LoggerService } from './services/logger/logger.service';
 import { StoreService } from './services/store/store.service';
 import { StoreProps as Props } from './services/store/store.props';
 import { StoreActions as Actions } from './services/store/store.actions';
+import { AlertTypes } from './components/alert/alert.component';
 
 @Component({
   selector: 'app-root',

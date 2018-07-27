@@ -12,8 +12,45 @@ body.dark {
     background-color: darken($ws-base-color, 35%);
   }
 
+  input {
+    border: 1px solid darken($ws-base-color, 20%);
+    color: lighten($ws-base-color, 30%);
+    &:active, &:focus {
+      color: lighten($ws-base-color, 30%);
+      background-color: darken($ws-base-color, 35%);
+    }
+  }
+
+  .footer {
+    a {
+      color: lighten($ws-text-color, 50%);
+      &:hover {
+        color: lighten($ws-text-color, 60%);
+      }
+    }
+    background-color: darken($ws-base-color, 35%);
+  }
+
+  .input-group-text {
+    color: lighten($ws-base-color, 30%);
+    background-color: darken($ws-base-color, 20%);
+    border: 1px solid darken($ws-base-color, 20%);
+  }
+
+  .text-muted {
+    color: $ws-base-color!important;
+  }
+
   .ws-panel {
+    border-bottom: 2px solid darken($ws-base-color, 35%);
+  }
+
+  .ws-form {
+    background-color: darken($ws-base-color, 30%);
     border-bottom: 2px solid darken($ws-base-color, 40%);
+    .ws-header {
+      background-color: darken($ws-base-color, 35%);
+    }
   }
 
   a {

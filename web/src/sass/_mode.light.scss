@@ -4,6 +4,16 @@ body.light {
   background-color: lighten($ws-base-color, 35%);
   color: #212529;
 
+  .footer {
+    a {
+      color: lighten($ws-text-color, 50%);
+      &:hover {
+        color: lighten($ws-text-color, 60%);
+      }
+    }
+    background-color: darken($ws-base-color, 35%);
+  }
+
   a {
     color: darken($ws-base-color, 35%);
     &:hover {
