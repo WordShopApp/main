@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="ws-panel">
+    <app-word-icon [type]="type" [palette]="palette"></app-word-icon>
+    <br>
+    <div class="form-group">
+      <input #textInput type="text" class="form-control" (input)="onTextChanged($event.target.value)" placeholder="Enter text...">
+    </div>
+  </div>
+</div>

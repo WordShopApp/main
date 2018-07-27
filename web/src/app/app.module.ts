@@ -20,6 +20,7 @@ import { RosieService } from './services/rosie/rosie.service';
 import { SettingsService } from './services/settings/settings.service';
 import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
+import { WordIconService } from './services/word-icon/word-icon.service';
 
 // Components
 import { AboutComponent } from './components/about/about.component';
@@ -28,7 +29,6 @@ import { RootComponent } from './components/root/root.component';
 import { RootResolver } from './components/root/root.resolver';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { InfoComponent } from './components/info/info.component';
 import { LoginComponent } from './components/login/login.component';
 import { JoinComponent } from './components/join/join.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -37,13 +37,14 @@ import { PrivacyComponent } from './components/privacy/privacy.component';
 import { CookiesComponent } from './components/cookies/cookies.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { NavComponent } from './components/nav/nav.component';
+import { WordIconComponent } from './components/word-icon/word-icon.component';
+import { IconTesterComponent } from './components/icon-tester/icon-tester.component';
 
 import { CookieService } from 'ng2-cookies';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InfoComponent,
     LoginComponent,
     JoinComponent,
     RootComponent,
@@ -56,7 +57,9 @@ import { CookieService } from 'ng2-cookies';
     CookiesComponent,
     ConfirmationComponent,
     AboutComponent,
-    NavComponent
+    NavComponent,
+    WordIconComponent,
+    IconTesterComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ import { CookieService } from 'ng2-cookies';
     RosieService,
     SettingsService,
     StoreReducer,
-    StoreService
+    StoreService,
+    WordIconService
   ],
   bootstrap: [AppComponent]
 })

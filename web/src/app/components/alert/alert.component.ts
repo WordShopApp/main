@@ -7,7 +7,6 @@ export const AlertTypes = {
   Success:  'success'
 };
 
-
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',

@@ -1,0 +1,43 @@
+<section *ngIf="type === 'project'">
+  <svg width="400px" height="402px" viewBox="0 0 400 402" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>Project Icon</title>
+      <defs></defs>
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="ws-icon-project" fill-rule="nonzero">
+              <circle id="Oval" [attr.fill]="palette.tertiary" cx="200" cy="202" r="200"></circle>
+              <path d="M200,3 C146.503448,3 97.9586207,24.0413793 62.0689655,58.2482759 L62.0689655,182.310345 L199.662069,354.675862 C199.8,354.786207 200,354.689655 200,354.517241 C200,354.689655 200.2,354.793103 200.337931,354.675862 L337.931034,182.310345 L337.931034,58.2482759 C302.041379,24.0413793 253.496552,3 200,3 Z" id="Shape" [attr.fill]="palette.quaternary"></path>
+              <path d="M200,244.37931 C174.151724,244.37931 151.082759,256.241379 135.903448,274.806897 L199.662069,354.675862 C199.8,354.786207 200,354.689655 200,354.517241 C200,354.689655 200.2,354.793103 200.337931,354.675862 L264.096552,274.806897 C248.917241,256.241379 225.848276,244.37931 200,244.37931 Z" id="Shape" [attr.fill]="palette.quinary"></path>
+              <path d="M200,0.758876438 C175.751724,0.758876438 152.531034,5.14664991 131.034483,13.0973232 L131.034483,125.529686 L199.662069,180.713042 C199.8,180.82395 200,180.719974 200,180.546681 C200,180.719974 200.2,180.82395 200.337931,180.713042 L268.965517,125.529686 L268.965517,13.0973232 C247.468966,5.14664991 224.248276,0.758876438 200,0.758876438 Z" id="Shape" [attr.fill]="palette.primary"></path>
+              <path d="M65.0482759,181.586371 L131.034483,127.537612 L131.034483,13 C105.110345,22.773123 81.6896552,37.8564977 62.0689655,57.0002379 L62.0689655,180.117578 C62.0689655,181.692294 63.8482759,182.567921 65.0482759,181.586371 Z" id="Shape" [attr.fill]="palette.secondary"></path>
+              <path d="M268.965517,127.537612 L334.951724,181.586371 C336.151724,182.567921 337.931034,181.692294 337.931034,180.117578 L337.931034,57.0002379 C318.310345,37.8564977 294.889655,22.773123 268.965517,13 L268.965517,127.537612 Z" id="Shape" [attr.fill]="palette.secondary"></path>
+          </g>
+      </g>
+  </svg>
+</section>
+
+<section *ngIf="type === 'critique'">
+  <svg width="400px" height="400px" viewBox="0 0 400 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>Critique Icon</title>
+      <defs>
+          <circle id="path-1" cx="200" cy="200" r="200"></circle>
+      </defs>
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Group-3">
+              <circle id="Oval" fill="#ADAEAE" fill-rule="nonzero" cx="200" cy="200" r="200"></circle>
+              <mask id="mask-2" fill="white">
+                  <use xlink:href="#path-1"></use>
+              </mask>
+              <use id="Mask" [attr.fill]="palette.tertiary" fill-rule="nonzero" xlink:href="#path-1"></use>
+              <g id="Group-2" mask="url(#mask-2)">
+                  <g transform="translate(65.000000, 82.000000)" id="Group">
+                      <g>
+                          <path d="M14.4497768,94 L260.098437,94 C268.079167,94 274.548214,101.427442 274.548214,110.590523 L274.548214,317.974405 L0,317.974405 L0,110.590523 C0,101.428382 6.46904762,94 14.4497768,94 Z" id="Shape" [attr.fill]="palette.secondary" fill-rule="nonzero"></path>
+                          <polygon id="Shape" [attr.fill]="palette.primary" fill-rule="nonzero" points="245.749107 318.074033 245.749107 123 209.624256 123 166.274107 123 29 123 29 318.074033"></polygon>
+                          <path d="M101.699479,0 L173.949182,0 C221.83192,0 260.648661,38.8167411 260.648661,86.6994792 L260.648661,93.9247768 L15,93.9247768 L15,86.6994792 C15,38.8167411 53.8167411,0 101.699479,0 L101.699479,0 Z" id="Shape" [attr.fill]="palette.quaternary" fill-rule="nonzero"></path>
+                      </g>
+                  </g>
+              </g>
+          </g>
+      </g>
+  </svg>
+</section>

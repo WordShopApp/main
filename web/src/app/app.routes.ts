@@ -12,6 +12,7 @@ import { PrivacyComponent } from './components/privacy/privacy.component';
 import { CookiesComponent } from './components/cookies/cookies.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { AboutComponent } from './components/about/about.component';
+import { IconTesterComponent } from './components/icon-tester/icon-tester.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -42,6 +43,9 @@ export const AppRoutes: Routes  = [
   },
   {
     path: 'confirmation', component: ConfirmationComponent
+  },
+  {
+    path: 'icon-tester', component: IconTesterComponent
   },
   {
     path: '',
