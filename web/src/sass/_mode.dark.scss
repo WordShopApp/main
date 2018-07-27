@@ -33,7 +33,7 @@ body.dark {
 
   .input-group-text {
     color: lighten($ws-base-color, 30%);
-    background-color: darken($ws-base-color, 20%);
+    background-color: darken($ws-base-color, 25%);
     border: 1px solid darken($ws-base-color, 20%);
   }
 
@@ -42,7 +42,7 @@ body.dark {
   }
 
   .ws-panel {
-    border-bottom: 2px solid darken($ws-base-color, 35%);
+    border-bottom: 2px solid darken($ws-base-color, 40%);
   }
 
   .ws-form {
