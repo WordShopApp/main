@@ -39,6 +39,7 @@ body {
   padding-top: 25px;
   .ws-form {
     margin: auto;
+    margin-bottom: $ws-default-padding * 2;
   }
 }
 
@@ -64,7 +65,8 @@ body {
   max-width: $ws-form-width-max;
   border-radius: $ws-default-radius;
   border: none;
-  border-bottom: 2px solid lighten($ws-base-color, 15%);;
+  border-bottom: 2px solid lighten($ws-base-color, 15%);
+  margin-bottom: $ws-default-padding * 2;
   .ws-header {
     border: none;
     border-top-left-radius: $ws-default-radius;
@@ -76,6 +78,7 @@ body {
   border-radius: $ws-default-radius;
   border-bottom: 2px solid $ws-base-color;
   padding: 24px;
+  margin-bottom: $ws-default-padding * 2;
   &.ws-dashboard-tab-panel {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
