@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -87,7 +88,11 @@ import { CookieService } from 'ng2-cookies';
     SettingsService,
     StoreReducer,
     StoreService,
-    WordIconService
+    WordIconService,
+    {
+      provide: APP_BASE_HREF,
+      useValue: '/'
+    }
   ],
   bootstrap: [AppComponent]
 })

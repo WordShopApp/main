@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { WordIconService } from '../../services/word-icon/word-icon.service';
 
 @Component({
   selector: 'app-profile-banner',
@@ -8,10 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProfileBannerComponent implements OnInit {
 
   @Input() profile: any;
+  avatarPalette: any;
 
-  constructor() { }
+  constructor (private wordIconService: WordIconService) { }
 
   ngOnInit() {
+    this.avatarPalette = this.wordIconService.getPalette(this.profile.name);
   }
 
 }

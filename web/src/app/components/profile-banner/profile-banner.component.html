@@ -1,1 +1,7 @@
-<code>{{profile}}</code>
+<div class="ws-panel ws-profile-banner">
+  <app-word-icon class="ws-profile-banner-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
+  <div class="ws-profile-banner-details">
+    <h4>@{{profile.name}}</h4>
+    <p class="text-muted">Joined: {{ profile.created | date: 'MMMM yyyy' }}</p>
+  </div>
+</div>

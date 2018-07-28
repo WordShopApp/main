@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private setupSubscriptions () {
-    this.profile$ = this.storeService.subscribe(Props.App.Profile, p => this.profile = p);
+    this.profile$ = this.storeService.subscribe(Props.App.Profile, p => this.profile = p && p.toJS());
   }
 
   private teardownSubscriptions () {

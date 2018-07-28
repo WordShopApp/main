@@ -1,3 +1,13 @@
-<div class="container">
-  <app-profile-banner [profile]="profile"></app-profile-banner>
+<app-profile-banner [profile]="profile"></app-profile-banner>
+<br>
+<div class="btn-group btn-group-toggle ws-dashboard-tabs" data-toggle="buttons">
+  <label class="btn btn-wordshop-tab active">
+    <input type="radio" name="options" autocomplete="off" checked>Projects
+  </label>
+  <label class="btn btn-wordshop-tab">
+    <input type="radio" name="options" autocomplete="off">Critiques
+  </label>
+</div>
+<div class="ws-panel ws-dashboard-tab-panel">
+  <button class="btn btn-block btn-wordshop">Add a project</button>
 </div>

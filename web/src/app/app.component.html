@@ -1,6 +1,6 @@
 <div class="container nav-container">
   <a class="ws-logo" [ngClass]="{ show: showHomeIcon }" [routerLink]="['/']" preserveFragment>
-    <img src="/assets/images/ws-icon-project-color.svg">
+    <img src="/assets/images/ws-icon-project-bw.svg">
   </a>
   <div class="nav-spacer"></div>
   <nav class="nav justify-content-end">
@@ -11,7 +11,5 @@
 </div>
 <div class="container app-container">
   <app-alert [show]="alertShow" [type]="alertType" [header]="alertHeader" [message]="alertMessage" [timeout]="10000"></app-alert>
-  <div class="row justify-content-center align-items-center">
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </div>

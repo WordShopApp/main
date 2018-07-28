@@ -23,7 +23,8 @@ export class RootResolver implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
       let p = this.accountService.getOrCreateProfile().then(profile => {
-        return this.storeService.dispatch(Actions.Init.Profile, profile);
+        this.storeService.dispatch(Actions.Init.LoggedIn, true);
+        this.storeService.dispatch(Actions.Init.Profile, profile);
       });
       Promise.all([p]).then(() => {
         this.loggerService.info('RootResolver.resolve');

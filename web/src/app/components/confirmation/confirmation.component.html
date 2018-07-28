@@ -1,13 +1,15 @@
-<div class="card ws-form">
-  <h5 class="card-header ws-header">Email Confirmation</h5>
-  <div class="card-body">
-    <form>
-      <h6>We sent a message to <em>{{email}}</em></h6>
-      <p class="text-muted">
-        Please check your inbox (or spam folder) for this message and click on the link inside. You must confirm this email address before logging into the app.
-      </p>
-      <br>
-      <button (click)="resendConfirmationEmail($event)" type="submit" class="btn btn-wordshop btn-block">Resend confirmation email</button>
-    </form>
+<div class="auth-container">
+  <div class="card ws-form">
+    <h5 class="card-header ws-header">Email Confirmation</h5>
+    <div class="card-body">
+      <form>
+        <h6>We sent a message to <em>{{email}}</em></h6>
+        <p class="text-muted">
+          Please check your inbox (or spam folder) for this message and click on the link inside. You must confirm this email address before logging into the app.
+        </p>
+        <br>
+        <button (click)="resendConfirmationEmail($event)" type="submit" class="btn btn-wordshop btn-block">Resend confirmation email</button>
+      </form>
+    </div>
   </div>
 </div>
