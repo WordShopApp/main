@@ -8,7 +8,7 @@ body.dark {
     border-top: 1px solid $ws-base-color;
   }
 
-  input, .ws-panel {
+  input {
     background-color: darken($ws-base-color, 35%);
   }
 
@@ -41,11 +41,7 @@ body.dark {
     color: $ws-base-color!important;
   }
 
-  .ws-panel {
-    border-bottom: 2px solid darken($ws-base-color, 40%);
-  }
-
-  .ws-form {
+  .ws-form, .ws-panel {
     background-color: darken($ws-base-color, 30%);
     border-bottom: 2px solid darken($ws-base-color, 40%);
     .ws-header {

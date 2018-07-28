@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export const WordIconTypes = {
   Project:  'project',
-  Critique: 'critique'
+  Critique: 'critique',
+  Profile:  'profile'
 };
 
 export class WordIconPalette {

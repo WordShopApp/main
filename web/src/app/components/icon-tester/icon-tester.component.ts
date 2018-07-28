@@ -21,7 +21,7 @@ export class IconTesterComponent implements OnInit {
   constructor(private storeService: StoreService, private wordIconService: WordIconService) { }
 
   ngOnInit() {
-    this.type = WordIconTypes.Project;
+    this.type = WordIconTypes.Profile;
     this.textInput.nativeElement.value = this.generateName();
     this.onTextChanged(this.textInput.nativeElement.value);
     this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
