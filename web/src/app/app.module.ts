@@ -39,6 +39,9 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { NavComponent } from './components/nav/nav.component';
 import { WordIconComponent } from './components/word-icon/word-icon.component';
 import { IconTesterComponent } from './components/icon-tester/icon-tester.component';
+import { ProfileBannerComponent } from './components/profile-banner/profile-banner.component';
+import { ProjectListComponent } from './components/project-list/project-list.component';
+
 
 import { CookieService } from 'ng2-cookies';
 
@@ -59,7 +62,9 @@ import { CookieService } from 'ng2-cookies';
     AboutComponent,
     NavComponent,
     WordIconComponent,
-    IconTesterComponent
+    IconTesterComponent,
+    ProfileBannerComponent,
+    ProjectListComponent
   ],
   imports: [
     BrowserModule,

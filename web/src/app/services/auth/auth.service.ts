@@ -4,7 +4,6 @@ import { LoggerService } from '../logger/logger.service';
 import { NavService } from '../nav/nav.service';
 import { StoreService } from '../store/store.service';
 import { StoreActions as Actions } from '../store/store.actions';
-import { resolve } from 'url';
 
 @Injectable()
 export class AuthService {
