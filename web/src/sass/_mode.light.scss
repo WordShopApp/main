@@ -37,6 +37,12 @@ body.light {
     background-color: darken($ws-base-color, 35%);
   }
 
+  .ws-wordicon-container {
+    svg {
+      filter: drop-shadow(0 1px 0 lighten($ws-base-color, 15%));
+    }
+  }
+
   a {
     color: darken($ws-base-color, 35%);
     &:hover {

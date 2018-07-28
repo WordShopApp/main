@@ -68,6 +68,12 @@ body.dark {
     }
   }
 
+  .ws-wordicon-container {
+    svg {
+      filter: drop-shadow(0 2px 0 darken($ws-base-color, 40%));
+    }
+  }
+
   a {
     color: lighten($ws-base-color, 30%);
     &:hover {
