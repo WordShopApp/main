@@ -24,6 +24,9 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   profile: any;
   profile$: Subscription;
 
+  loggedIn: boolean;
+  loggedIn$: Subscription;
+
   showHomeIcon = false;
   showHomeIcon$: Subscription;
 
@@ -38,6 +41,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnInit () {
     this.storeService.init();
     this.setupSubscriptions();
+    this.storeService.dispatch(Actions.Init.LoggedIn, this.storeService.local.get('token') ? true : false);
   }
 
   ngAfterViewInit () {}
@@ -70,11 +74,13 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     this.showHomeIcon$ = this.storeService.subscribe(Props.UI.ShowHomeIcon, shi => {
       if (shi === true || shi === false) setTimeout(() => this.showHomeIcon = shi, 0);
     });
+    this.loggedIn$ = this.storeService.subscribe(Props.App.LoggedIn, li => this.loggedIn = li);
   }
 
   private teardownSubscriptions () {
     this.profile$.unsubscribe();
     this.showHomeIcon$.unsubscribe();
+    this.loggedIn$.unsubscribe();
   }
 
 }

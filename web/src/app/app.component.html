@@ -4,9 +4,9 @@
   </a>
   <div class="nav-spacer"></div>
   <nav class="nav justify-content-end">
-    <a class="nav-link auth-link" [ngClass]="{ show: !profile }" [routerLink]="['/register']" preserveFragment>Register</a>
-    <a class="nav-link auth-link" [ngClass]="{ show: !profile }" [routerLink]="['/login']" preserveFragment>Login</a>
-    <a class="nav-link auth-link" [ngClass]="{ show: profile }" href="" (click)="logout($event)">Logout</a>
+    <a class="nav-link auth-link" [ngClass]="{ show: !loggedIn }" [routerLink]="['/register']" preserveFragment>Register</a>
+    <a class="nav-link auth-link" [ngClass]="{ show: !loggedIn }" [routerLink]="['/login']" preserveFragment>Login</a>
+    <a class="nav-link auth-link" [ngClass]="{ show: loggedIn }" href="" (click)="logout($event)">Logout</a>
   </nav>
 </div>
 <div class="container app-container">

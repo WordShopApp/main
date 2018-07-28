@@ -1,6 +1,7 @@
 export const StoreActions = {
   Init: {
-    Profile: 'Init.Profile'
+    Profile: 'Init.Profile',
+    LoggedIn: 'Init.LoggedIn'
   },
   UI: {
     UpdateShowHomeIcon: 'UI.UpdateShowHomeIcon'

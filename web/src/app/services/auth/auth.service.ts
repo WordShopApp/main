@@ -4,6 +4,7 @@ import { LoggerService } from '../logger/logger.service';
 import { NavService } from '../nav/nav.service';
 import { StoreService } from '../store/store.service';
 import { StoreActions as Actions } from '../store/store.actions';
+import { resolve } from 'url';
 
 @Injectable()
 export class AuthService {
@@ -52,7 +53,12 @@ export class AuthService {
   }
 
   login (email, password): Promise<any> {
-    return this.cognitoService.login(email, password);
+    return new Promise((resolve, reject) => {
+      this.cognitoService.login(email, password).then(token => {
+        if (token) this.storeService.local.set(this.tokenKey, token);
+        resolve(token);
+      }).catch(reject);
+    });
   }
 
   forgotPassword (email): Promise<any> {
@@ -103,7 +109,9 @@ export class AuthService {
 
   logout () {
     this.cognitoService.logout();
+    this.storeService.local.remove(this.tokenKey);
     this.storeService.dispatch(Actions.Init.Profile, null);
+    this.storeService.dispatch(Actions.Init.LoggedIn, null);
   }
 
   details () {

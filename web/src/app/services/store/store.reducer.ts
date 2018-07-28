@@ -12,6 +12,10 @@ export class StoreReducer {
       let prop = Props.App.Profile;
       return this.results(prop, fromJS(newProfile));
     },
+    [Actions.Init.LoggedIn]: (store, newState) => {
+      let prop = Props.App.LoggedIn;
+      return this.results(prop, fromJS(newState));
+    },
     [Actions.UI.UpdateShowHomeIcon]: (store, newState) => {
       let prop = Props.UI.ShowHomeIcon;
       return this.results(prop, fromJS(newState));

@@ -26,8 +26,6 @@ export class WordIconComponent implements OnInit {
 
   constructor () { }
 
-  ngOnInit () {
-    console.log('palette', this.palette);
-  }
+  ngOnInit () {}
 
 }
