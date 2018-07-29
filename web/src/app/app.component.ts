@@ -8,6 +8,7 @@ import { StoreService } from './services/store/store.service';
 import { StoreProps as Props } from './services/store/store.props';
 import { StoreActions as Actions } from './services/store/store.actions';
 import { AlertTypes } from './components/alert/alert.component';
+import { WordIconPalette } from './components/word-icon/word-icon.component';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,25 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   showHomeIcon = false;
   showHomeIcon$: Subscription;
 
+  palette: WordIconPalette;
+
+  grayPalette = {
+    primary: '#5F5F5E',
+    secondary: '#3A3A39',
+    tertiary: '#B4B6B6',
+    quaternary: '#FEFEFE',
+    quinary: '#4C4C4C'
+  };
+
+  // pencil yellow
+  colorPalette = {
+    primary: '#F9D130',
+    secondary: '#FFBE00',
+    tertiary: '#A5B5C1',
+    quaternary: '#F6E6D2',
+    quinary: '#4C4C4C'
+  };
+
   constructor (
     private authService: AuthService,
     private loggerService: LoggerService,
@@ -39,6 +59,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   ) {}
 
   ngOnInit () {
+    this.showColorIcon(false);
     this.storeService.init();
     this.setupSubscriptions();
     this.storeService.dispatch(Actions.Init.LoggedIn, this.storeService.local.get('token') ? true : false);
@@ -48,6 +69,10 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngOnDestroy () {
     this.teardownSubscriptions();
+  }
+
+  showColorIcon (show) {
+    this.palette = show ? this.colorPalette : this.grayPalette;
   }
 
   logout (evt) {

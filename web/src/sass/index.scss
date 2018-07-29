@@ -109,10 +109,13 @@ body {
 $logo-size: 40px;
 .ws-logo {
   opacity: 0.6;
+  &:hover { 
+    opacity: 1.0
+  }
   display: none;
   width: $logo-size;
   height: $logo-size;
-  img {
+  svg {
     width: $logo-size;
     height: $logo-size;
   }
@@ -134,8 +137,16 @@ $logo-size: 40px;
 }
 
 .ws-welcome-title {
-  width:600px;
+  width: 600px;
   margin-top: 50px;
+}
+
+.ws-welcome-title-container {
+  min-width: 650px;
+  width: 650px;
+  min-height: 332px;
+  height: 332px;
+  margin: auto;
 }
 
 .ws-welcome-icon {
@@ -157,6 +168,12 @@ $logo-size: 40px;
     width: 500px;
     margin-top: 35px;
   }
+  .ws-welcome-title-container {
+    min-width: 510px;
+    width: 510px;
+    min-height: 275px;
+    height: 275px;
+  }
   .ws-welcome-icon {
     width: 150px;
   }
@@ -166,6 +183,12 @@ $logo-size: 40px;
   .ws-welcome-title {
     width: 345px;
     margin-top: 20px;
+  }
+  .ws-welcome-title-container {
+    min-width: 345px;
+    width: 345px;
+    min-height: 182px;
+    height: 182px;
   }
   .ws-welcome-icon {
     width: 100px;

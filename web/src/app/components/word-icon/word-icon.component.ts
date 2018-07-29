@@ -21,11 +21,22 @@ export class WordIconPalette {
 })
 export class WordIconComponent implements OnInit {
 
+  grayscalePalette: {
+    primary: '#5F5F5E',
+    secondary: '#3A3A39',
+    tertiary: '#B4B6B6',
+    quaternary: '#FEFEFE',
+    quinary: '#4C4C4C'
+  };
+
   @Input() type: string;
   @Input() palette: WordIconPalette;
+  @Input() showGrayscale: boolean;
 
   constructor () { }
 
-  ngOnInit () {}
+  ngOnInit () {
+    if (this.showGrayscale) this.palette = this.grayscalePalette;
+  }
 
 }
