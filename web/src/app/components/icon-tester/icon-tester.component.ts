@@ -18,6 +18,14 @@ export class IconTesterComponent implements OnInit {
   type: any;
   palette: any;
 
+  grayPalette = {
+    primary: '#5F5F5E',
+    secondary: '#3A3A39',
+    tertiary: '#B4B6B6',
+    quaternary: '#FEFEFE',
+    quinary: '#4C4C4C'
+  };
+
   constructor(private storeService: StoreService, private wordIconService: WordIconService) { }
 
   ngOnInit() {
@@ -28,7 +36,7 @@ export class IconTesterComponent implements OnInit {
   }
 
   onTextChanged (text: string) {
-    if (text) this.palette = this.wordIconService.getPalette(text);
+    this.palette = text ? this.wordIconService.getPalette(text) : this.grayPalette;
   }
 
   capFirst (string) {
