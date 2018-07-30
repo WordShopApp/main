@@ -11,10 +11,17 @@ export class ProfileBannerComponent implements OnInit {
   @Input() profile: any;
   avatarPalette: any;
 
+  editMode: boolean;
+
   constructor (private wordIconService: WordIconService) { }
 
   ngOnInit() {
+    this.setEditMode(false);
     this.avatarPalette = this.wordIconService.getPalette(this.profile.name);
+  }
+
+  setEditMode (enabled: boolean) {
+    this.editMode = enabled;
   }
 
 }

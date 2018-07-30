@@ -471,6 +471,18 @@ $switch-transition: .2s all !default;
   }
   .ws-profile-banner-details {
     margin-left: 20px;
+    margin-top: 5px;
+    flex-grow: 1;
+  }
+  .ws-profile-banner-edit {
+    margin-top: -5px;
+    margin-right: -5px;
+    button {
+      opacity: 0.5;
+      &:hover {
+        opacity: 1.0;
+      }
+    }
   }
 }
 @media (max-width: $ws-tablet-breakpoint) {

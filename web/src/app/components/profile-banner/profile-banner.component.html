@@ -4,4 +4,7 @@
     <h4>@{{profile.name}}</h4>
     <p class="text-muted">Joined: {{ profile.created | date: 'MMMM yyyy' }}</p>
   </div>
+  <div class="ws-profile-banner-edit">
+    <button (click)="setEditMode(!editMode)" class="btn btn-link"><i class="fa fa-edit"></i></button>
+  </div>
 </div>
