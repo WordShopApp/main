@@ -15,6 +15,8 @@ import { StoreActions as Actions } from '../../services/store/store.actions';
 export class LoginComponent implements OnInit {
 
   showPassword = false;
+  loading = false;
+  buttonText = 'Log in';
 
   @ViewChild('emailInput') emailInput: ElementRef;
   @ViewChild('passwordInput') passwordInput: ElementRef;
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.setLoading(false);
     this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
   }
 
@@ -35,14 +38,17 @@ export class LoginComponent implements OnInit {
     evt.preventDefault();
     let email = this.emailInput.nativeElement.value;
     let password = this.passwordInput.nativeElement.value;
-    if (email && password) {
+    if (email && password && !this.loading) {
+      this.setLoading(true);
       this.authService.login(email, password).then(token => {
         if (token) {
           this.navService.gotoRoot();
         } else {
+          this.setLoading(false);
           this.sendMessage(AlertTypes.Danger, 'Error:', 'There was a problem logging in. Please try again.');
         }
       }).catch(err => {
+        this.setLoading(false);
         this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
         this.loggerService.error(err);
         if (this.isUnconfirmed(err.code)) {
@@ -52,6 +58,11 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  setLoading (enabled: boolean) {
+    this.loading = enabled;
+    this.buttonText = enabled ? 'Logging in' : 'Log in';
   }
 
   isUnconfirmed (code) {

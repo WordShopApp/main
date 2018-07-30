@@ -15,15 +15,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
   profile: any;
   profile$: Subscription;
 
+  activeTab: string;
+  activeTabKey = 'dashboardActiveTab';
+
   constructor (private rosieService: RosieService, private storeService: StoreService) { }
 
   ngOnInit () {
-    this.rosieService.cleanup();
+    this.initActiveTab();
     this.setupSubscriptions();
+    this.rosieService.cleanup();
   }
 
   ngOnDestroy () {
     this.teardownSubscriptions();
+  }
+
+  initActiveTab () {
+    this.setActiveTab(this.storeService.local.get(this.activeTabKey) || 'projects');
+  }
+
+  setActiveTab (tabName: string) {
+    this.activeTab = tabName;
+    this.storeService.local.set(this.activeTabKey, tabName);
   }
 
   private setupSubscriptions () {

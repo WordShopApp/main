@@ -437,6 +437,19 @@ $switch-transition: .2s all !default;
 
 }
 
+.ws-login-button {
+  img {
+    height: 20px;
+    margin-left: 2px;
+    display: none;
+  }
+  &.loading {
+    img {
+      display: initial;
+    }
+  }
+}
+
 .ws-dashboard-tabs {
   display: flex;
   .btn {

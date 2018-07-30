@@ -1,12 +1,15 @@
 <app-profile-banner [profile]="profile"></app-profile-banner>
 <div class="btn-group btn-group-toggle ws-dashboard-tabs" data-toggle="buttons">
-  <label class="btn btn-wordshop-tab active">
+  <label (click)="setActiveTab('projects')" class="btn btn-wordshop-tab" [ngClass]="{ active: activeTab === 'projects' }">
     <input type="radio" name="options" autocomplete="off" checked>Projects
   </label>
-  <label class="btn btn-wordshop-tab">
+  <label (click)="setActiveTab('critiques')" class="btn btn-wordshop-tab" [ngClass]="{ active: activeTab === 'critiques' }">
     <input type="radio" name="options" autocomplete="off">Critiques
   </label>
 </div>
-<div class="ws-panel ws-dashboard-tab-panel">
+<div *ngIf="activeTab === 'projects'" class="ws-panel ws-dashboard-tab-panel">
   <button class="btn btn-block btn-wordshop">Add a project</button>
+</div>
+<div *ngIf="activeTab === 'critiques'" class="ws-panel ws-dashboard-tab-panel">
+  <button class="btn btn-block btn-wordshop">Write a critique</button>
 </div>
