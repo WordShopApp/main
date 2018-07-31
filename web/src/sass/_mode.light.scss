@@ -27,6 +27,19 @@ body.light {
     }
   }
 
+  .input-group-text {
+    &.is-valid {
+      color: #28a745;
+      border-color: #28a745;
+      background-color: lighten(#28a745, 30%);
+    }
+    &.is-invalid {
+      color: #dc3545;
+      border-color: #dc3545;
+      background-color: lighten(#dc3545, 25%);
+    }
+  }
+
   .footer {
     a {
       color: lighten($ws-text-color, 50%);

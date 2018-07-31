@@ -8,8 +8,8 @@
   </label>
 </div>
 <div *ngIf="activeTab === 'projects'" class="ws-panel ws-dashboard-tab-panel">
-  <button class="btn btn-block btn-wordshop">Add a project</button>
+  <a [routerLink]="['/projects/new']" class="btn btn-block btn-wordshop" preserveFragment>Add a project</a>
 </div>
 <div *ngIf="activeTab === 'critiques'" class="ws-panel ws-dashboard-tab-panel">
-  <button class="btn btn-block btn-wordshop">Write a critique</button>
+  <a  [routerLink]="['/projects']" class="btn btn-block btn-wordshop" preserveFragment>Write a critique</a>
 </div>

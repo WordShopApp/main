@@ -54,6 +54,16 @@ body.dark {
     color: lighten($ws-base-color, 30%);
     background-color: darken($ws-base-color, 25%);
     border: 1px solid darken($ws-base-color, 20%);
+    &.is-valid {
+      color: #28a745;
+      border-color: #28a745;
+      background-color: lighten(#28a745, 30%);
+    }
+    &.is-invalid {
+      color: #dc3545;
+      border-color: #dc3545;
+      background-color: lighten(#dc3545, 25%);
+    }
   }
 
   .text-muted {

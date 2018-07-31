@@ -19,7 +19,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/assets"            ],
+              "src/assets"
+            ],
             "styles": [
               "src/sass/index.scss",
               "src/styles.css"
@@ -128,5 +129,10 @@
       }
     }
   },
-  "defaultProject": "wordshop"
+  "defaultProject": "wordshop",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

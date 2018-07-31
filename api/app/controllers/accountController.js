@@ -39,6 +39,17 @@ function fetchUserParams (email) {
   };
 }
 
+function fetchUserByNameParams (name) {
+  return {
+    TableName: 'ws_users',
+    IndexName: 'name-index',
+    KeyConditionExpression: 'name = :name',
+    ExpressionAttributeValues: {
+      ':name': name
+    }
+  };
+}
+
 function createUserParams (user) {
   return {
     TableName: 'ws_users',
@@ -124,6 +135,12 @@ function fetchUser (email) {
   });
 }
 
+function fetchUserByName (username) {
+  return new Promise ((resolve, reject) => {
+    fetchItem(fetchUserByNameParams(username)).then(resolve).catch(reject);
+  });
+}
+
 function genTimestamp () {
   // http://momentjs.com/docs/#/displaying/unix-timestamp-milliseconds/
   return moment().valueOf();
@@ -166,6 +183,25 @@ function formatNewUser (data) {
     updated: now
   }
 }
+
+module.exports.usernameValidate = (req, res) => {
+  let username = req.body.username;
+  let desc = 'GET /profile/validate-username';
+  fetchUserByName(username).then(user => {
+    console.log(desc, 'exists', username);
+    res.status(http.codes.ok).send({ exists: true });
+  }).catch(err => {
+    if (err.code === 'AccessDeniedException') {
+      console.log(desc, 'unauthorized', err);
+      res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
+    } else if (err.code === 'ResourceNotFoundException') {
+      res.status(http.codes.ok).send({ exists: false });
+    } else {
+      console.log(desc, 'internal_server_error', err);
+      res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
+    }
+  });
+};
 
 module.exports.profileCreate = (req, res) => {
   let newUser = formatNewUser(req.body);

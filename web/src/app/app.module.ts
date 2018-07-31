@@ -42,7 +42,9 @@ import { WordIconComponent } from './components/word-icon/word-icon.component';
 import { IconTesterComponent } from './components/icon-tester/icon-tester.component';
 import { ProfileBannerComponent } from './components/profile-banner/profile-banner.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
-
+import { ProjectWizardComponent } from './components/project-wizard/project-wizard.component';
+import { ProjectIndexComponent } from './components/project-index/project-index.component';
+import { UsernameValidatorComponent } from './components/username-validator/username-validator.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -65,7 +67,10 @@ import { CookieService } from 'ng2-cookies';
     WordIconComponent,
     IconTesterComponent,
     ProfileBannerComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectWizardComponent,
+    ProjectIndexComponent,
+    UsernameValidatorComponent
   ],
   imports: [
     BrowserModule,

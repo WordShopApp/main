@@ -13,6 +13,8 @@ import { CookiesComponent } from './components/cookies/cookies.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { AboutComponent } from './components/about/about.component';
 import { IconTesterComponent } from './components/icon-tester/icon-tester.component';
+import { ProjectWizardComponent } from './components/project-wizard/project-wizard.component';
+import { ProjectIndexComponent } from './components/project-index/project-index.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -54,7 +56,9 @@ export const AppRoutes: Routes  = [
     canActivate: [AuthService],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'projects', component: ProjectIndexComponent },
+      { path: 'projects/new', component: ProjectWizardComponent }
     ]
   }
 

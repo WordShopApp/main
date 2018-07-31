@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { WordIconTypes, WordIconPalette } from '../../components/word-icon/word-icon.component';
+import { WordIconTypes, WordIconPalette } from '../word-icon/word-icon.component';
 import { WordIconService } from '../../services/word-icon/word-icon.service';
 import { StoreService } from '../../services/store/store.service';
 import { StoreActions as Actions } from '../../services/store/store.actions';

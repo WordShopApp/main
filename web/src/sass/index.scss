@@ -31,6 +31,10 @@ body {
   display: initial!important;
 }
 
+.hide {
+  display: none!important;
+}
+
 .app-container {
   padding-top: 25px;
 }
@@ -457,52 +461,80 @@ $switch-transition: .2s all !default;
   }
 }
 
+.ws-username-validator {
+  max-width: 350px;
+}
+
 .ws-profile-banner {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   padding: 12px;
-  .ws-profile-banner-avatar {
-    margin-left: 5px;
-    svg {
-      width: 125px;
-      height: 125px;
+  .edit-actions {
+    text-align: center;
+    margin-top: 12px;
+  }
+  .main-area {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    &.edit-mode {
+      flex-direction: column;
+      align-items: center;
+      .ws-profile-banner-details {
+        margin-top: 10px;
+      }
     }
-  }
-  .ws-profile-banner-details {
-    margin-left: 20px;
-    margin-top: 5px;
-    flex-grow: 1;
-  }
-  .ws-profile-banner-edit {
-    margin-top: -5px;
-    margin-right: -5px;
-    button {
-      opacity: 0.5;
-      &:hover {
-        opacity: 1.0;
+    .ws-profile-banner-avatar {
+      margin-left: 5px;
+      svg {
+        width: 125px;
+        height: 125px;
+      }
+    }
+    .ws-profile-banner-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      margin-left: 20px;
+      flex-grow: 1;
+      h4, .input-group {
+        margin-bottom: 8px;
+      }
+    }
+    .ws-profile-banner-edit {
+      margin-top: -5px;
+      margin-right: -5px;
+      button {
+        opacity: 0.5;
+        &:hover {
+          opacity: 1.0;
+        }
       }
     }
   }
 }
+
 @media (max-width: $ws-tablet-breakpoint) {
   .ws-profile-banner {
     flex-direction: column;
     align-items: center;
-    .ws-profile-banner-avatar {
-      margin-left: 0px;
-      svg {
-        width: 100px;
-        height: 100px;;
+    .main-area {
+      .ws-profile-banner-avatar {
+        margin-left: 0px;
+        svg {
+          width: 100px;
+          height: 100px;;
+        }
       }
-    }
-    .ws-profile-banner-details {
-      margin-left: 0px;
-      margin-top: 10px;
-      font-size: 14px;
-      text-align: center;
-      h4 {
-        font-size: 16px;
+      .ws-profile-banner-details {
+        margin-top: 10px;
+        font-size: 14px;
+        text-align: left;
+        h4 {
+          font-size: 16px;
+        }
       }
     }
   }
@@ -510,8 +542,19 @@ $switch-transition: .2s all !default;
 
 @media (max-width: $ws-phone-breakpoint) {
   .ws-profile-banner {
-    .ws-profile-banner-details {
-      font-size: 12px;
+    .main-area {
+      flex-direction: column;
+      .ws-profile-banner-avatar {
+        text-align: center;
+      }
+      .ws-profile-banner-details {
+        margin-left: 0px;
+        text-align: center;
+        font-size: 12px;
+      }
+      .ws-profile-banner-edit {
+        text-align: right;
+      }
     }
   }
 }

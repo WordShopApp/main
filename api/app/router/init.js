@@ -4,6 +4,7 @@ module.exports = (app) => {
   let accountController = require('../controllers/accountController');
   app.post('/profile', accountController.profileCreate);
   app.get('/profile', accountController.profileShow);
+  app.get('/profile/validate-username', accountController.usernameValidate);
 
   // user
   let userController = require('../controllers/userController');
