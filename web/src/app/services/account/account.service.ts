@@ -58,11 +58,12 @@ export class AccountService extends ApiService {
   }
 
   validateUsername (username: string): Promise<any> {
-    return this.get(this.usernameValidateUrl(), { username });
+    return this.get(this.usernameValidateUrl(username));
   }
 
-  private usernameValidateUrl (): string {
-    return this.url(this._settingsService.app('usernameValidatePath'));
+  private usernameValidateUrl (username: string): string {
+    return this.url(this._settingsService.app('usernameValidatePath'))
+      .replace(':username', encodeURIComponent(username));
   }
 
   private profileUrl (): string {

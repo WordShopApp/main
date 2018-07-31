@@ -2,7 +2,7 @@
   <div class="input-group-prepend">
     <span class="input-group-text" [ngClass]="{ 'is-valid': (valid === true), 'is-invalid': (valid === false) }" id="at-mention">@</span>
   </div>
-  <input type="text" maxlength="15" [value]="oldName" class="form-control" [ngClass]="{ 'is-valid': (valid === true), 'is-invalid': (valid === false) }" placeholder="Username" aria-label="Username" aria-describedby="at-mention">
+  <input type="text" (input)="validateUsername($event.target.value)" maxlength="15" [value]="oldName" class="form-control" [ngClass]="{ 'is-valid': (valid === true), 'is-invalid': (valid === false) }" placeholder="Username" aria-label="Username" aria-describedby="at-mention">
   <div class="input-group-append">
     <span class="input-group-text is-valid" [ngClass]="{ 'is-valid': (valid === true), 'is-invalid': (valid === false) }">
       <i class="fa fa-check" [ngClass]="{ show: valid === true, hide: valid !== true }"></i>

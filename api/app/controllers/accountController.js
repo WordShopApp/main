@@ -185,8 +185,9 @@ function formatNewUser (data) {
 }
 
 module.exports.usernameValidate = (req, res) => {
-  let username = req.body.username;
+  let username = req.params.username;
   let desc = 'GET /profile/validate-username';
+  console.log(desc, username);
   fetchUserByName(username).then(user => {
     console.log(desc, 'exists', username);
     res.status(http.codes.ok).send({ exists: true });
