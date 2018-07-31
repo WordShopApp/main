@@ -42,10 +42,10 @@ function fetchUserParams (email) {
 function fetchUserByNameParams (name) {
   return {
     TableName: 'ws_users',
-    IndexName: 'name-index',
-    KeyConditionExpression: 'name = :name',
+    IndexName: 'username-index',
+    KeyConditionExpression: 'username = :username',
     ExpressionAttributeValues: {
-      ':name': name
+      ':username': name
     }
   };
 }
@@ -55,7 +55,7 @@ function createUserParams (user) {
     TableName: 'ws_users',
     Item: {
       user_id: user.user_id,
-      name: user.name,
+      username: user.name,
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
@@ -173,7 +173,7 @@ function createNewUser (user) {
 function formatNewUser (data) {
   let now = genTimestamp();
   return {
-    name: genUserName(data.email, now),
+    username: genUserName(data.email, now),
     email: data.email,
     avatar: data.avatar,
     subscription: data.subscription,

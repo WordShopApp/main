@@ -62,8 +62,9 @@ export class AccountService extends ApiService {
   }
 
   private usernameValidateUrl (username: string): string {
-    return this.url(this._settingsService.app('usernameValidatePath'))
+    let path = this._settingsService.app('usernameValidatePath')
       .replace(':username', encodeURIComponent(username));
+    return this.url(path);
   }
 
   private profileUrl (): string {
