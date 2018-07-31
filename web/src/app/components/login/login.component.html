@@ -15,7 +15,7 @@
         <div class="forgot-password-group">
           <small id="forgotPassword" class="form-text text-muted"><a [routerLink]="['/forgot-password']" preserveFragment>Forgot password?</a></small>
         </div>
-        <button (click)="login($event)" type="submit" class="btn btn-wordshop btn-block ws-login-button" [ngClass]="{ loading: loading, disabled: loading }">
+        <button (click)="login($event)" type="submit" class="btn btn-wordshop btn-block ws-login-button" [ngClass]="{ loading: loading }">
           {{buttonText}}
           <img src="/assets/images/ws-loading.svg">
         </button>

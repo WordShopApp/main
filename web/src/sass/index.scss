@@ -104,6 +104,12 @@ body {
     border-color: darken($ws-highlight-color, 10%);
     background-color: darken($ws-highlight-color, 10%);
   }
+  &.loading {
+    border-bottom: 2px solid $ws-highlight-color;
+    &:hover {
+      border-color: lighten($ws-highlight-color, 5%);
+    }
+  }
 }
 
 .clickable {

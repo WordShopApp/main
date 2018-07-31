@@ -190,13 +190,13 @@ module.exports.usernameValidate = (req, res) => {
   console.log(desc, username);
   fetchUserByName(username).then(user => {
     console.log(desc, 'exists', username);
-    res.status(http.codes.ok).send({ exists: true });
+    res.status(http.codes.ok).send({ valid: false, message: 'Username already taken' });
   }).catch(err => {
     if (err.code === 'AccessDeniedException') {
       console.log(desc, 'unauthorized', err);
       res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
     } else if (err.code === 'ResourceNotFoundException') {
-      res.status(http.codes.ok).send({ exists: false });
+      res.status(http.codes.ok).send({ valid: true, message: 'Username available' });
     } else {
       console.log(desc, 'internal_server_error', err);
       res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
