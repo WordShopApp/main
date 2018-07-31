@@ -17,7 +17,7 @@ export class ProfileBannerComponent implements OnInit {
 
   ngOnInit() {
     this.setEditMode(false);
-    this.avatarPalette = this.wordIconService.getPalette(this.profile.name);
+    this.avatarPalette = this.wordIconService.getPalette(this.profile.username);
   }
 
   setEditMode (enabled: boolean) {

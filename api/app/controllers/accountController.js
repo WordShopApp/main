@@ -55,7 +55,7 @@ function createUserParams (user) {
     TableName: 'ws_users',
     Item: {
       user_id: user.user_id,
-      username: user.name,
+      username: user.username,
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
@@ -227,7 +227,6 @@ module.exports.profileCreate = (req, res) => {
           res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
         }
       });
-
     } else {
       console.log('POST /profile', 'internal_server_error', err);
       res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
