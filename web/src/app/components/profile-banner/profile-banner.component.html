@@ -10,7 +10,7 @@
       <p class="text-muted">Joined: {{ profile?.created | date: 'MMMM yyyy' }}</p>
     </div>
     <div *ngIf="editMode" class="ws-profile-banner-details">
-      <app-username-selector *ngIf="editMode" [oldName]="profile?.username" (results)="validatorResults($event)"></app-username-selector>
+      <app-username-selector *ngIf="editMode" [profile]="profile"></app-username-selector>
       <div *ngIf="editMode" class="edit-actions">
         <button (click)="setEditMode(false)" class="btn btn-sm btn-link">Cancel</button>
         <button (click)="saveChanges()" class="btn btn-sm btn-wordshop" [ngClass]="{ disabled: !saveEnabled }">Save</button>

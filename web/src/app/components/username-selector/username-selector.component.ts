@@ -28,7 +28,7 @@ export class UsernameSelectorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.inputChanged.pipe(debounceTime(1000)).subscribe(this.runValidation.bind(this));
+    this.inputChanged.pipe(debounceTime(750)).subscribe(this.runValidation.bind(this));
     this.valid = null;
   }
 
