@@ -467,8 +467,11 @@ $switch-transition: .2s all !default;
   }
 }
 
+$ws-validator-length: 350px;
+
 .ws-username-validator {
-  max-width: 400px;
+  max-width: $ws-validator-length;
+  width: $ws-validator-length;
 }
 
 .ws-profile-banner {
@@ -477,20 +480,14 @@ $switch-transition: .2s all !default;
   width: 100%;
   padding: 12px;
   .edit-actions {
-    text-align: center;
+    text-align: left;
     margin-top: 12px;
+    width: $ws-validator-length;
   }
   .main-area {
     display: flex;
     flex-direction: row;
     width: 100%;
-    &.edit-mode {
-      flex-direction: column;
-      align-items: center;
-      .ws-profile-banner-details {
-        margin-top: 10px;
-      }
-    }
     .ws-profile-banner-avatar {
       margin-left: 5px;
       svg {
@@ -518,6 +515,11 @@ $switch-transition: .2s all !default;
           opacity: 1.0;
         }
       }
+      &.edit-mode {
+        button {
+          opacity: 1.0;
+        }
+      }
     }
   }
 }
@@ -536,10 +538,9 @@ $switch-transition: .2s all !default;
       }
       .ws-profile-banner-details {
         margin-top: 10px;
-        font-size: 14px;
         text-align: left;
         h4 {
-          font-size: 16px;
+          font-size: 20px;
         }
       }
     }
@@ -548,6 +549,9 @@ $switch-transition: .2s all !default;
 
 @media (max-width: $ws-phone-breakpoint) {
   .ws-profile-banner {
+    .edit-actions {
+      text-align: center;
+    }
     .main-area {
       flex-direction: column;
       .ws-profile-banner-avatar {
@@ -556,7 +560,8 @@ $switch-transition: .2s all !default;
       .ws-profile-banner-details {
         margin-left: 0px;
         text-align: center;
-        font-size: 12px;
+        font-size: 14px;
+        align-items: center;
       }
       .ws-profile-banner-edit {
         text-align: right;

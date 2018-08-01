@@ -7,13 +7,15 @@
     </div>
     <div *ngIf="editMode" class="ws-profile-banner-details">
       <app-username-validator *ngIf="editMode" [oldName]="profile?.username" [newName]="newUsername"></app-username-validator>
+      <div *ngIf="editMode" class="edit-actions">
+        <button (click)="setEditMode(false)" class="btn btn-sm btn-link">Cancel</button>
+        <button class="btn btn-sm btn-wordshop">Save changes</button>
+      </div>
     </div>
-    <div *ngIf="!editMode" class="ws-profile-banner-edit">
-      <button (click)="setEditMode(true)" class="btn btn-link"><i class="fa fa-edit"></i></button>
+    <div class="ws-profile-banner-edit" [ngClass]="{ 'edit-mode': editMode }">
+      <div *ngIf="!editMode">
+        <button (click)="setEditMode(true)" class="btn btn-link"><i class="fa fa-edit"></i></button>
+      </div>
     </div>
-  </div>
-  <div *ngIf="editMode" class="edit-actions">
-    <button (click)="setEditMode(false)" class="btn btn-link">Cancel</button>
-    <button class="btn btn-wordshop">Save changes</button>
   </div>
 </div>
