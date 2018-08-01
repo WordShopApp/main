@@ -50,6 +50,11 @@ body.dark {
     background-color: darken($ws-base-color, 35%);
   }
 
+  .ws-username-is-invalid {
+    color: #dc3545!important;
+    border-color: #dc3545!important;
+  }
+
   .input-group-text {
     color: lighten($ws-base-color, 30%);
     background-color: darken($ws-base-color, 25%);

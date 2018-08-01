@@ -18,6 +18,7 @@ export class UsernameValidatorComponent implements OnInit {
 
   inputChanged: Subject<string> = new Subject<string>();
 
+  msg: string;
   valid: boolean;
   validating: boolean;
 
@@ -47,9 +48,11 @@ export class UsernameValidatorComponent implements OnInit {
   runValidation (name) {
     if (name === this.oldName) return this.valid = null;
 
+    this.msg = null;
     this.valid = null;
     this.accountService.validateUsername(name).then(res => {
       this.valid = res.valid;
+      this.msg = res.message;
       this.results.emit({ 
         username: name,
         valid: res.valid,
@@ -59,7 +62,7 @@ export class UsernameValidatorComponent implements OnInit {
       this.valid = null;
       this.loggerService.error(err);
     });
-    
+
   }
 
 }

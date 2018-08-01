@@ -27,6 +27,11 @@ body.light {
     }
   }
 
+  .ws-username-is-invalid {
+    color: #dc3545!important;
+    border-color: #dc3545!important;
+  }
+
   .input-group-text {
     &.is-valid {
       color: #28a745;
