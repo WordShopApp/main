@@ -31,22 +31,23 @@ export class ProfileBannerComponent implements OnInit {
 
   ngOnInit() {
     this.setEditMode(false);
-    this.avatarPalette = this.wordIconService.getPalette(this.profile.username);
   }
 
   setEditMode (enabled: boolean) {
     this.editMode = enabled;
+    if (!enabled) this.updateAvatarPalette(this.profile.username);
   }
 
   saveChanges () {
     if (this.saveEnabled) {
       this.accountService.updateProfile({ username: this.newUsername }).then(updated => {
         this.storeService.dispatch(Actions.Init.Profile, updated);
-        this.sendMessage(AlertTypes.Success, 'Success:', 'Username updated!');
         this.setEditMode(false);
+        this.updateAvatarPalette(updated.username);
       }).catch(err => {
         this.loggerService.error(err);
         this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
+        this.setEditMode(false);
       });
     }
   }
@@ -54,10 +55,16 @@ export class ProfileBannerComponent implements OnInit {
   validatorResults (res) {
     this.saveEnabled = res.valid;
     this.newUsername = res.username;
+    this.updateAvatarPalette(res.username);
+    if (res.valid === false) this.sendMessage(AlertTypes.Danger, 'Validation:', res.message);
   }
 
   sendMessage(type, header, message) {
     this.messengerService.send('global:alert', { type, header, message });
+  }
+
+  updateAvatarPalette (username) {
+    this.avatarPalette = this.wordIconService.getPalette(username);
   }
 
 }
