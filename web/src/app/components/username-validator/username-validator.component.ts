@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account/account.service';
 import { LoggerService } from '../../services/logger/logger.service';
 
@@ -11,6 +11,8 @@ export class UsernameValidatorComponent implements OnInit {
 
   @Input() oldName: string;
   @Input() newName: string;
+
+  @Output() results: EventEmitter<any> = new EventEmitter<any>();
 
   valid: boolean;
 
@@ -25,9 +27,13 @@ export class UsernameValidatorComponent implements OnInit {
 
   validateUsername (name: string) {
     if (name && name.length > 3) {
-      console.log('validating:', name);
       this.accountService.validateUsername(name).then(res => {
-        console.log(res);
+        this.valid = res.valid;
+        this.results.emit({ 
+          username: name,
+          valid: res.valid,
+          message: res.message 
+        });
       }).catch(err => {
         this.loggerService.error(err);
       });

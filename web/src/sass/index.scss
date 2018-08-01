@@ -467,7 +467,7 @@ $switch-transition: .2s all !default;
   }
 }
 
-$ws-validator-length: 350px;
+$ws-validator-length: 340px;
 
 .ws-username-validator {
   max-width: $ws-validator-length;
@@ -551,6 +551,8 @@ $ws-validator-length: 350px;
   .ws-profile-banner {
     .edit-actions {
       text-align: center;
+      margin-top: 6px;
+      margin-bottom: 6px;
     }
     .main-area {
       flex-direction: column;
