@@ -263,7 +263,7 @@ module.exports.profileUpdate = (req, res) => {
   let desc = 'PUT /profile';
   console.log(desc, 'user', req.user);
   fetchUser(req.user).then(user => {
-    let updated = { ...user, ...req.user };
+    let updated = { ...user, ...req.body };
     console.log('updated user', updated);
     updateUser(updated).then(u => {
       res.status(http.codes.ok).send(u);
