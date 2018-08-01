@@ -2,7 +2,11 @@
   <div class="main-area" [ngClass]="{ 'edit-mode': editMode }">
     <app-word-icon class="ws-profile-banner-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
     <div *ngIf="!editMode" class="ws-profile-banner-details">
-      <h4>@{{profile?.username}}</h4>
+      <h4>@{{profile?.username}}
+        <div *ngIf="!editMode" class="ws-profile-banner-edit">
+          <button (click)="setEditMode(true)" class="btn btn-link"><i class="fa fa-edit"></i></button>
+        </div>
+      </h4>
       <p class="text-muted">Joined: {{ profile?.created | date: 'MMMM yyyy' }}</p>
     </div>
     <div *ngIf="editMode" class="ws-profile-banner-details">
@@ -10,11 +14,6 @@
       <div *ngIf="editMode" class="edit-actions">
         <button (click)="setEditMode(false)" class="btn btn-sm btn-link">Cancel</button>
         <button (click)="saveChanges()" class="btn btn-sm btn-wordshop" [ngClass]="{ disabled: !saveEnabled }">Save username</button>
-      </div>
-    </div>
-    <div class="ws-profile-banner-edit" [ngClass]="{ 'edit-mode': editMode }">
-      <div *ngIf="!editMode">
-        <button (click)="setEditMode(true)" class="btn btn-link"><i class="fa fa-edit"></i></button>
       </div>
     </div>
   </div>

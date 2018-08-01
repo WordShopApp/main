@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { WordIconService } from '../../services/word-icon/word-icon.service';
 import { AlertTypes } from '../alert/alert.component';
 import { MessengerService } from '../../services/messenger/messenger.service';
+import { AccountService } from '../../services/account/account.service';
+import { LoggerService } from '../../services/logger/logger.service';
+import { StoreService } from '../../services/store/store.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-profile-banner',
@@ -15,8 +19,15 @@ export class ProfileBannerComponent implements OnInit {
 
   editMode: boolean;
   saveEnabled: boolean;
+  newUsername: string;
 
-  constructor (private messengerService: MessengerService, private wordIconService: WordIconService) { }
+  constructor (
+    private accountService: AccountService,
+    private loggerService: LoggerService,
+    private messengerService: MessengerService,
+    private storeService: StoreService,
+    private wordIconService: WordIconService
+  ) { }
 
   ngOnInit() {
     this.setEditMode(false);
@@ -29,13 +40,20 @@ export class ProfileBannerComponent implements OnInit {
 
   saveChanges () {
     if (this.saveEnabled) {
-      console.log('saving changes...');
+      this.accountService.updateProfile({ username: this.newUsername }).then(updated => {
+        this.storeService.dispatch(Actions.Init.Profile, updated);
+        this.sendMessage(AlertTypes.Success, 'Success:', 'Username updated!');
+        this.setEditMode(false);
+      }).catch(err => {
+        this.loggerService.error(err);
+        this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
+      });
     }
   }
 
   validatorResults (res) {
     this.saveEnabled = res.valid;
-    console.log('validator results', res);
+    this.newUsername = res.username;
   }
 
   sendMessage(type, header, message) {

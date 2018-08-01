@@ -53,6 +53,10 @@ export class AccountService extends ApiService {
     return this.post(this.profileUrl(), userData);
   }
 
+  updateProfile (userData): Promise<any> {
+    return this.put(this.profileUrl(), userData);
+  }
+
   getProfile (): Promise<any> {
     return this.get(this.profileUrl());
   }

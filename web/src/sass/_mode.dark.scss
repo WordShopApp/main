@@ -55,14 +55,18 @@ body.dark {
     background-color: darken($ws-base-color, 25%);
     border: 1px solid darken($ws-base-color, 20%);
     &.is-valid {
-      color: #28a745;
-      border-color: #28a745;
-      background-color: lighten(#28a745, 30%);
+      color: #28a745!important;
+      border-color: #28a745!important;
     }
     &.is-invalid {
-      color: #dc3545;
-      border-color: #dc3545;
-      background-color: lighten(#dc3545, 25%);
+      color: #dc3545!important;
+      border-color: #dc3545!important;
+    }
+  }
+
+  .input-group-append, .input-group-prepend {
+    .input-group-text {
+      color: $ws-base-color;
     }
   }
 

@@ -50,6 +50,23 @@ function fetchUserByNameParams (name) {
   };
 }
 
+function updateUserParams (user) {
+  return {
+    TableName: 'ws_users',
+    Item: {
+      user_id: user.user_id,
+      username: user.username,
+      email: user.email,
+      subscription: user.subscription,
+      join_mailing_list: user.join_mailing_list,
+      new_user: user.new_user,
+      avatar: user.avatar,
+      created: user.created,
+      updated: genTimestamp()
+    }
+  };
+}
+
 function createUserParams (user) {
   return {
     TableName: 'ws_users',
@@ -104,6 +121,14 @@ function createItem (params) {
 function createUser (user) {
   return new Promise(function (resolve, reject) {
     createItem(createUserParams(user)).then(function (res) {
+      resolve(user);
+    }).catch(reject);
+  });
+}
+
+function updateUser (user) {
+  return new Promise(function (resolve, reject) {
+    saveItem(updateUserParams(user)).then(function (res) {
       resolve(user);
     }).catch(reject);
   });
@@ -229,6 +254,39 @@ module.exports.profileCreate = (req, res) => {
       });
     } else {
       console.log('POST /profile', 'internal_server_error', err);
+      res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
+    }
+  });
+};
+
+module.exports.profileUpdate = (req, res) => {
+  let desc = 'PUT /profile';
+  console.log(desc, 'user', req.user);
+  fetchUser(req.user).then(user => {
+    let updated = { ...user, ...req.user };
+    console.log('updated user', updated);
+    updateUser(updated).then(u => {
+      res.status(http.codes.ok).send(u);
+    }).catch(err => {
+      if (err.code === 'AccessDeniedException') {
+        console.log(desc, 'unauthorized', err);
+        res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
+      } else {
+        console.log(desc, 'internal_server_error', err);
+        res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
+      }
+    })
+  }).catch(err => {
+    if (err.code === 'AccessDeniedException') {
+      console.log('GET /profile', 'unauthorizied', err);
+      res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
+    } else if (err.code === 'ResourceNotFoundException') {
+      console.log('GET /profile', 'profile_does_not_exist', err);
+      res.status(http.codes.not_found).send({ 
+        message: 'profile_does_not_exist'
+      });
+    } else {
+      console.log('GET /profile', 'internal_server_error', err);
       res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
     }
   });
