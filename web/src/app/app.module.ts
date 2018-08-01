@@ -44,7 +44,7 @@ import { ProfileBannerComponent } from './components/profile-banner/profile-bann
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { ProjectWizardComponent } from './components/project-wizard/project-wizard.component';
 import { ProjectIndexComponent } from './components/project-index/project-index.component';
-import { UsernameValidatorComponent } from './components/username-validator/username-validator.component';
+import { UsernameSelectorComponent } from './components/username-selector/username-selector.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -70,7 +70,7 @@ import { CookieService } from 'ng2-cookies';
     ProjectListComponent,
     ProjectWizardComponent,
     ProjectIndexComponent,
-    UsernameValidatorComponent
+    UsernameSelectorComponent
   ],
   imports: [
     BrowserModule,

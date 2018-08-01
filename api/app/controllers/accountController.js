@@ -209,10 +209,42 @@ function formatNewUser (data) {
   }
 }
 
+function isAlphaNumericDashUnderscore (str) {
+  return str.match(/^[a-z0-9-_]+$/i) !== null;
+}
+
+function validateSpecialChars (username) {
+  let res = { valid: true, message: '' };
+  if (!isAlphaNumericDashUnderscore(username)) {
+    res.valid = false;
+    res.message = 'Username must contain only letters, numbers, dashes, or underscores';
+  }
+}
+
+const MIN_USERNAME_LENGTH = 5;
+function validateLength (username) {
+  let res = { valid: true, message: '' };
+  if (!username || (username && username.length < MIN_USERNAME_LENGTH)) {
+    res.valid = false;
+    res.message = `Username must contain at least ${MIN_USERNAME_LENGTH} characters`;
+  }
+}
+
 module.exports.usernameValidate = (req, res) => {
   let username = req.params.username;
   let desc = 'GET /profile/validate-username';
+  
   console.log(desc, username);
+
+  // 1) validate length
+  let vlen = validateLength(username);
+  if (!vlen.valid) return res.status(http.codes.ok).send(vlen);
+
+  // 2) validate special characters
+  let vchars = validateSpecialChars(username);
+  if (!vchars.valid) return res.status(http.codes.ok).send(vchars);
+
+  // 3) validate username already exists
   fetchUserByName(username).then(user => {
     console.log(desc, 'exists', username);
     res.status(http.codes.ok).send({ valid: false, message: 'Username already taken' });

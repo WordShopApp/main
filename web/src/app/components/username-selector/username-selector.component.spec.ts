@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsernameValidatorComponent } from './username-validator.component';
+import { UsernameSelectorComponent } from './username-selector.component';
 
-describe('UsernameValidatorComponent', () => {
-  let component: UsernameValidatorComponent;
-  let fixture: ComponentFixture<UsernameValidatorComponent>;
+describe('UsernameSelectorComponent', () => {
+  let component: UsernameSelectorComponent;
+  let fixture: ComponentFixture<UsernameSelectorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsernameValidatorComponent ]
+      declarations: [ UsernameSelectorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UsernameValidatorComponent);
+    fixture = TestBed.createComponent(UsernameSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
