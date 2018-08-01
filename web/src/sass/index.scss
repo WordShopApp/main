@@ -467,7 +467,8 @@ $switch-transition: .2s all !default;
   }
 }
 
-$ws-validator-length: 340px;
+$ws-validator-length: 350px;
+$ws-validator-length-sm: 320px;
 
 .ws-username-validator {
   max-width: $ws-validator-length;
@@ -480,7 +481,7 @@ $ws-validator-length: 340px;
   width: 100%;
   padding: 12px;
   .edit-actions {
-    text-align: left;
+    text-align: center;
     margin-top: 12px;
     width: $ws-validator-length;
   }
@@ -544,11 +545,16 @@ $ws-validator-length: 340px;
 }
 
 @media (max-width: $ws-phone-breakpoint) {
+  .ws-username-validator {
+    max-width: $ws-validator-length-sm;
+    width: $ws-validator-length-sm;
+  }
   .ws-profile-banner {
     .edit-actions {
       text-align: center;
       margin-top: 6px;
       margin-bottom: 6px;
+      width: $ws-validator-length-sm;
     }
     .main-area {
       flex-direction: column;
