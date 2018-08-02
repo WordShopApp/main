@@ -225,7 +225,7 @@ function validateSpecialChars (username) {
   let res = { valid: true, message: '' };
   if (!isAlphaNumericDashUnderscore(username)) {
     res.valid = false;
-    res.message = 'Username must contain only letters, numbers, dashes, or underscores';
+    res.message = 'Only letters, numbers, dashes, and underscores allowed';
   }
   return res;
 }
@@ -234,7 +234,7 @@ function validateLength (username) {
   let res = { valid: true, message: '' };
   if (!username || (username && username.length < MIN_USERNAME_LENGTH)) {
     res.valid = false;
-    res.message = `Username must contain at least ${MIN_USERNAME_LENGTH} characters`;
+    res.message = `Must contain at least ${MIN_USERNAME_LENGTH} characters`;
   }
   return res;
 }

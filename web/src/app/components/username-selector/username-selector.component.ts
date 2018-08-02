@@ -22,24 +22,24 @@ export class UsernameSelectorComponent implements OnInit {
   message: string;
   valid: boolean;
 
+  minLength = 4;
+
   constructor (
     private accountService: AccountService,
     private loggerService: LoggerService
   ) { }
 
   ngOnInit() {
-    this.inputChanged.pipe(debounceTime(1000)).subscribe(this.runValidation.bind(this));
+    this.inputChanged.pipe(debounceTime(500)).subscribe(this.runValidation.bind(this));
     this.valid = null;
   }
 
   validateUsername (name: string) {
-    this.usernameChanged.emit(name);
+    this.username = name;
     this.valid = null;
-    if (name && name.length > 4) {
-      this.inputChanged.next(name);
-    } else {
-      this.valid = null;
-    }
+    this.emitResults();
+    this.usernameChanged.emit(name);
+    this.inputChanged.next(name);
   }
 
   low (str) {
@@ -61,15 +61,16 @@ export class UsernameSelectorComponent implements OnInit {
   }
 
   runValidation (name) {
-
     this.saveResults(name, null, null);
     this.emitResults();
 
+    if (!name) return;
     if (this.low(name) === this.low(this.profile.username)) return;
 
     this.accountService.validateUsername(name).then(res => {
       this.valid = res.valid;
       this.message = res.message;
+      this.emitResults();
     }).catch(err => {
       this.loggerService.error(err);
     });
