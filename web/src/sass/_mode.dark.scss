@@ -62,10 +62,12 @@ body.dark {
     &.is-valid {
       color: #28a745!important;
       border-color: #28a745!important;
+      background-color: lighten(#28a745, 30%)!important;
     }
     &.is-invalid {
       color: #dc3545!important;
       border-color: #dc3545!important;
+      background-color: lighten(#dc3545, 25%)!important;
     }
   }
 

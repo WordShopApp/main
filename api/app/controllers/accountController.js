@@ -1,6 +1,8 @@
 const AWS = require('aws-sdk');
 const moment = require('moment');
 const shortid = require('shortid');
+const BadLanguageFilter = require('bad-language-filter');
+
 const http = require('../services/utils');
 
 const { IS_OFFLINE } = process.env;
@@ -217,6 +219,16 @@ function formatNewUser (data) {
   }
 }
 
+function validateBadWords (str) {
+  let res = { valid: true, message: '' };
+  let filter = new BadLanguageFilter();
+  if (filter.contains(str)) {
+    res.valid = false;
+    res.message = 'No offensive language allowed';
+  }
+  return res;
+}
+
 function isAlphaNumericDashUnderscore (str) {
   return str.match(/^[a-z0-9-_]+$/i) !== null;
 }
@@ -253,10 +265,19 @@ module.exports.usernameValidate = (req, res) => {
   let vchars = validateSpecialChars(username);
   if (!vchars.valid) return res.status(http.codes.ok).send(vchars);
 
-  // 3) validate username already exists
+  // 3) validate bad words
+  let vbad = validateBadWords(username);
+  if (!vbad.valid) return res.status(http.codes.ok).send(vbad);
+
+  // 4) validate username already exists
   fetchUserByName(username).then(user => {
-    console.log(desc, 'exists', username);
-    res.status(http.codes.ok).send({ valid: false, message: 'Username already taken' });
+    if (user.email === req.user) {
+      console.log(desc, 'wants to update own username', username);
+      res.status(http.codes.ok).send({ valid: true, message: 'This is you!' });
+    } else {
+      console.log(desc, 'exists', username);
+      res.status(http.codes.ok).send({ valid: false, message: 'Username already taken' });
+    }
   }).catch(err => {
     if (err.code === 'AccessDeniedException') {
       console.log(desc, 'unauthorized', err);

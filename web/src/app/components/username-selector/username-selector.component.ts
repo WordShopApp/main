@@ -65,7 +65,6 @@ export class UsernameSelectorComponent implements OnInit {
     this.emitResults();
 
     if (!name) return;
-    if (this.low(name) === this.low(this.profile.username)) return;
 
     this.accountService.validateUsername(name).then(res => {
       this.valid = res.valid;
