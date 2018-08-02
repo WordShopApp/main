@@ -222,8 +222,7 @@ function formatNewUser (data) {
 function validateBadWords (str) {
   let res = { valid: true, message: '' };
   let filter = new BadWordsFilter();
-  filter.removeWords('god');
-  if (filter.isProfaneLike(str)) {
+  if (filter.isProfane(str)) {
     res.valid = false;
     res.message = 'No offensive language allowed';
   }
