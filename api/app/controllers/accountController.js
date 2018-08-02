@@ -44,7 +44,7 @@ function fetchUserParams (email) {
 function fetchUserByNameParams (name) {
   return {
     TableName: 'ws_users',
-    IndexName: 'username-lookup-index',
+    IndexName: 'username_lookup-index',
     KeyConditionExpression: 'username_lookup = :usernamelookup',
     ExpressionAttributeValues: {
       ':usernamelookup': name.toLocaleLowerCase()
