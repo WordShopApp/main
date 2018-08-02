@@ -203,7 +203,7 @@ function createNewUser (user) {
 
 function formatNewUser (data) {
   let now = genTimestamp();
-  let username = genUserName(data.email, this.shortid());
+  let username = genUserName(data.email, shortid());
   return {
     username: username,
     username_lookup: username.toLocaleLowerCase(),
