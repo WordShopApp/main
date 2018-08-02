@@ -1,7 +1,6 @@
 const AWS = require('aws-sdk');
 const moment = require('moment');
 const shortid = require('shortid');
-const BadWordsFilter = require('bad-words');
 
 const http = require('../services/utils');
 
@@ -221,11 +220,6 @@ function formatNewUser (data) {
 
 function validateBadWords (str) {
   let res = { valid: true, message: '' };
-  let filter = new BadWordsFilter();
-  if (filter.isProfane(str)) {
-    res.valid = false;
-    res.message = 'No offensive language allowed';
-  }
   return res;
 }
 
