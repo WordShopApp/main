@@ -4,6 +4,8 @@ const shortid = require('shortid');
 const http = require('../services/utils');
 
 const { IS_OFFLINE } = process.env;
+const MIN_USERNAME_LENGTH = 5;
+const MAX_USERNAME_LENGTH = 15;
 
 function log (msg, obj) {
   console.log('WordShop API: ' + msg);
@@ -42,10 +44,10 @@ function fetchUserParams (email) {
 function fetchUserByNameParams (name) {
   return {
     TableName: 'ws_users',
-    IndexName: 'username-index',
-    KeyConditionExpression: 'username = :username',
+    IndexName: 'username-lookup-index',
+    KeyConditionExpression: 'usernameLookup = :usernamelookup',
     ExpressionAttributeValues: {
-      ':username': name
+      ':usernamelookup': name.toLocaleLowerCase()
     }
   };
 }
@@ -56,6 +58,7 @@ function updateUserParams (user) {
     Item: {
       user_id: user.user_id,
       username: user.username,
+      username_lookup: user.username_lookup,
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
@@ -73,6 +76,7 @@ function createUserParams (user) {
     Item: {
       user_id: user.user_id,
       username: user.username,
+      username_lookup: user.username_lookup,
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
@@ -176,10 +180,12 @@ function genUserId () {
   return shortid.generate();
 }
 
-function genUserName (email, timestamp) {
+function genUserName (email, shortId) {
   // https://stackoverflow.com/a/20864946
   let name = email.split('@')[0].replace(/[\W_]+/g,'');
-  return `${name}${timestamp}`;
+  let diff = MAX_USERNAME_LENGTH - shortId.length;
+  if (diff > 0) name = name.splice(0, diff);
+  return `${name}${shortId}`;
 }
 
 function createNewUser (user) {
@@ -197,8 +203,10 @@ function createNewUser (user) {
 
 function formatNewUser (data) {
   let now = genTimestamp();
+  let username = genUserName(data.email, this.shortid());
   return {
-    username: genUserName(data.email, now),
+    username: username,
+    username_lookup: username.toLocaleLowerCase(),
     email: data.email,
     avatar: data.avatar,
     subscription: data.subscription,
@@ -222,7 +230,6 @@ function validateSpecialChars (username) {
   return res;
 }
 
-const MIN_USERNAME_LENGTH = 5;
 function validateLength (username) {
   let res = { valid: true, message: '' };
   if (!username || (username && username.length < MIN_USERNAME_LENGTH)) {
@@ -298,6 +305,7 @@ module.exports.profileUpdate = (req, res) => {
   console.log(desc, 'user', req.user);
   fetchUser(req.user).then(user => {
     let updated = { ...user, ...req.body };
+    if (req.body.username) updated.username_lookup = req.body.username.toLocaleLowerCase();
     console.log('updated user', updated);
     updateUser(updated).then(u => {
       res.status(http.codes.ok).send(u);
