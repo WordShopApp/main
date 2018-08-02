@@ -63,6 +63,8 @@ function updateUserParams (user) {
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
+      project_in_progress: user.project_in_progress,
+      critique_in_progress: user.critique_in_progress,
       new_user: user.new_user,
       avatar: user.avatar,
       created: user.created,
@@ -82,6 +84,8 @@ function createUserParams (user) {
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
       new_user: true,
+      project_in_progress: user.project_in_progress,
+      critique_in_progress: user.critique_in_progress,
       avatar: user.avatar,
       created: user.created,
       updated: user.updated
@@ -213,6 +217,8 @@ function formatNewUser (data) {
     subscription: data.subscription,
     join_mailing_list: data.join_mailing_list,
     new_user: true,
+    project_in_progress: null,
+    critique_in_progress: null,
     created: now,
     updated: now
   }
@@ -223,15 +229,15 @@ function validateBadWords (str) {
   return res;
 }
 
-function isAlphaNumericDashUnderscore (str) {
-  return str.match(/^[a-z0-9-_]+$/i) !== null;
+function isAlphanumericDashUnderscorePeriod (str) {
+  return str.match(/^[a-z0-9-_.]+$/i) !== null;
 }
 
 function validateSpecialChars (username) {
   let res = { valid: true, message: '' };
-  if (!isAlphaNumericDashUnderscore(username)) {
+  if (!isAlphanumericDashUnderscorePeriod(username)) {
     res.valid = false;
-    res.message = 'Only letters, numbers, dashes, and underscores allowed';
+    res.message = 'Alphanumeric, underscore, dash, and period are allowed';
   }
   return res;
 }
@@ -251,17 +257,17 @@ module.exports.usernameValidate = (req, res) => {
 
   console.log(desc, username);
 
-  // 1) validate length
-  let vlen = validateLength(username);
-  if (!vlen.valid) return res.status(http.codes.ok).send(vlen);
-
-  // 2) validate special characters
+  // 1) validate special characters
   let vchars = validateSpecialChars(username);
   if (!vchars.valid) return res.status(http.codes.ok).send(vchars);
 
-  // 3) validate bad words
+  // 2) validate bad words
   let vbad = validateBadWords(username);
   if (!vbad.valid) return res.status(http.codes.ok).send(vbad);
+
+  // 3) validate length
+  let vlen = validateLength(username);
+  if (!vlen.valid) return res.status(http.codes.ok).send(vlen);
 
   // 4) validate username already exists
   fetchUserByName(username).then(user => {
