@@ -219,6 +219,7 @@ function validateSpecialChars (username) {
     res.valid = false;
     res.message = 'Username must contain only letters, numbers, dashes, or underscores';
   }
+  return res;
 }
 
 const MIN_USERNAME_LENGTH = 5;
@@ -228,12 +229,13 @@ function validateLength (username) {
     res.valid = false;
     res.message = `Username must contain at least ${MIN_USERNAME_LENGTH} characters`;
   }
+  return res;
 }
 
 module.exports.usernameValidate = (req, res) => {
   let username = req.params.username;
   let desc = 'GET /profile/validate-username';
-  
+
   console.log(desc, username);
 
   // 1) validate length

@@ -52,10 +52,13 @@ export class ProfileBannerComponent implements OnInit {
     }
   }
 
-  validatorResults (res) {
+  validationResults (res) {
     this.saveEnabled = res.valid;
     this.newUsername = res.username;
-    this.updateAvatarPalette(res.username);
+  }
+
+  usernameChanged (username) {
+    this.updateAvatarPalette(username);
   }
 
   sendMessage(type, header, message) {

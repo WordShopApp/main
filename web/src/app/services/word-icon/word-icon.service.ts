@@ -10,9 +10,19 @@ export class WordIconService {
   scheme = 'tetrade';
   paletteCount = 5;
 
+  grayPalette = {
+    primary: '#5F5F5E',
+    secondary: '#3A3A39',
+    tertiary: '#B4B6B6',
+    quaternary: '#FEFEFE',
+    quinary: '#4C4C4C'
+  };
+
+
   constructor() { }
 
   getPalette (hash: string): WordIconPalette {
+    if (!hash) return this.grayPalette;
 
     let hue = this.getHue(hash);
     let variation = this.getVariation(hash);
