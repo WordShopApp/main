@@ -184,7 +184,7 @@ function genUserName (email, shortId) {
   // https://stackoverflow.com/a/20864946
   let name = email.split('@')[0].replace(/[\W_]+/g,'');
   let diff = MAX_USERNAME_LENGTH - shortId.length;
-  if (diff > 0) name = name.splice(0, diff);
+  if (diff > 0) name = name.slice(0, diff);
   return `${name}${shortId}`;
 }
 
