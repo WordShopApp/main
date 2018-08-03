@@ -5,6 +5,7 @@ import { AccountService } from '../../services/account/account.service';
 import { NavService } from '../../services/nav/nav.service';
 import { StoreService } from '../../services/store/store.service';
 import { StoreProps as Props } from '../../services/store/store.props';
+import { WordIconService } from '../../services/word-icon/word-icon.service';
 
 @Component({
   selector: 'app-project-wizard',
@@ -15,33 +16,48 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   project: any;
   step: number;
+  palette: any;
 
   profile: any;
   profile$: Subscription;
 
   newProjectTemplate = [
     {
-      name: 'Title',
+      name: 'Enter the Title',
       complete: null,
       title: null,
-      multipart: false,
+    },
+    {
+      name: 'Is it Multipart?',
+      complete: null,
+      multipart: null,
       part_name: null
     },
     {
-      name: 'Text',
+      name: 'Enter the Text',
+      complete: null,
+      text: null
+    },
+    {
+      name: 'Enter the Context',
       complete: null,
       text: null,
       context: null
     },
     {
-      name: 'Categories',
+      name: 'Pick Categories',
       complete: null,
       categories: []
     },
     {
-      name: 'Critique',
+      name: 'Pick Questions',
       complete: null,
       questions: []
+    },
+    {
+      name: 'Who Can Access?',
+      complete: null,
+      private: null,
     },
     {
       name: 'Review',
@@ -53,10 +69,12 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   constructor (
     private accountService: AccountService,
     private navService: NavService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private wordIconService: WordIconService
   ) { }
 
   ngOnInit () {
+    this.updateProjectPalette(null);
     this.setupSubscriptions();
   }
 
@@ -102,6 +120,13 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     this.profile$.unsubscribe();
   }
 
+  private updateProjectPalette (hash) {
+    this.palette = this.wordIconService.getPalette(hash);
+  }
+
+  private titleChanged (title) {
+    this.updateProjectPalette(title);
+  }
 
 
 }

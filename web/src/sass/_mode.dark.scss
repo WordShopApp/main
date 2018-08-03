@@ -81,19 +81,6 @@ body.dark {
     color: $ws-base-color!important;
   }
 
-  .step-link {
-    color: $ws-base-color;
-    &:hover {
-      color: lighten($ws-base-color, 30%);
-    }
-    &.disable {
-      color: darken($ws-base-color, 10%);
-      &:hover {
-        color: darken($ws-base-color, 10%);
-      }
-    }
-  }
-
   .ws-form, .ws-panel {
     background-color: darken($ws-base-color, 30%);
     border-bottom: 2px solid darken($ws-base-color, 40%);
@@ -108,7 +95,7 @@ body.dark {
     }
   }
 
-  a, .btn-link, .step-link.active {
+  a, .btn-link {
     color: lighten($ws-base-color, 30%);
     &:hover {
       color: lighten($ws-base-color, 50%);
