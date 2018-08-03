@@ -5,4 +5,4 @@ npm install
 sudo npm install -g @angular/cli
 
 # build project
-ng build --prod
+ng build --prod --base-href /
