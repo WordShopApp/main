@@ -18,15 +18,51 @@
     <section *ngIf="step === 1">
       <div class="form-check">
           <input type="checkbox" class="form-check-input" id="mailingListCheckbox">
-          <label class="form-check-label text-muted" for="mailingListCheckbox">Check here if this a multipart project. That's a project with more than one section, like a book with chapters, or if your project is over the 5000 word limit and you need to break it up.</label>
+          <label class="form-check-label text-muted" for="mailingListCheckbox">Next we need to know if this is a multipart project. That's a project with more than one section, like a book with chapters, or if your project is over the 5000 word limit and you need to break it up.</label>
         </div>
         <br>
         <p>
-          Great! What should we call the first part? (optional)
+          What should we call the first part? <small>(Optional)</small>
         </p>
         <div class="form-group input-group">
           <input type="text" class="form-control" placeholder="Part One">
         </div>
+    </section>
+
+    <section *ngIf="step === 2">
+        <p>
+          Now we're cooking! Enter the text of your project below. Keep in mind there's a 5000 word limit. Anything over that will be truncated.
+        </p>
+    </section>
+
+    <section *ngIf="step === 3">
+        <p>
+          If you think readers will need some context to understand your work, enter that here. Please be brief.
+        </p>
+    </section>
+
+    <section *ngIf="step === 4">
+        <p>
+          In this step, tell us how to categorize your project. We'll start with a couple of easy questions.
+        </p>
+    </section>
+
+    <section *ngIf="step === 5">
+        <p>
+          When readers critique your project, it is good to provide them with questions to help focus their feedback. Please pick at least one question from the list, or you may write your own.
+        </p>
+    </section>
+
+    <section *ngIf="step === 6">
+        <p>
+          By default, projects are available to every registered user to read and critique. If you'd like to make your project private, check the box below.
+        </p>
+    </section>
+
+    <section *ngIf="step === 7">
+        <p>
+          You're done! Before clicking the <em>Finish</em> button, please review the details of your project and click any area to revise.
+        </p>
     </section>
 
     <hr>

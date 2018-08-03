@@ -572,6 +572,10 @@ $ws-validator-length-sm: 320px;
     }
   }
   .wizard-body {
+    h5 {
+      margin-left: 10px;
+      font-weight: normal;
+    }
     section {
       padding: 48px;
     }
