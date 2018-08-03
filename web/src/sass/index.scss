@@ -112,6 +112,30 @@ body {
   }
 }
 
+.btn-wordshop-gray {
+  color: #fff!important;
+  background-color: $ws-base-color;
+  border-color: $ws-base-color;
+  border-radius: $ws-default-radius-btn;
+  border-bottom: 2px solid darken($ws-base-color, 10%);
+  cursor: pointer;
+  &:hover {
+    background-color: lighten($ws-base-color, 5%);
+    border-color: lighten($ws-base-color, 5%);
+    border-bottom: 2px solid darken($ws-base-color, 10%);
+  }
+  &.active {
+    border-color: darken($ws-base-color, 10%);
+    background-color: darken($ws-base-color, 10%);
+  }
+  &.loading {
+    border-bottom: 2px solid $ws-base-color;
+    &:hover {
+      border-color: lighten($ws-base-color, 5%);
+    }
+  }
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -503,14 +527,14 @@ $ws-validator-length-sm: 320px;
 
       margin-left: 20px;
       flex-grow: 1;
-      h4, .input-group {
-        margin-bottom: 8px;
+      h4, .form-group {
+        margin-bottom: 0px;
       }
     }
     .ws-profile-banner-edit {
       display: inline-block;
       position: relative;
-      top: -2px;
+      top: -1px;
       button {
         opacity: 0.5;
         &:hover {
@@ -521,7 +545,45 @@ $ws-validator-length-sm: 320px;
   }
 }
 
+.ws-wizard-form {
+  width: 100%;
+  min-width: initial;
+  max-width: initial;
+  .ws-wizard-header {
+    span.step-link {
+      display: inline-block;
+      padding-left: 10px;
+      padding-right: 10px;
+      &.disable {
+        cursor: auto;
+      }
+    }
+  }
+  .wizard-body {
+    section {
+      padding: 48px;
+    }
+  }
+  .wizard-nav-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    button {
+      width: 25%;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+}
+
 @media (max-width: $ws-tablet-breakpoint) {
+  .ws-wizard-form {
+    .wizard-nav-buttons {
+      button {
+        width: 50%;
+      }
+    }
+  }
   .ws-profile-banner {
     flex-direction: column;
     align-items: center;
@@ -543,6 +605,7 @@ $ws-validator-length-sm: 320px;
     }
   }
 }
+
 
 @media (max-width: $ws-phone-breakpoint) {
   .ws-username-validator {
@@ -566,16 +629,19 @@ $ws-validator-length-sm: 320px;
         text-align: center;
         font-size: 14px;
         align-items: center;
+        h4 {
+          margin-left: 42px;
+        }
       }
       .ws-profile-banner-edit {
         text-align: right;
       }
     }
   }
+  .mobile-hide {
+    display: none!important;
+  }
 }
-
-
-
 
 @import 'mode.light';
 @import 'mode.dark';

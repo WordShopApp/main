@@ -1,1 +1,1 @@
-ng serve
+ng serve --base-href /

@@ -1,3 +1,44 @@
-<p>
-  project-wizard works!
-</p>
+<div class="card ws-form ws-wizard-form">
+  <h5 class="card-header ws-header ws-wizard-header">
+    <span>Project Wizard</span>
+    &nbsp;:&nbsp;
+    <span class="mobile-hide">
+      <span *ngFor="let s of project; let i = index" (click)="setCurrStep(s.complete !== null ? i : null)" class="clickable step-link" [ngClass]="{ active: i === step, disable: (i !== step && s.complete === null) }">
+        {{i + 1}}
+      </span>
+      &nbsp;:&nbsp;
+    </span>
+    <span>{{project[step].name}}</span>
+  </h5>
+  <div class="card-body wizard-body">
+
+    <section *ngIf="step === 0">
+      <p>
+        The first thing we need is a title, what's yours?
+      </p>
+      <div class="form-group input-group">
+        <input type="text" class="form-control" placeholder="Title">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="mailingListCheckbox">
+        <label class="form-check-label text-muted" for="mailingListCheckbox">Check here if this a multipart project. That's a project with more than one section, like a book with chapters.</label>
+      </div>
+      <br>
+      <p>
+        Great! What should we call the first part? (optional)
+      </p>
+      <div class="form-group input-group">
+        <input type="text" class="form-control" placeholder="Part One">
+      </div>
+    </section>
+
+
+
+    <hr>
+    <div class="wizard-nav-buttons">
+      <button *ngIf="step > 0" (click)="setCurrStep(step - 1)" class="btn btn-wordshop-gray">Back to {{project[step - 1].name}}</button>
+      <button *ngIf="step !== (project.length - 1)" (click)="setCurrStep(step + 1)" class="btn btn-wordshop">Next to {{project[step + 1].name}}</button>
+      <button *ngIf="step === (project.length - 1)" (click)="createProject()" class="btn btn-wordshop">Finish!</button>
+    </div>
+  </div>
+</div>

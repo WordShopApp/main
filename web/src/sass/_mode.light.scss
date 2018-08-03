@@ -61,7 +61,20 @@ body.light {
     }
   }
 
-  a, .btn-link {
+  .step-link {
+    color: $ws-base-color;
+    &:hover {
+      color: lighten($ws-base-color, 30%);
+    }
+    &.disable {
+      color: lighten($ws-base-color, 10%);
+      &:hover {
+        color: lighten($ws-base-color, 10%);
+      }
+    }
+  }
+
+  a, .btn-link, .step-link.active {
     color: darken($ws-base-color, 35%);
     &:hover {
       color: darken($ws-base-color, 10%);

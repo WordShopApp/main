@@ -57,8 +57,8 @@ export const AppRoutes: Routes  = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'projects/new', component: ProjectWizardComponent },
       { path: 'projects', component: ProjectIndexComponent },
-      { path: 'projects/new', component: ProjectWizardComponent }
     ]
   }
 
