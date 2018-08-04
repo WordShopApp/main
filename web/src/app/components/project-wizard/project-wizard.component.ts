@@ -40,8 +40,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     },
     {
       name: 'Context',
-      complete: null,
-      text: null,
+      complete: true,
       context: null
     },
     {
@@ -56,12 +55,12 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     },
     {
       name: 'Access',
-      complete: null,
+      complete: true,
       private: null,
     },
     {
       name: 'Review',
-      complete: null
+      complete: true
     }
   ];
 
@@ -140,6 +139,14 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     this.project[this.step].text = res.text;
     this.project[this.step].complete = 
       (res.word_count > 0 && res.word_count <= 5000) 
+      ? true 
+      : false;
+  }
+
+  private stepFour_contextChanged (res) {
+    this.project[this.step].context = res.text;
+    this.project[this.step].complete = 
+      (res.word_count > 0 && res.word_count <= 300) 
       ? true 
       : false;
   }

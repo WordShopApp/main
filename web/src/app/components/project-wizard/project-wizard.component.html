@@ -8,7 +8,10 @@
 
     <section *ngIf="step === 0">
       <p>
-        Welcome to the WordShop project wizard! We'll walk you through the steps to create your project. The information you enter will be saved after each step, so don't worry about losing your progress.
+        Welcome to the WordShop project wizard!
+      </p>
+      <p>
+        We'll walk you through the steps to create your project. Information you enter will be saved after each step, so don't worry about losing your progress.
       </p>
       <p>
         The first thing we need is a title. What's yours?
@@ -43,17 +46,20 @@
 
     <section *ngIf="step === 2">
         <p>
-          Here enter the text of your project. Keep in mind there's a 5000 word limit. Anything over that you'll need to break into a multipart (on the previous page).
+          Now enter the text of your project. Keep in mind there's a 5000 word limit. Anything over that you'll need to break into a multipart (previous page).
         </p>
         <div class="wizard-text-input">
-          <app-editor [showWordCount]="true" [text]="project[step].text" (textChanged)="stepThree_textChanged($event)"></app-editor>
+          <app-editor [showWordCount]="true" [maxWordCount]="5000" [text]="project[step].text" (textChanged)="stepThree_textChanged($event)"></app-editor>
         </div>
     </section>
 
     <section *ngIf="step === 3">
         <p>
-          If readers will need context to understand your project, enter it here. Please be brief.
+          If readers need some context to understand your project, enter that here. Please be brief.
         </p>
+        <div class="wizard-text-input">
+           <app-editor [showWordCount]="true" [maxWordCount]="300" [text]="project[step].context" (textChanged)="stepFour_contextChanged($event)"></app-editor>
+        </div>
     </section>
 
     <section *ngIf="step === 4">

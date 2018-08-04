@@ -8,10 +8,10 @@ import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angu
 export class EditorComponent implements OnInit, OnDestroy {
 
   wordCount: number;
-  maxCount = 5000;
 
   @Input() text: string;
   @Input() showWordCount: boolean;
+  @Input() maxWordCount: number;
 
   @Output() textChanged = new EventEmitter<any>();
 
