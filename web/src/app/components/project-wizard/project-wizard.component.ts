@@ -23,46 +23,45 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   newProjectTemplate = [
     {
-      name: 'Enter the Title',
+      name: 'Title',
       complete: null,
       title: null,
     },
     {
-      name: 'Is it Multipart?',
+      name: 'Multipart',
       complete: null,
       multipart: null,
       part_name: null
     },
     {
-      name: 'Enter the Text',
+      name: 'Text',
       complete: null,
       text: null
     },
     {
-      name: 'Enter the Context',
+      name: 'Context',
       complete: null,
       text: null,
       context: null
     },
     {
-      name: 'Pick Categories',
+      name: 'Categories',
       complete: null,
       categories: []
     },
     {
-      name: 'Pick Questions',
+      name: 'Questions',
       complete: null,
       questions: []
     },
     {
-      name: 'Who Can Access?',
+      name: 'Access',
       complete: null,
       private: null,
     },
     {
       name: 'Review',
-      complete: null,
-      private: null
+      complete: null
     }
   ];
 
@@ -99,10 +98,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   }
 
   private setCurrStep (step) {
-    if (step !== null) {
-      this.step = step;
-      this.project[step].complete = false;
-    }
+    if (step !== null) this.step = step;
   }
 
   private createProject () {
@@ -124,7 +120,9 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     this.palette = this.wordIconService.getPalette(hash);
   }
 
-  private titleChanged (title) {
+  private stepOne_titleChanged (title) {
+    this.project[this.step].title = title;
+    this.project[this.step].complete = (title && title.length > 0) ? true : false;
     this.updateProjectPalette(title);
   }
 
