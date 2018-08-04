@@ -4,6 +4,10 @@ body.light {
   background-color: lighten($ws-base-color, 35%);
   color: #212529;
 
+  pre {
+    color: #212529;
+  }
+
   .ws-panel {
     background-color: white;
   }
@@ -30,6 +34,17 @@ body.light {
   .ws-username-is-invalid {
     color: #dc3545!important;
     border-color: #dc3545!important;
+  }
+
+  .ws-editor {
+    .word-counter {
+      &.is-valid {
+        color: #28a745!important;
+      }
+      &.is-invalid {
+        color: #dc3545!important;
+      }
+    }
   }
 
   .input-group-text {
@@ -65,6 +80,14 @@ body.light {
     color: darken($ws-base-color, 35%);
     &:hover {
       color: darken($ws-base-color, 10%);
+    }
+  }
+
+  trix-editor {
+    color: #495057;
+    border: 1px solid #ced4da;
+    &:empty:not(:focus)::before {
+      color: lighten(#495057, 10%);
     }
   }
 }

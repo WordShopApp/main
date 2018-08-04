@@ -136,4 +136,12 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     this.project[this.step].part_name = name;
   }
 
+  private stepThree_textChanged (res) {
+    this.project[this.step].text = res.text;
+    this.project[this.step].complete = 
+      (res.word_count > 0 && res.word_count <= 5000) 
+      ? true 
+      : false;
+  }
+
 }

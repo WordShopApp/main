@@ -8,17 +8,24 @@ body.dark {
     border-top: 1px solid darken($ws-base-color, 20%);
   }
 
-  input {
+  input, trix-editor {
     background-color: darken($ws-base-color, 35%);
   }
 
-  input {
+  input, trix-editor {
     border: 1px solid darken($ws-base-color, 20%);
     color: lighten($ws-base-color, 30%);
     &:active, &:focus {
       color: lighten($ws-base-color, 30%);
       background-color: darken($ws-base-color, 35%);
     }
+    &:empty:not(:focus)::before {
+      color: $ws-base-color;
+    }
+  }
+
+  pre {
+    color: lighten($ws-base-color, 30%);
   }
 
   .btn-wordshop-tab {
@@ -53,6 +60,17 @@ body.dark {
   .ws-username-is-invalid {
     color: #dc3545!important;
     border-color: #dc3545!important;
+  }
+
+  .ws-editor {
+    .word-counter {
+      &.is-valid {
+        color: #28a745!important;
+      }
+      &.is-invalid {
+        color: #dc3545!important;
+      }
+    }
   }
 
   .input-group-text {

@@ -40,8 +40,11 @@
 
     <section *ngIf="step === 2">
         <p>
-          Now we're cookin! Enter the text of your project. Keep in mind there's a 5000 word limit. Anything over that will be truncated.
+          Now we're cookin! Enter the text of your project. Keep in mind there's a 5000 word limit. Anything over that you'll have to break into a multipart.
         </p>
+        <div class="wizard-text-input">
+          <app-editor [showWordCount]="true" [text]="project[step].text" (textChanged)="stepThree_textChanged($event)"></app-editor>
+        </div>
     </section>
 
     <section *ngIf="step === 3">

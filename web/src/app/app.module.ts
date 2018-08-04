@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -45,6 +45,7 @@ import { ProjectListComponent } from './components/project-list/project-list.com
 import { ProjectWizardComponent } from './components/project-wizard/project-wizard.component';
 import { ProjectIndexComponent } from './components/project-index/project-index.component';
 import { UsernameSelectorComponent } from './components/username-selector/username-selector.component';
+import { EditorComponent } from './components/editor/editor.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -70,7 +71,8 @@ import { CookieService } from 'ng2-cookies';
     ProjectListComponent,
     ProjectWizardComponent,
     ProjectIndexComponent,
-    UsernameSelectorComponent
+    UsernameSelectorComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +101,7 @@ import { CookieService } from 'ng2-cookies';
       useValue: '/'
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
