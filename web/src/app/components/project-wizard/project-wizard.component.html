@@ -8,7 +8,7 @@
 
     <section *ngIf="step === 0">
       <p>
-        Welcome to the project wizard!
+        Welcome to the Project Wizard!
       </p>
       <p>
         We'll walk you through the steps to create your project. Information you enter will be saved after each step, so don't worry about losing your progress.
@@ -45,8 +45,11 @@
     </section>
 
     <section *ngIf="step === 2">
-        <p>
-          Now enter the text of your project. Keep in mind there's a 5000 word limit. Anything over that you'll need to break into a multipart (previous page).
+        <p *ngIf="project[step - 1].multipart === false">
+          Now enter the text for your project. Keep in mind there's a 5000 word limit. Anything over that you'll need to break into a multipart (previous page).
+        </p>
+        <p *ngIf="project[step - 1].multipart === true">
+          Now enter the text for the first part of your project. You'll be able to add the other parts later. Keep in mind there's a 5000 word limit per part.
         </p>
         <div class="wizard-text-input">
           <app-editor [showWordCount]="true" [maxWordCount]="5000" [text]="project[step].text" (textChanged)="stepThree_textChanged($event)"></app-editor>
@@ -54,8 +57,11 @@
     </section>
 
     <section *ngIf="step === 3">
-        <p>
+        <p *ngIf="project[step - 2].multipart === false">
           If readers need some context to understand your project, enter that here. Please be brief.
+        </p>
+        <p *ngIf="project[step - 2].multipart === true">
+          If readers need some context to understand the first part of your project, enter that here. Please be brief.
         </p>
         <div class="wizard-text-input">
            <app-editor [showWordCount]="true" [maxWordCount]="300" [text]="project[step].context" (textChanged)="stepFour_contextChanged($event)"></app-editor>
