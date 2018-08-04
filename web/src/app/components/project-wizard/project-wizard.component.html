@@ -11,22 +11,31 @@
         The first thing we need is a title. What's yours?
       </p>
       <div class="form-group input-group">
-        <input (input)="stepOne_titleChanged($event.target.value)" [value]="project[step].title" type="text" class="form-control" placeholder="Title">
+        <input (input)="stepOne_titleChanged($event.target.value)" [value]="project[step].title" type="text" maxlength="50" class="form-control" placeholder="Title">
       </div>
     </section>
 
     <section *ngIf="step === 1">
-      <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="mailingListCheckbox">
-          <label class="form-check-label text-muted" for="mailingListCheckbox">Next we need to know if this is a multipart project. That's a project with more than one section, like a book with chapters, or if your project is over the 5000 word limit and you need to break it up.</label>
-        </div>
+      <p>
+        Next we need to know if this is a multipart project. That's a project with more than one section, like a book with chapters, or if your project is over the 5000 word limit and you need to break it up.
+      </p>
+      <div class="form-check form-check-inline">
+        <input (change)="stepTwo_multipartChanged($event.target.value)" class="form-check-input" type="radio" name="multipartRadioOptions" id="multipartRadio" [checked]="project[step].multipart === true" value="true">
+        <label class="form-check-label" for="multipartRadio">Multipart</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input (change)="stepTwo_multipartChanged($event.target.value)" class="form-check-input" type="radio" name="multipartRadioOptions" id="notmultipartRadio" [checked]="project[step].multipart === false" value="false">
+        <label class="form-check-label" for="notmultipartRadio">Not Multipart</label>
+      </div>
+      <div *ngIf="project[step].multipart === true">
         <br>
         <p>
           What should we call the first part? <small>(Optional)</small>
         </p>
         <div class="form-group input-group">
-          <input type="text" class="form-control" placeholder="Part One">
+          <input (input)="stepTwo_partNameChanged($event.target.value)" [value]="project[step].part_name" type="text" class="form-control" maxlength="50" placeholder="Part One">
         </div>
+      </div>
     </section>
 
     <section *ngIf="step === 2">

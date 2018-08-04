@@ -559,11 +559,14 @@ $ws-validator-length-sm: 320px;
   }
 }
 
+$ws-wizard-padding: 48px;
+$ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 .ws-wizard-form {
   width: 690px;
   min-width: 690px;
   max-width: 690px;
   margin: auto;
+  margin-bottom: 16px;
   .ws-wizard-header {
     display: flex;
     line-height: $wizard-logo-size;
@@ -573,11 +576,11 @@ $ws-validator-length-sm: 320px;
   }
   .wizard-body {
     h5 {
-      margin-left: 10px;
+      margin-left: $ws-wizard-padding-mobile;
       font-weight: normal;
     }
     section {
-      padding: 48px;
+      padding: $ws-wizard-padding;
     }
   }
   .wizard-nav-buttons {
@@ -630,7 +633,7 @@ $ws-validator-length-sm: 320px;
   .ws-wizard-form {
     .wizard-body {
       section {
-        padding: 24px;
+        padding: $ws-wizard-padding-mobile;
       }
     }
   }

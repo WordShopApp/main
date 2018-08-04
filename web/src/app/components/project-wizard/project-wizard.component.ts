@@ -126,5 +126,14 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     this.updateProjectPalette(title);
   }
 
+  private stepTwo_multipartChanged (isMultipart) {
+    this.project[this.step].multipart = (isMultipart === 'true') ? true : false;
+    if (!this.project[this.step].multipart) this.stepTwo_partNameChanged(null);
+    this.project[this.step].complete = true;
+  }
+
+  private stepTwo_partNameChanged (name) {
+    this.project[this.step].part_name = name;
+  }
 
 }
