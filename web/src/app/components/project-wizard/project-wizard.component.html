@@ -8,6 +8,9 @@
 
     <section *ngIf="step === 0">
       <p>
+        Welcome to the WordShop project wizard! We'll walk you through the steps to create your project. The information you enter will be saved after each step, so don't worry about losing your progress.
+      </p>
+      <p>
         The first thing we need is a title. What's yours?
       </p>
       <div class="form-group input-group">
@@ -40,7 +43,7 @@
 
     <section *ngIf="step === 2">
         <p>
-          Now we're cookin! Enter the text of your project. Keep in mind there's a 5000 word limit. Anything over that you'll have to break into a multipart.
+          Here enter the text of your project. Keep in mind there's a 5000 word limit. Anything over that you'll need to break into a multipart (on the previous page).
         </p>
         <div class="wizard-text-input">
           <app-editor [showWordCount]="true" [text]="project[step].text" (textChanged)="stepThree_textChanged($event)"></app-editor>
@@ -49,11 +52,14 @@
 
     <section *ngIf="step === 3">
         <p>
-          If you think readers will need some context to understand your project, enter it here. Please be brief.
+          If readers will need context to understand your project, enter it here. Please be brief.
         </p>
     </section>
 
     <section *ngIf="step === 4">
+        <p>
+          Halfway there, keep it up!
+        </p>
         <p>
           In this step, tell us how to categorize your project. We'll start with a couple of questions.
         </p>
@@ -61,19 +67,19 @@
 
     <section *ngIf="step === 5">
         <p>
-          When readers critique your project, it's good to provide them with questions to help focus their feedback. Pick at least one question from the list, or you may also write your own. Up to five.
+          When readers critique your project, it's good to provide them with questions to help focus their feedback. Pick at least one question from the list below, or you may also write your own. Up to five.
         </p>
     </section>
 
     <section *ngIf="step === 6">
         <p>
-          By default, projects are open to every registered user to read or critique. But if you'd like to make your project accessible by invitation only, check the box below.
+          By default, projects are open to every registered WordShop user. If you'd like to make your project accessible by invitation only, check the box to mark it private.
         </p>
     </section>
 
     <section *ngIf="step === 7">
         <p>
-          Done at last. But wait, before clicking the <em>Finish</em> button, please review the details of your project and click on any area that needs revision.
+          Done at last! But wait, before clicking on the <em>Finish</em> button, please review the details of your project and click on any area that needs revision.
         </p>
         <p>
           Good luck!
