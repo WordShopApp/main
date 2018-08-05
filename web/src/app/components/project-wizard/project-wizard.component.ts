@@ -152,7 +152,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   }
 
   private removeItem (arr, item) {
-    var index = arr.indexOf(item);
+    let index = arr.indexOf(item);
     if (index !== -1) arr.splice(index, 1);
   }
 
