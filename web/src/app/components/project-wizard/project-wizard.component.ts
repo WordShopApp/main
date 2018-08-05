@@ -151,4 +151,53 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       : false;
   }
 
+  private removeItem (arr, item) {
+    var index = arr.indexOf(item);
+    if (index !== -1) arr.splice(index, 1);
+  }
+
+  private stepFive_mainCategoryChanged (category) {
+    let categories = this.project[this.step].categories;
+    if (categories.indexOf(category) === -1) categories.push(category);
+    switch (category) {
+      case 'fiction':
+        this.removeItem(categories, 'non-fiction');
+        this.removeItem(categories, 'poetry');
+        break;
+      case 'non-fiction':
+      this.removeItem(categories, 'fiction');
+      this.removeItem(categories, 'poetry');
+        break;
+      case 'poetry':
+      this.removeItem(categories, 'fiction');
+      this.removeItem(categories, 'non-fiction');
+        break;
+      default:
+        break;
+    }
+    this.stepFive_checkComplete();
+  }
+
+  private stepFive_adultCategoryChanged (category) {
+    let categories = this.project[this.step].categories;
+    if (categories.indexOf(category) === -1) categories.push(category);
+    let itemToRemove = category === 'adult' ? 'non-adult' : 'adult';
+    this.removeItem(categories, itemToRemove);
+    this.stepFive_checkComplete();
+  }
+
+  private stepFive_checkComplete () {
+    let categories = this.project[this.step].categories;
+    let mainComplete = (
+      categories.indexOf('fiction') >= 0 || 
+      categories.indexOf('non-fiction') >= 0 || 
+      categories.indexOf('poetry') >= 0
+    );
+    let adultComplete = (
+      categories.indexOf('adult') >= 0 || 
+      categories.indexOf('non-adult') >= 0
+    );
+    this.project[this.step].complete = (mainComplete && adultComplete);
+  }
+
 }

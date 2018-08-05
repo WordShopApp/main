@@ -26,12 +26,12 @@
         Next we need to know if this is a multipart project. That's a project with more than one section, like a book with chapters, or if your project is over the 5000 word limit and you need to break it up.
       </p>
       <div class="form-check form-check-inline">
-        <input (change)="stepTwo_multipartChanged($event.target.value)" class="form-check-input" type="radio" name="multipartRadioOptions" id="multipartRadio" [checked]="project[step].multipart === true" value="true">
-        <label class="form-check-label" for="multipartRadio">Multipart</label>
+        <input (change)="stepTwo_multipartChanged($event.target.value)" class="form-check-input" type="radio" name="multipartRadioOptions" id="notmultipartRadio" [checked]="project[step].multipart === false" value="false">
+        <label class="form-check-label text-muted" for="notmultipartRadio">Not Multipart</label>
       </div>
       <div class="form-check form-check-inline">
-        <input (change)="stepTwo_multipartChanged($event.target.value)" class="form-check-input" type="radio" name="multipartRadioOptions" id="notmultipartRadio" [checked]="project[step].multipart === false" value="false">
-        <label class="form-check-label" for="notmultipartRadio">Not Multipart</label>
+        <input (change)="stepTwo_multipartChanged($event.target.value)" class="form-check-input" type="radio" name="multipartRadioOptions" id="multipartRadio" [checked]="project[step].multipart === true" value="true">
+        <label class="form-check-label text-muted" for="multipartRadio">Multipart</label>
       </div>
       <div *ngIf="project[step].multipart === true">
         <br>
@@ -71,10 +71,47 @@
     <section *ngIf="step === 4">
         <p>
           Halfway there, keep it up!
-        </p>
+        </p> 
         <p>
           In this step, tell us how to categorize your project. We'll start with a couple of questions.
         </p>
+        <p>
+          What overall category best describes your project?
+        </p>
+        <div class="form-container">
+          <div class="form-check form-check-inline">
+            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio1" [checked]="project[step].categories.indexOf('fiction') > -1" value="fiction">
+            <label class="form-check-label text-muted" for="mainRadio1">Fiction</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio2" [checked]="project[step].categories.indexOf('non-fiction') > -1" value="non-fiction">
+            <label class="form-check-label text-muted" for="mainRadio2">Non-fiction</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio3" [checked]="project[step].categories.indexOf('poetry') > -1" value="poetry">
+            <label class="form-check-label text-muted" for="mainRadio3">Poetry</label>
+          </div>
+        </div>
+        <div *ngIf="project[step].categories.indexOf('fiction') >= 0 || project[step].categories.indexOf('non-fiction') >= 0 || project[step].categories.indexOf('poetry') >= 0">
+          <p>
+            Does your project contain adult content?<br><small>(explicit violence or sex, unsuitable for children)</small>
+          </p>
+          <div class="form-container">
+            <div class="form-check">
+              <input (change)="stepFive_adultCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="adultRadioOptions" id="adultRadio2" [checked]="project[step].categories.indexOf('non-adult') > -1" value="non-adult">
+              <label class="form-check-label text-muted" for="adultRadio2">No adult content</label>
+            </div>
+            <div class="form-check">
+              <input (change)="stepFive_adultCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="adultRadioOptions" id="adultRadio1" [checked]="project[step].categories.indexOf('adult') > -1" value="adult">
+              <label class="form-check-label text-muted" for="adultRadio1">Yes, it contains adult content</label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="project[step].categories.indexOf('adult') >= 0 || project[step].categories.indexOf('non-adult') >= 0">
+          <p>
+            Now pick categories from the list that describe your project. As many as you like.
+          </p>
+        </div>
     </section>
 
     <section *ngIf="step === 5">

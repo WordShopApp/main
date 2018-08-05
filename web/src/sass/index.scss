@@ -616,6 +616,9 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
         overflow: auto;
       }
     }
+    .form-container {
+      margin-bottom: 1rem;
+    }
   }
   .wizard-nav-buttons {
     display: flex;
