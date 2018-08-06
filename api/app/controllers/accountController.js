@@ -229,15 +229,15 @@ function validateBadWords (str) {
   return res;
 }
 
-function isAlphanumericDashUnderscorePeriod (str) {
-  return str.match(/^[a-z0-9-_.]+$/i) !== null;
+function isAlphanumericUnderscore (str) {
+  return str.match(/^[a-z0-9_]+$/i) !== null;
 }
 
 function validateSpecialChars (username) {
   let res = { valid: true, message: '' };
-  if (!isAlphanumericDashUnderscorePeriod(username)) {
+  if (!isAlphanumericUnderscore(username)) {
     res.valid = false;
-    res.message = 'Alphanumeric, underscore, dash, and period are allowed';
+    res.message = 'Only alphanumeric and underscore characters are allowed';
   }
   return res;
 }

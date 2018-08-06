@@ -614,11 +614,12 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     }
     .wizard-text-input {
       trix-editor {
-        max-height: 250px;
+        max-height: 300px;
         overflow: auto;
       }
     }
     .form-container {
+      margin-left: 20px;
       margin-bottom: 1rem;
     }
   }
@@ -650,25 +651,27 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     padding: 0;
     border-radius: 0.25rem;
     li {
+      font-size: 0.95rem;
       &:hover {
         cursor: pointer;
       }
     }
-    li.horizontal {
-      display: inline-block;
-      margin-right: 15px;
-      margin-bottom: 15px;
-    }
   }
   .selected-list {
     li {
-      padding: 5px;
+      padding: 10px;
       border-radius: 0.25rem;
+      margin-bottom: 15px;
+      &.horizontal {
+        display: inline-block;
+        margin-right: 15px;
+      }
     }
   }
   .unselected-list {
     max-height: 300px;
     overflow: scroll;
+    margin-top: 10px;
     li {
       padding: 10px;
     }

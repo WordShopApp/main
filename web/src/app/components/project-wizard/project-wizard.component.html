@@ -13,6 +13,7 @@
       <p>
         We'll walk you through the steps to create your project. Information you enter will be saved after each step, so don't worry about losing your progress.
       </p>
+      <br>
       <p>
         The first thing we need is a title. What's yours?
       </p>
@@ -75,8 +76,9 @@
         <p>
           In this step, tell us how to categorize your project. We'll start with a couple of questions.
         </p>
+        <br>
         <p>
-          What best describes your project?
+          1. What best describes your project?
         </p>
         <div class="form-container">
           <div class="form-check form-check-inline">
@@ -93,8 +95,9 @@
           </div>
         </div>
         <div *ngIf="project[step].main_category">
+          <br>
           <p>
-            Does your project contain adult content?<br><small>(explicit violence or sex, unsuitable for children)</small>
+            2. Does your project contain adult content?<br><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(explicit violence or sex, unsuitable for children)</small>
           </p>
           <div class="form-container">
             <div class="form-check">
@@ -108,9 +111,11 @@
           </div>
         </div>
         <div *ngIf="project[step].adult_category">
+          <br>
           <p>
-            Now pick categories from the list that describe your project. As many as you like.
+            3. Finally, pick categories from the list that describe your project. As many as you like, but be accurate. The better categorized your project the easier it will be for interested readers to discover it.
           </p>
+          <br>
           <app-multi-select-list [orientation]="'horizontal'" [list]="categories[project[step].main_category]" [preselected]="project[step].categories" (changed)="stepFive_categoryListChanged($event)"></app-multi-select-list>
         </div>
     </section>
@@ -119,12 +124,18 @@
         <p>
           When readers critique your project, it's good to provide them with questions to help focus their feedback. Pick at least one question from the list below, or you may also write your own. Up to five.
         </p>
+        <br>
+        <app-multi-select-list [max]="5" [orientation]="'vertical'" [list]="questions[project[step - 1].main_category]" [preselected]="project[step].questions" (changed)="stepSix_questionListChanged($event)"></app-multi-select-list>
     </section>
 
     <section *ngIf="step === 6">
         <p>
           By default, projects are open to every registered user. If you'd like to make your project accessible by invitation only, check the box to mark it private.
         </p>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="privateCheckbox" (change)="stepSeven_privateChanged($event.target.checked)" [checked]="project[step].private">
+          <label class="form-check-label text-muted" for="privateCheckbox">Make this project private</label>
+        </div>
     </section>
 
     <section *ngIf="step === 7">

@@ -11,6 +11,7 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
   unselected = [];
 
   @Input() list: any;
+  @Input() max: number;
   @Input() preselected: any;
   @Input() orientation: string;
 
@@ -51,11 +52,17 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
     if (index !== -1) array.splice(index, 1);
   }
 
+  private addAllowed (): boolean {
+    return (!this.max || (this.max && this.max > this.selected.length)) ? true : false;
+  }
+
   private addToSelected (value) {
-    this.selected.push(value);
-    this.removeItem(this.unselected, value);
-    this.sortLists();
-    this.changed.emit(this.selected);
+    if (this.addAllowed()) {
+      this.selected.push(value);
+      this.removeItem(this.unselected, value);
+      this.sortLists();
+      this.changed.emit(this.selected);
+    }
   }
 
   private removeFromSelected (value) {
