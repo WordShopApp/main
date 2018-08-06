@@ -10,8 +10,11 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
   selected = [];
   unselected = [];
 
+  filtered = [];
+
   @Input() list: any;
   @Input() max: number;
+  @Input() mode: string;
   @Input() preselected: any;
   @Input() orientation: string;
 
@@ -38,10 +41,26 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
       if (selected) {
         this.unselected = list.filter(l => selected.indexOf(l.value) === -1);
         this.selected = list.filter(l => selected.indexOf(l.value) >= 0);
+        if (this.mode === 'custom') {
+          let lvalues = list.map(l => l.value);
+          for (let i = 0; i < selected.length; i += 1) {
+            let sitem = selected[i];
+            if (lvalues.indexOf(sitem) === -1) {
+              this.selected.push({
+                name: sitem,
+                value: sitem,
+                custom: true
+              });
+            }
+          }
+          this.selected.sort(this.nameSorter);
+        }
+        this.filtered = [];
         this.changed.emit(this.selected);
       } else {
         this.unselected = this.clone(list);
         this.selected = [];
+        this.filtered = [];
         this.changed.emit(this.selected);
       }
     }, 0);
@@ -66,7 +85,7 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
   }
 
   private removeFromSelected (value) {
-    this.unselected.push(value);
+    if (!value.custom) this.unselected.push(value);
     this.removeItem(this.selected, value);
     this.sortLists();
     this.changed.emit(this.selected);
@@ -87,6 +106,30 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
       return 1;
     }
     return 0;
+  }
+
+  private filterList (term) {
+    if (term) {
+      this.filtered = this.unselected
+        .filter(u => u.value.indexOf(term) === 0)
+        .map(f => f.value);
+    } else {
+      this.filtered = [];
+    }
+  }
+
+  private addCustomItem (customItemInput: HTMLInputElement) {
+    let customItem = customItemInput.value;
+    if (customItem && (this.selected.length < this.max)) {
+      this.selected.push({
+        name: customItem,
+        value: customItem,
+        custom: true
+      });
+      this.selected.sort(this.nameSorter);
+      customItemInput.value = null;
+      this.changed.emit(this.selected);
+    }
   }
 
 }

@@ -116,16 +116,16 @@
             3. Finally, pick categories from the list that describe your project. As many as you like, but be accurate. The better categorized your project the easier it will be for interested readers to discover it.
           </p>
           <br>
-          <app-multi-select-list [orientation]="'horizontal'" [list]="categories[project[step].main_category]" [preselected]="project[step].categories" (changed)="stepFive_categoryListChanged($event)"></app-multi-select-list>
+          <app-multi-select-list [mode]="'filter'" [orientation]="'horizontal'" [list]="categories[project[step].main_category]" [preselected]="project[step].categories" (changed)="stepFive_categoryListChanged($event)"></app-multi-select-list>
         </div>
     </section>
 
     <section *ngIf="step === 5">
         <p>
-          When readers critique your project, it's good to provide them with questions to help focus their feedback. Pick at least one question from the list below, or you may also write your own. Up to five.
+          When readers critique your project, it's good to provide them with questions to help focus their feedback. Pick at least one question from the list below, or you may also write your own. Up to seven.
         </p>
         <br>
-        <app-multi-select-list [max]="5" [orientation]="'vertical'" [list]="questions[project[step - 1].main_category]" [preselected]="project[step].questions" (changed)="stepSix_questionListChanged($event)"></app-multi-select-list>
+        <app-multi-select-list [mode]="'custom'" [max]="7" [orientation]="'vertical'" [list]="questions[project[step - 1].main_category]" [preselected]="project[step].questions" (changed)="stepSix_questionListChanged($event)"></app-multi-select-list>
     </section>
 
     <section *ngIf="step === 6">

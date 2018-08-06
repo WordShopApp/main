@@ -292,7 +292,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
         break;
       }
     }
-    return step;
+    return 4;
   }
 
   private setCurrStep (step) {

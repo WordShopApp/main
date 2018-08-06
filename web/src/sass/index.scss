@@ -669,6 +669,7 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     }
   }
   .unselected-list {
+    height: 300px;
     max-height: 300px;
     overflow: scroll;
     margin-top: 10px;

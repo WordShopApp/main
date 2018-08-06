@@ -3,7 +3,17 @@
     <li *ngFor="let s of selected" (click)="removeFromSelected(s)" [ngClass]="{ horizontal: orientation === 'horizontal' }">{{s.name}}</li>
   </ul>
   <br *ngIf="selected?.length > 0">
+
+  <input *ngIf="mode === 'filter'" (input)="filterList($event.target.value)" type="text" class="form-control" placeholder="Type to filter...">
+
+  <div *ngIf="mode === 'custom'" class="form-group input-group">
+    <input type="text" class="form-control" (keyup.enter)="addCustomItem(customItemInput)" #customItemInput placeholder="Write your own question...">
+    <div class="input-group-append clickable" (click)="addCustomItem(customItemInput)">
+      <span class="input-group-text text-muted"><i class="fa fa-plus" aria-hidden="true"></i></span>
+    </div>
+  </div>
+
   <ul class="unselected-list">
-    <li *ngFor="let u of unselected" (click)="addToSelected(u)">{{u.name}}</li>
+    <li *ngFor="let u of unselected" (click)="addToSelected(u)" [ngClass]="{ hide: (filtered.length && filtered.indexOf(u.value) === -1) }">{{u.name}}</li>
   </ul>
 </div>
