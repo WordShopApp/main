@@ -90,4 +90,28 @@ body.light {
       color: lighten(#495057, 10%);
     }
   }
+
+  .ws-multi-select-list-container {
+    .selected-list {
+      li {
+        background-color: lighten($ws-base-color, 35%);
+        &:hover {
+          background-color: #A22A23;
+          color: white;
+        }
+      }
+    }
+    .unselected-list {
+      border: 1px solid #ced4da;
+      li {
+        &:nth-child(even) {
+          background-color: lighten($ws-base-color, 35%);
+        }
+        &:hover {
+          background-color: $ws-highlight-color;
+          color: white;
+        }
+      }
+    }
+  }
 }

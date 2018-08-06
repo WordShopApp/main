@@ -76,41 +76,42 @@
           In this step, tell us how to categorize your project. We'll start with a couple of questions.
         </p>
         <p>
-          What overall category best describes your project?
+          What best describes your project?
         </p>
         <div class="form-container">
           <div class="form-check form-check-inline">
-            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio1" [checked]="project[step].categories.indexOf('fiction') > -1" value="fiction">
+            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio1" [checked]="project[step].main_category === 'fiction'" value="fiction">
             <label class="form-check-label text-muted" for="mainRadio1">Fiction</label>
           </div>
           <div class="form-check form-check-inline">
-            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio2" [checked]="project[step].categories.indexOf('non-fiction') > -1" value="non-fiction">
+            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio2" [checked]="project[step].main_category === 'non-fiction'" value="non-fiction">
             <label class="form-check-label text-muted" for="mainRadio2">Non-fiction</label>
           </div>
           <div class="form-check form-check-inline">
-            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio3" [checked]="project[step].categories.indexOf('poetry') > -1" value="poetry">
+            <input (change)="stepFive_mainCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="mainRadioOptions" id="mainRadio3" [checked]="project[step].main_category === 'poetry'" value="poetry">
             <label class="form-check-label text-muted" for="mainRadio3">Poetry</label>
           </div>
         </div>
-        <div *ngIf="project[step].categories.indexOf('fiction') >= 0 || project[step].categories.indexOf('non-fiction') >= 0 || project[step].categories.indexOf('poetry') >= 0">
+        <div *ngIf="project[step].main_category">
           <p>
             Does your project contain adult content?<br><small>(explicit violence or sex, unsuitable for children)</small>
           </p>
           <div class="form-container">
             <div class="form-check">
-              <input (change)="stepFive_adultCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="adultRadioOptions" id="adultRadio2" [checked]="project[step].categories.indexOf('non-adult') > -1" value="non-adult">
+              <input (change)="stepFive_adultCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="adultRadioOptions" id="adultRadio2" [checked]="project[step].adult_category === 'non-adult'" value="non-adult">
               <label class="form-check-label text-muted" for="adultRadio2">No adult content</label>
             </div>
             <div class="form-check">
-              <input (change)="stepFive_adultCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="adultRadioOptions" id="adultRadio1" [checked]="project[step].categories.indexOf('adult') > -1" value="adult">
+              <input (change)="stepFive_adultCategoryChanged($event.target.value)" class="form-check-input" type="radio" name="adultRadioOptions" id="adultRadio1" [checked]="project[step].adult_category === 'adult'" value="adult">
               <label class="form-check-label text-muted" for="adultRadio1">Yes, it contains adult content</label>
             </div>
           </div>
         </div>
-        <div *ngIf="project[step].categories.indexOf('adult') >= 0 || project[step].categories.indexOf('non-adult') >= 0">
+        <div *ngIf="project[step].adult_category">
           <p>
             Now pick categories from the list that describe your project. As many as you like.
           </p>
+          <app-multi-select-list [orientation]="'horizontal'" [list]="categories[project[step].main_category]" [preselected]="project[step].categories" (changed)="stepFive_categoryListChanged($event)"></app-multi-select-list>
         </div>
     </section>
 

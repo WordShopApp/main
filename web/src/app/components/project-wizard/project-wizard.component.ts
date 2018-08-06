@@ -46,6 +46,8 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     {
       name: 'Categories',
       complete: null,
+      main_category: null,
+      adult_category: null,
       categories: []
     },
     {
@@ -63,6 +65,91 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       complete: true
     }
   ];
+
+  categories = {
+    'fiction': [
+      { name: 'Adventure', value: 'adventure' },
+      { name: 'Children', value: 'children' },
+      { name: 'Comedy', value: 'comedy' },
+      { name: 'Crime', value: 'crime' },
+      { name: 'Drama', value: 'drama' },
+      { name: 'Erotica', value: 'erotica' },
+      { name: 'Existential', value: 'existential' },
+      { name: 'Fan Fiction', value: 'fan-fiction' },
+      { name: 'Fantasy', value: 'fantasy' },
+      { name: 'Feminist', value: 'feminist' },
+      { name: 'History', value: 'history' },
+      { name: 'Horror', value: 'horror' },
+      { name: 'LGBTQ', value: 'lgbtq' },
+      { name: 'Magical Realism', value: 'magical-realism' },
+      { name: 'Minority', value: 'minority' },
+      { name: 'Mystery', value: 'mystery' },
+      { name: 'Myth and Folklore', value: 'myth-and-folklore' },
+      { name: 'Music', value: 'music' },
+      { name: 'Mythopoeia', value: 'mythopoeia' },
+      { name: 'Noir', value: 'noir' },
+      { name: 'Pastoral', value: 'pastoral' },
+      { name: 'Philosophy', value: 'philosphy' },
+      { name: 'Political', value: 'political' },
+      { name: 'Psychedelic', value: 'psychedelic' },
+      { name: 'Religious', value: 'religious' },
+      { name: 'Romance', value: 'romance' },
+      { name: 'Rural', value: 'rural' },
+      { name: 'Science Fiction', value: 'science-fiction' },
+      { name: 'Spiritual', value: 'spiritual' },
+      { name: 'Southern', value: 'southern' },
+      { name: 'Surreal', value: 'surreal' },
+      { name: 'Tall Tale', value: 'tall-tale' },
+      { name: 'Technology', value: 'technology' },
+      { name: 'Thriller', value: 'thriller' },
+      { name: 'Tragedy', value: 'tragedy' },
+      { name: 'Urban', value: 'urban' },
+      { name: 'Weird', value: 'weird' }
+    ],
+    'non-fiction': [
+      { name: 'Analysis', value: 'analysis' },
+      { name: 'Art', value: 'art' },
+      { name: 'Biography', value: 'biography' },
+      { name: 'Blog', value: 'blog' },
+      { name: 'Conservative', value: 'conservative' },
+      { name: 'Critique', value: 'critique' },
+      { name: 'Earth', value: 'earth' },
+      { name: 'Education', value: 'education' },
+      { name: 'Essay', value: 'essay' },
+      { name: 'Feminist', value: 'feminist' },
+      { name: 'Gaming', value: 'gaming' },
+      { name: 'Guide', value: 'guide' },
+      { name: 'History', value: 'history' },
+      { name: 'Humor', value: 'humor' },
+      { name: 'Journal', value: 'journal' },
+      { name: 'LGBTQ', value: 'lgbtq' },
+      { name: 'Liberal', value: 'liberal' },
+      { name: 'Media', value: 'media' },
+      { name: 'Memoir', value: 'memoir' },
+      { name: 'Minority', value: 'minority' },
+      { name: 'Music', value: 'music' },
+      { name: 'Parenting', value: 'parenting' },
+      { name: 'Philosophy', value: 'philosophy' },
+      { name: 'Political', value: 'political' },
+      { name: 'Recipe', value: 'recipe' },
+      { name: 'Religious', value: 'religious' },
+      { name: 'Review', value: 'review' },
+      { name: 'Science', value: 'science' },
+      { name: 'Space', value: 'space' },
+      { name: 'Spiritual', value: 'spiritual' },
+      { name: 'Technology', value: 'technology' }
+    ],
+    'poetry': [
+      { name: 'Epic', value: 'epic' },
+      { name: 'Free Verse', value: 'free-verse' },
+      { name: 'Haiku', value: 'haiku' },
+      { name: 'Narrative', value: 'narrative' },
+      { name: 'Nonsense', value: 'nonsense' },
+      { name: 'Rhyming', value: 'rhyming' },
+      { name: 'Song', value: 'song' },
+      { name: 'Spoken Word', value: 'spoken-word' }
+    ]
+  };
 
   constructor (
     private accountService: AccountService,
@@ -93,7 +180,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
         break;
       }
     }
-    return step;
+    return 4;
   }
 
   private setCurrStep (step) {
@@ -157,46 +244,22 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   }
 
   private stepFive_mainCategoryChanged (category) {
-    let categories = this.project[this.step].categories;
-    if (categories.indexOf(category) === -1) categories.push(category);
-    switch (category) {
-      case 'fiction':
-        this.removeItem(categories, 'non-fiction');
-        this.removeItem(categories, 'poetry');
-        break;
-      case 'non-fiction':
-      this.removeItem(categories, 'fiction');
-      this.removeItem(categories, 'poetry');
-        break;
-      case 'poetry':
-      this.removeItem(categories, 'fiction');
-      this.removeItem(categories, 'non-fiction');
-        break;
-      default:
-        break;
-    }
+    this.project[this.step].main_category = category;
     this.stepFive_checkComplete();
   }
 
   private stepFive_adultCategoryChanged (category) {
-    let categories = this.project[this.step].categories;
-    if (categories.indexOf(category) === -1) categories.push(category);
-    let itemToRemove = category === 'adult' ? 'non-adult' : 'adult';
-    this.removeItem(categories, itemToRemove);
+    this.project[this.step].adult_category = category;
     this.stepFive_checkComplete();
   }
 
+  private stepFive_categoryListChanged (list) {
+    this.project[this.step].categories = list.map(i => i.value);
+  }
+
   private stepFive_checkComplete () {
-    let categories = this.project[this.step].categories;
-    let mainComplete = (
-      categories.indexOf('fiction') >= 0 || 
-      categories.indexOf('non-fiction') >= 0 || 
-      categories.indexOf('poetry') >= 0
-    );
-    let adultComplete = (
-      categories.indexOf('adult') >= 0 || 
-      categories.indexOf('non-adult') >= 0
-    );
+    let mainComplete = this.project[this.step].main_category ? true : false;
+    let adultComplete = this.project[this.step].adult_category ? true : false;
     this.project[this.step].complete = (mainComplete && adultComplete);
   }
 

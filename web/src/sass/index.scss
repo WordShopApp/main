@@ -297,8 +297,10 @@ $custom-control-indicator-bg: #dee2e6;
 $custom-control-indicator-disabled-bg: #e9ecef;
 $custom-control-description-disabled-color: #868e96;
 $white: white;
+
 $theme-colors: (
-  'primary': #08d
+  /* 'primary': #08d */
+  'primary': $ws-highlight-color
 );
 
 //
@@ -638,6 +640,38 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     padding-right: 5px;
     display: inline-block;
     text-align: right;
+  }
+}
+
+.ws-multi-select-list-container {
+  .selected-list, .unselected-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 0.25rem;
+    li {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    li.horizontal {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+  }
+  .selected-list {
+    li {
+      padding: 5px;
+      border-radius: 0.25rem;
+    }
+  }
+  .unselected-list {
+    max-height: 300px;
+    overflow: scroll;
+    li {
+      padding: 10px;
+    }
   }
 }
 

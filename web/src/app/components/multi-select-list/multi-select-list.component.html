@@ -1,0 +1,9 @@
+<div class="ws-multi-select-list-container">
+  <ul class="selected-list">
+    <li *ngFor="let s of selected" (click)="removeFromSelected(s)" [ngClass]="{ horizontal: orientation === 'horizontal' }">{{s.name}}</li>
+  </ul>
+  <br>
+  <ul class="unselected-list">
+    <li *ngFor="let u of unselected" (click)="addToSelected(u)">{{u.name}}</li>
+  </ul>
+</div>

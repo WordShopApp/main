@@ -119,4 +119,30 @@ body.dark {
       color: lighten($ws-base-color, 50%);
     }
   }
+
+  .ws-multi-select-list-container {
+    .selected-list {
+      li {
+        background-color: darken($ws-base-color, 20%);
+        &:hover {
+          background-color: #A22A23;
+        }
+      }
+    }
+    .unselected-list {
+      color: lighten($ws-base-color, 30%);
+      border: 1px solid darken($ws-base-color, 20%);
+      li {
+        &:nth-child(even) {
+          background-color: darken($ws-base-color, 35%);
+        }
+        &:hover {
+          background-color: $ws-highlight-color;
+        }
+      }
+    }
+  }
+  
 }
+
+
