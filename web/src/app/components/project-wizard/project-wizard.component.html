@@ -163,7 +163,7 @@
           </tr>
           <tr (click)="setCurrStep(2)">
             <td scope="row" class="text-muted name">Text</td>
-            <td>{{stripHtml(project[2].text.slice(0, 100))}}...</td>
+            <td>({{project[2].word_count}}) {{stripHtml(project[2].text.slice(0, 100))}}...</td>
           </tr>
           <tr (click)="setCurrStep(3)">
             <td scope="row" class="text-muted name">Context</td>

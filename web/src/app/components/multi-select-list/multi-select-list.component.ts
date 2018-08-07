@@ -111,7 +111,7 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
   private filterList (term) {
     if (term) {
       this.filtered = this.unselected
-        .filter(u => u.value.indexOf(term) === 0)
+        .filter(u => u.value.indexOf(term.toLowerCase()) === 0)
         .map(f => f.value);
     } else {
       this.filtered = [];

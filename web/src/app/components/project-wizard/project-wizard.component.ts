@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import * as he from 'he';
 
 import { AccountService } from '../../services/account/account.service';
 import { LoggerService } from '../../services/logger/logger.service';
@@ -39,7 +40,8 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     {
       name: 'Text',
       complete: null,
-      text: null
+      text: null,
+      word_count: null
     },
     {
       name: 'Context',
@@ -72,8 +74,11 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   categories = {
     'fiction': [
+      { name: 'Abuse', value: 'abuse' },
+      { name: 'Addiction', value: 'addiction' },
       { name: 'Adventure', value: 'adventure' },
       { name: 'African', value: 'african' },
+      { name: 'Alcohol', value: 'alcohol' },
       { name: 'Allegory', value: 'allegory' },
       { name: 'Anarchy', value: 'anarchy' },
       { name: 'Animals', value: 'animals' },
@@ -81,10 +86,13 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Artificial Intelligence', value: 'ai' },
       { name: 'Artist', value: 'artist' },
       { name: 'Asian', value: 'asian' },
+      { name: 'Assasination', value: 'assasination' },
       { name: 'Autumn', value: 'autumn' },
       { name: 'Avant Garde', value: 'avant-garde' },
       { name: 'Bildungsroman', value: 'bildungsroman' },
       { name: 'Black', value: 'black' },
+      { name: 'Celebration', value: 'celebration' },
+      { name: 'Chamber Drama', value: 'chamber-drama' },
       { name: 'Children', value: 'children' },
       { name: 'College', value: 'college' },
       { name: 'Comedy', value: 'comedy' },
@@ -96,13 +104,16 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Cozy', value: 'cozy' },
       { name: 'Crime', value: 'crime' },
       { name: 'Cult', value: 'cult' },
+      { name: 'Dance', value: 'dance' },
       { name: 'Dark', value: 'dark' },
       { name: 'Death', value: 'death' },
       { name: 'Desert', value: 'desert' },
       { name: 'Detective', value: 'detective' },
       { name: 'Disturbing', value: 'disturbing' },
+      { name: 'Divorce', value: 'divorce' },
       { name: 'Drama', value: 'drama' },
       { name: 'Drugs', value: 'drugs' },
+      { name: 'Elderly', value: 'elderly' },
       { name: 'Entertainment', value: 'entertainment' },
       { name: 'Entreprenuer', value: 'entreprenuer' },
       { name: 'Erotica', value: 'erotica' },
@@ -113,6 +124,9 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Exploration', value: 'exploration' },
       { name: 'Family', value: 'family' },
       { name: 'Fan Fiction', value: 'fan-fiction' },
+      { name: 'Father', value: 'father' },
+      { name: 'Fatherhood', value: 'fatherhood' },
+      { name: 'Fear', value: 'fear' },
       { name: 'Feel-good', value: 'feel-good' },
       { name: 'Food', value: 'food' },
       { name: 'Fun', value: 'fun' },
@@ -121,27 +135,37 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Feminist', value: 'feminist' },
       { name: 'Fish Out of Water', value: 'fish-out-of-water' },
       { name: 'Flash Fiction', value: 'flash-fiction' },
+      { name: 'Forbidden Love', value: 'forbidden-love' },
       { name: 'Forest', value: 'forest' },
       { name: 'Friendship', value: 'friendship' },
       { name: 'Gang', value: 'gang' },
+      { name: 'Ghost', value: 'ghost' },
       { name: 'Government', value: 'government' },
+      { name: 'Greed', value: 'greed' },
       { name: 'Guns', value: 'guns' },
       { name: 'Heist', value: 'heist' },
       { name: 'Hero\'s Journey', value: 'heros-journey' },
       { name: 'High School', value: 'high-school' },
       { name: 'History', value: 'history' },
       { name: 'Home', value: 'home' },
+      { name: 'Homeless', value: 'homeless' },
       { name: 'Homosexuality', value: 'homosexuality' },
       { name: 'Horror', value: 'horror' },
       { name: 'Industry', value: 'industry' },
       { name: 'Inequality', value: 'inequality' },
+      { name: 'Infidelity', value: 'infedelity' },
       { name: 'Internet', value: 'internet' },
+      { name: 'Invention', value: 'invention' },
+      { name: 'Isolation', value: 'isolation' },
+      { name: 'Job', value: 'job' },
+      { name: 'Joke', value: 'joke' },
       { name: 'Lake', value: 'lake' },
       { name: 'Latino', value: 'latino' },
       { name: 'Legal', value: 'legal' },
       { name: 'LGBTQ', value: 'lgbtq' },
       { name: 'Light-hearted', value: 'light-hearted' },
       { name: 'Literary', value: 'literary' },
+      { name: 'Loneliness', value: 'loneliness' },
       { name: 'Love', value: 'love' },
       { name: 'Love Triangle', value: 'love-triangle' },
       { name: 'Mafia', value: 'mafia' },
@@ -151,8 +175,13 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Medical', value: 'medical' },
       { name: 'Melancholy', value: 'melancholy' },
       { name: 'Memory', value: 'memory' },
+      { name: 'Midlife Crisis', value: 'midlife-crisis' },
       { name: 'Minority', value: 'minority' },
+      { name: 'Mother', value: 'mother' },
+      { name: 'Motherhood', value: 'motherhood' },
+      { name: 'Money', value: 'money' },
       { name: 'Monster', value: 'monster' },
+      { name: 'Morality', value: 'morality' },
       { name: 'Mountains', value: 'mountains' },
       { name: 'Movies', value: 'movies' },
       { name: 'Murder', value: 'murder' },
@@ -165,17 +194,23 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Nostalgic', value: 'nostalgic' },
       { name: 'Ocean', value: 'ocean' },
       { name: 'Oppression', value: 'oppression' },
+      { name: 'Paradox', value: 'paradox' },
       { name: 'Parenthood', value: 'parenthood' },
+      { name: 'Party', value: 'party' },
       { name: 'Pastoral', value: 'pastoral' },
       { name: 'Philosophy', value: 'philosphy' },
       { name: 'Play', value: 'play' },
       { name: 'Police', value: 'police' },
       { name: 'Political', value: 'political' },
+      { name: 'Pornography', value: 'pornography' },
       { name: 'Power', value: 'power' },
       { name: 'Poverty', value: 'poverty' },
+      { name: 'Pride', value: 'pride' },
       { name: 'Prison', value: 'prison' },
+      { name: 'Prostitution', value: 'prostitution' },
       { name: 'Psychedelic', value: 'psychedelic' },
       { name: 'Race', value: 'race' },
+      { name: 'Regret', value: 'regret' },
       { name: 'Religious', value: 'religious' },
       { name: 'Revenge', value: 'revenge' },
       { name: 'River', value: 'river' },
@@ -190,6 +225,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Science Fiction', value: 'science-fiction' },
       { name: 'Sexuality', value: 'sexuality' },
       { name: 'Sickness', value: 'sickness' },
+      { name: 'Silly', value: 'silly' },
       { name: 'Small Town', value: 'small-town' },
       { name: 'Spiritual', value: 'spiritual' },
       { name: 'Sports', value: 'sports' },
@@ -210,15 +246,18 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Thriller', value: 'thriller' },
       { name: 'Tragedy', value: 'tragedy' },
       { name: 'Transgression', value: 'transgression' },
+      { name: 'Treachery', value: 'treachery' },
       { name: 'Twist', value: 'twist' },
       { name: 'Urban', value: 'urban' },
       { name: 'Violence', value: 'violence' },
       { name: 'War', value: 'war' },
       { name: 'Wealth', value: 'wealth' },
       { name: 'Web', value: 'web' },
+      { name: 'Wedding', value: 'wedding' },
       { name: 'Weird', value: 'weird' },
       { name: 'Western', value: 'western' },
       { name: 'Whimsical', value: 'whimsical' },
+      { name: 'Whodunit', value: 'whodunit' },
       { name: 'Winter', value: 'winter' },
       { name: 'Witty', value: 'witty' },
       { name: 'Workplace', value: 'workplace' }
@@ -329,7 +368,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   }
 
   private stripHtml (html) {
-    return html.replace(/<[^>]+>/g, '');
+    return he.decode(html.replace(/<[^>]+>/g, ''));
   }
 
   private projectTitle () {
@@ -339,7 +378,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   private setupProject () {
     this.project = this.profile.project_in_progress || this.newProjectTemplate;
     if (this.profile.project_in_progress) {
-      this.setCurrStep(-1);
+      this.setCurrStep(-1, true);
       this.updateProjectPalette(this.projectTitle());
     } else {
       this.setCurrStep(this.getCurrStep(this.project));
@@ -363,11 +402,11 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     return step;
   }
 
-  private setCurrStep (step) {
+  private setCurrStep (step, skipSave = null) {
     if (step !== null) {
       this.step = step;
       window.scroll(0, 0);
-      this.saveProjectInProgress();
+      if (!skipSave) this.saveProjectInProgress();
     }
   }
 
@@ -408,6 +447,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   private stepThree_textChanged (res) {
     this.project[this.step].text = res.text;
+    this.project[this.step].word_count = res.word_count;
     this.project[this.step].complete = 
       (res.word_count > 0 && res.word_count <= 5000) 
       ? true 
@@ -460,11 +500,9 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     let title = this.project[0].title;
     if (title) {
       this.saving = true;
-      let idx = this.project.length - 1;
-      this.project[idx].last_saved = (new Date()).valueOf();
-      this.accountService.updateProfile({
-        project_in_progress: this.project
-      }).then(updated => {
+      this.project[this.project.length - 1].last_saved = (new Date()).valueOf();
+      this.accountService.updateProfile({ project_in_progress: this.project })
+      .then(updated => {
         this.saving = false;
         this.storeService.dispatch(Actions.Init.Profile, updated);
       }).catch(err => {

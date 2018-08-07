@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angu
 export class EditorComponent implements OnInit, OnDestroy {
 
   wordCount: number;
+  justPasted: boolean;
 
   @Input() text: string;
   @Input() showWordCount: boolean;
@@ -16,6 +17,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @Output() textChanged = new EventEmitter<any>();
 
   onTrixChangeEvent: any;
+  onTrixPasteEvent: any;
 
   constructor () { }
 
@@ -28,16 +30,34 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.teardownSubscriptions();
   }
 
+  clearInput () {
+    let trix = document.querySelector('trix-editor');
+    if (trix && trix['editor']) {
+      trix['editor'].loadHTML('');
+    }
+  }
+
   onTrixChange (evt) {
     let res = { text: null };
     res.text = evt.target.value;
     if (this.showWordCount) {
       let ed = this.trixEditor();
-      let plaintext = ed.getDocument().toString();
-      this.wordCount = this.countWords(plaintext);
+      if (this.justPasted) {
+        this.justPasted = false;
+        this.text = evt.target.value;
+        this.clearInput();
+        this.initText();
+      } else {
+        let plaintext = ed.getDocument().toString();
+        this.wordCount = this.countWords(plaintext); 
+      }
       res['word_count'] = this.wordCount;
     }
     this.textChanged.emit(res);
+  }
+
+  onTrixPaste (evt) {
+    this.justPasted = true;
   }
 
   private initText () {
@@ -67,6 +87,8 @@ export class EditorComponent implements OnInit, OnDestroy {
     if (trix) {
       this.onTrixChangeEvent = this.onTrixChange.bind(this);
       trix.addEventListener('trix-change', this.onTrixChangeEvent);
+      this.onTrixPasteEvent = this.onTrixPaste.bind(this);
+      trix.addEventListener('trix-paste', this.onTrixPasteEvent);
     }
   }
 
@@ -74,6 +96,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     let trix = document.querySelector('trix-editor');
     if (trix) {
       trix.removeEventListener('trix-change', this.onTrixChangeEvent);
+      trix.removeEventListener('trix-paste', this.onTrixPasteEvent);
     }
   }
 

@@ -596,11 +596,9 @@ $ws-validator-length-sm: 320px;
 $ws-wizard-padding: 48px;
 $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 .ws-wizard-form {
-  width: 690px;
-  min-width: 690px;
-  max-width: 690px;
-  margin: auto;
-  margin-bottom: 16px;
+  min-width: initial;
+  max-width: initial;
+  margin-bottom: 24px;
   .ws-wizard-header {
     display: flex;
     line-height: $wizard-logo-size;
@@ -710,9 +708,6 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 
 @media (max-width: $ws-tablet-breakpoint) {
   .ws-wizard-form {
-    width: initial;
-    min-width: initial;
-    max-width: initial;
     .wizard-nav-buttons {
       button {
         width: 50%;
