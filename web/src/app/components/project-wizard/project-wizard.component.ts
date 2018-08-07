@@ -5,6 +5,7 @@ import { AccountService } from '../../services/account/account.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { NavService } from '../../services/nav/nav.service';
 import { StoreService } from '../../services/store/store.service';
+import { StoreActions as Actions } from '../../services/store/store.actions';
 import { StoreProps as Props } from '../../services/store/store.props';
 import { WordIconService } from '../../services/word-icon/word-icon.service';
 
@@ -331,10 +332,15 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     return html.replace(/<[^>]+>/g, '');
   }
 
+  private projectTitle () {
+    return this.project[0].title;
+  }
+
   private setupProject () {
     this.project = this.profile.project_in_progress || this.newProjectTemplate;
     if (this.profile.project_in_progress) {
       this.setCurrStep(-1);
+      this.updateProjectPalette(this.projectTitle());
     } else {
       this.setCurrStep(this.getCurrStep(this.project));
     }
@@ -342,6 +348,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   private newProject () {
     this.project = this.newProjectTemplate;
+    this.updateProjectPalette(null);
     this.setCurrStep(this.getCurrStep(this.project));
   }
 
@@ -457,8 +464,9 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       this.project[idx].last_saved = (new Date()).valueOf();
       this.accountService.updateProfile({
         project_in_progress: this.project
-      }).then(_ => {
+      }).then(updated => {
         this.saving = false;
+        this.storeService.dispatch(Actions.Init.Profile, updated);
       }).catch(err => {
         this.saving = false;
         this.loggerService.error(err);

@@ -134,4 +134,22 @@ body.light {
     }
   }
 
+  .btn-wordshop-subtle {
+    color: lighten(#212529, 40%);
+    background-color: lighten($ws-base-color, 30%);
+    border-color: lighten($ws-base-color, 30%);
+    border-bottom: 2px solid lighten($ws-base-color, 30%);
+    &:hover {
+      color: white!important;
+      background-color: lighten($ws-highlight-color, 5%);
+      border-color: lighten($ws-highlight-color, 5%);
+      border-bottom: 2px solid darken($ws-highlight-color, 10%);
+    }
+    &.active {
+      color: white!important;
+      border-color: darken($ws-highlight-color, 10%);
+      background-color: darken($ws-highlight-color, 10%);
+    }
+  }
+
 }

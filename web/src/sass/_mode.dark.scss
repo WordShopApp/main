@@ -161,6 +161,24 @@ body.dark {
       }
     }
   }
+
+  .btn-wordshop-subtle {
+    color: #838c91!important;
+    background-color: #4d5357;
+    border-color: #4d5357;
+    border-bottom: 2px solid #4d5357;
+    &:hover {
+      color: white!important;
+      background-color: lighten($ws-highlight-color, 5%);
+      border-color: lighten($ws-highlight-color, 5%);
+      border-bottom: 2px solid darken($ws-highlight-color, 10%);
+    }
+    &.active {
+      color: white!important;
+      border-color: darken($ws-highlight-color, 10%);
+      background-color: darken($ws-highlight-color, 10%);
+    }
+  }
   
 }
 
