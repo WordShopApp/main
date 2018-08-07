@@ -1,17 +1,26 @@
 <div class="card ws-form ws-wizard-form">
   <h5 class="card-header ws-header ws-wizard-header">
-    <span>Project Wizard&nbsp;&nbsp;&nbsp;<small class="text-muted">Step {{step + 1}} of {{project.length}}</small></span>
+    <span>
+      Project Wizard
+      <small class="text-muted" *ngIf="step >= 0">&nbsp;&nbsp;&nbsp;Step {{step + 1}} of {{project.length}}</small>
+    </span>
     <span class="ws-wizard-icon"><app-word-icon [type]="'project'" [palette]="palette"></app-word-icon></span>
   </h5>
   <div class="card-body wizard-body">
-    <h5>{{project[step].name}}</h5>
+    <h5 *ngIf="step >= 0">{{project[step].name}}</h5>
+
+    <section *ngIf="step === -1">
+      <p>
+        We found a project already in progress called <em><strong>{{project[0].title}}</strong></em>, last saved on <strong>{{project[project.length - 1].last_saved | date: 'MMMM d, y @ h:mm a' }}</strong>. Would you like to resume that project or would you like to start a new one?
+      </p>
+    </section>
 
     <section *ngIf="step === 0">
       <p>
         Welcome to the Project Wizard!
       </p>
       <p>
-        We'll walk you through the steps to create your project. Information you enter will be saved after each step, so don't worry about losing your progress.
+        We'll walk you through the creation of your project. Information you enter will be saved after each step, so don't worry about losing your progress.
       </p>
       <br>
       <p>
@@ -71,7 +80,7 @@
 
     <section *ngIf="step === 4">
         <p>
-          Halfway there, keep it up!
+          Only a few more steps to go!
         </p> 
         <p>
           In this step, tell us how to categorize your project. We'll start with a couple of questions.
@@ -140,7 +149,7 @@
 
     <section *ngIf="step === 7">
         <p>
-          Done at last! But wait, before clicking on the <em>Finish</em> button, please review the details of your project and click on any area that needs revision.
+          Done at last. But wait, before clicking on the <em>Finish</em> button, please review the details of your project and click on any area that needs revision.
         </p>
         <br>
         <table class="ws-table" cellspacing="0">
@@ -175,15 +184,19 @@
         </table>
         <br>
         <p>
-          Good luck!
+          Good luck to you!
         </p>
     </section>
 
     <hr>
-    <div class="wizard-nav-buttons">
+    <div *ngIf="step >= 0" class="wizard-nav-buttons">
       <button *ngIf="step > 0" (click)="setCurrStep(step - 1)" class="btn btn-wordshop-gray">Back</button>
       <button *ngIf="step !== (project.length - 1)" (click)="setCurrStep(project[step].complete ? (step + 1) : null)" class="btn btn-wordshop" [ngClass]="{ disabled: !project[step].complete }">Next</button>
       <button *ngIf="step === (project.length - 1)" (click)="createProject()" class="btn btn-wordshop">Finish</button>
+    </div>
+    <div *ngIf="step === -1" class="wizard-nav-buttons">
+      <button (click)="setCurrStep(getCurrStep(project))" class="btn btn-wordshop">Resume project</button>
+      <button (click)="newProject()" class="btn btn-wordshop">New project</button>
     </div>
   </div>
 </div>

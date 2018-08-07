@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AccountService } from '../../services/account/account.service';
+import { LoggerService } from '../../services/logger/logger.service';
 import { NavService } from '../../services/nav/nav.service';
 import { StoreService } from '../../services/store/store.service';
 import { StoreProps as Props } from '../../services/store/store.props';
@@ -17,6 +18,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   project: any;
   step: number;
   palette: any;
+  saving: boolean;
 
   profile: any;
   profile$: Subscription;
@@ -62,22 +64,33 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     },
     {
       name: 'Review',
-      complete: true
+      complete: null,
+      last_saved: null
     }
   ];
 
   categories = {
     'fiction': [
       { name: 'Adventure', value: 'adventure' },
+      { name: 'African', value: 'african' },
+      { name: 'Allegory', value: 'allegory' },
+      { name: 'Anarchy', value: 'anarchy' },
       { name: 'Animals', value: 'animals' },
+      { name: 'Antihero', value: 'antihero' },
+      { name: 'Artificial Intelligence', value: 'ai' },
       { name: 'Artist', value: 'artist' },
+      { name: 'Asian', value: 'asian' },
       { name: 'Autumn', value: 'autumn' },
+      { name: 'Avant Garde', value: 'avant-garde' },
       { name: 'Bildungsroman', value: 'bildungsroman' },
+      { name: 'Black', value: 'black' },
       { name: 'Children', value: 'children' },
       { name: 'College', value: 'college' },
       { name: 'Comedy', value: 'comedy' },
       { name: 'Corporate', value: 'corporate' },
       { name: 'Conspiracy', value: 'conspiracy' },
+      { name: 'Consumerism', value: 'consumerism' },
+      { name: 'Corruption', value: 'corruption' },
       { name: 'Cosmic', value: 'cosmic' },
       { name: 'Cozy', value: 'cozy' },
       { name: 'Crime', value: 'crime' },
@@ -85,12 +98,18 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Dark', value: 'dark' },
       { name: 'Death', value: 'death' },
       { name: 'Desert', value: 'desert' },
+      { name: 'Detective', value: 'detective' },
       { name: 'Disturbing', value: 'disturbing' },
       { name: 'Drama', value: 'drama' },
       { name: 'Drugs', value: 'drugs' },
       { name: 'Entertainment', value: 'entertainment' },
+      { name: 'Entreprenuer', value: 'entreprenuer' },
       { name: 'Erotica', value: 'erotica' },
+      { name: 'Espionage', value: 'espionage' },
+      { name: 'European', value: 'european' },
       { name: 'Existential', value: 'existential' },
+      { name: 'Exploitation', value: 'exploitation' },
+      { name: 'Exploration', value: 'exploration' },
       { name: 'Family', value: 'family' },
       { name: 'Fan Fiction', value: 'fan-fiction' },
       { name: 'Feel-good', value: 'feel-good' },
@@ -99,26 +118,41 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Funny', value: 'funny' },
       { name: 'Fantasy', value: 'fantasy' },
       { name: 'Feminist', value: 'feminist' },
+      { name: 'Fish Out of Water', value: 'fish-out-of-water' },
+      { name: 'Flash Fiction', value: 'flash-fiction' },
       { name: 'Forest', value: 'forest' },
       { name: 'Friendship', value: 'friendship' },
       { name: 'Gang', value: 'gang' },
+      { name: 'Government', value: 'government' },
       { name: 'Guns', value: 'guns' },
+      { name: 'Heist', value: 'heist' },
       { name: 'Hero\'s Journey', value: 'heros-journey' },
       { name: 'High School', value: 'high-school' },
       { name: 'History', value: 'history' },
       { name: 'Home', value: 'home' },
+      { name: 'Homosexuality', value: 'homosexuality' },
       { name: 'Horror', value: 'horror' },
+      { name: 'Industry', value: 'industry' },
+      { name: 'Inequality', value: 'inequality' },
+      { name: 'Internet', value: 'internet' },
+      { name: 'Lake', value: 'lake' },
+      { name: 'Latino', value: 'latino' },
+      { name: 'Legal', value: 'legal' },
       { name: 'LGBTQ', value: 'lgbtq' },
       { name: 'Light-hearted', value: 'light-hearted' },
       { name: 'Literary', value: 'literary' },
       { name: 'Love', value: 'love' },
+      { name: 'Love Triangle', value: 'love-triangle' },
+      { name: 'Mafia', value: 'mafia' },
       { name: 'Magic', value: 'magic' },
       { name: 'Magical Realism', value: 'magical-realism' },
+      { name: 'Man vs Nature', value: 'man-vs-nature' },
       { name: 'Medical', value: 'medical' },
       { name: 'Melancholy', value: 'melancholy' },
+      { name: 'Memory', value: 'memory' },
       { name: 'Minority', value: 'minority' },
       { name: 'Monster', value: 'monster' },
-      { name: 'Mountain', value: 'mountain' },
+      { name: 'Mountains', value: 'mountains' },
       { name: 'Movies', value: 'movies' },
       { name: 'Murder', value: 'murder' },
       { name: 'Mystery', value: 'mystery' },
@@ -127,12 +161,20 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Mythopoeia', value: 'mythopoeia' },
       { name: 'Nature', value: 'nature' },
       { name: 'Noir', value: 'noir' },
+      { name: 'Nostalgic', value: 'nostalgic' },
       { name: 'Ocean', value: 'ocean' },
+      { name: 'Oppression', value: 'oppression' },
+      { name: 'Parenthood', value: 'parenthood' },
       { name: 'Pastoral', value: 'pastoral' },
       { name: 'Philosophy', value: 'philosphy' },
+      { name: 'Play', value: 'play' },
+      { name: 'Police', value: 'police' },
       { name: 'Political', value: 'political' },
       { name: 'Power', value: 'power' },
+      { name: 'Poverty', value: 'poverty' },
+      { name: 'Prison', value: 'prison' },
       { name: 'Psychedelic', value: 'psychedelic' },
+      { name: 'Race', value: 'race' },
       { name: 'Religious', value: 'religious' },
       { name: 'Revenge', value: 'revenge' },
       { name: 'River', value: 'river' },
@@ -143,6 +185,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Save the Cat', value: 'save-the-cat' },
       { name: 'Scary', value: 'scary' },
       { name: 'School', value: 'school' },
+      { name: 'Science', value: 'science' },
       { name: 'Science Fiction', value: 'science-fiction' },
       { name: 'Sexuality', value: 'sexuality' },
       { name: 'Sickness', value: 'sickness' },
@@ -154,6 +197,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Stoic', value: 'stoic' },
       { name: 'Stranger', value: 'stranger' },
       { name: 'Suburban', value: 'suburban' },
+      { name: 'Subtle', value: 'subtle' },
       { name: 'Summer', value: 'summer' },
       { name: 'Surreal', value: 'surreal' },
       { name: 'Tall Tale', value: 'tall-tale' },
@@ -164,9 +208,12 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'Thieves', value: 'thieves' },
       { name: 'Thriller', value: 'thriller' },
       { name: 'Tragedy', value: 'tragedy' },
+      { name: 'Transgression', value: 'transgression' },
+      { name: 'Twist', value: 'twist' },
       { name: 'Urban', value: 'urban' },
       { name: 'Violence', value: 'violence' },
       { name: 'War', value: 'war' },
+      { name: 'Wealth', value: 'wealth' },
       { name: 'Web', value: 'web' },
       { name: 'Weird', value: 'weird' },
       { name: 'Western', value: 'western' },
@@ -265,6 +312,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   constructor (
     private accountService: AccountService,
+    private loggerService: LoggerService,
     private navService: NavService,
     private storeService: StoreService,
     private wordIconService: WordIconService
@@ -285,6 +333,15 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   private setupProject () {
     this.project = this.profile.project_in_progress || this.newProjectTemplate;
+    if (this.profile.project_in_progress) {
+      this.setCurrStep(-1);
+    } else {
+      this.setCurrStep(this.getCurrStep(this.project));
+    }
+  }
+
+  private newProject () {
+    this.project = this.newProjectTemplate;
     this.setCurrStep(this.getCurrStep(this.project));
   }
 
@@ -303,6 +360,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     if (step !== null) {
       this.step = step;
       window.scroll(0, 0);
+      this.saveProjectInProgress();
     }
   }
 
@@ -389,6 +447,23 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   private stepSeven_privateChanged (isPrivate: boolean) {
     this.project[this.step].private = isPrivate;
+  }
+
+  private saveProjectInProgress () {
+    let title = this.project[0].title;
+    if (title) {
+      this.saving = true;
+      let idx = this.project.length - 1;
+      this.project[idx].last_saved = (new Date()).valueOf();
+      this.accountService.updateProfile({
+        project_in_progress: this.project
+      }).then(_ => {
+        this.saving = false;
+      }).catch(err => {
+        this.saving = false;
+        this.loggerService.error(err);
+      });
+    }
   }
 
 }

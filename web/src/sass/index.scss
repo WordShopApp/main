@@ -607,6 +607,12 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     span {
       flex-grow: 1;
     }
+    .saving-icon {
+      font-size: 10px;
+      position: relative;
+      top: -2px;
+      margin-left: 15px;
+    }
   }
   .wizard-body {
     h5 {
