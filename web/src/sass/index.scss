@@ -63,6 +63,10 @@ trix-editor {
   display: none!important;
 }
 
+.capitalize {
+  text-transform: capitalize!important;
+}
+
 .app-container {
   padding-top: 25px;
 }
@@ -675,6 +679,25 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     margin-top: 10px;
     li {
       padding: 10px;
+    }
+  }
+}
+
+.ws-table {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+  tr {
+    &:hover {
+      cursor: pointer;
+    }
+    td {
+      text-align: left;
+      padding: 18px;
+      &.name {
+        width: 125px;
+      }
     }
   }
 }

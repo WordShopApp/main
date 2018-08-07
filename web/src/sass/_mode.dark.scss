@@ -142,6 +142,25 @@ body.dark {
       }
     }
   }
+
+  .ws-table {
+    border: 1px solid darken($ws-base-color, 20%);
+    tr {
+      td {
+        border: 1px solid darken($ws-base-color, 20%);
+      }
+      &:nth-child(even) {
+        background-color: darken($ws-base-color, 35%);
+      }
+      &:hover {
+        td {
+          color: white!important;
+          border: 1px solid darken($ws-highlight-color, 5%);
+        }
+        background-color: $ws-highlight-color;
+      }
+    }
+  }
   
 }
 

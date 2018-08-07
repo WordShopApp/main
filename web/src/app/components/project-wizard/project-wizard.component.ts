@@ -56,7 +56,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       questions: []
     },
     {
-      name: 'Access',
+      name: 'Private',
       complete: true,
       private: false,
     },
@@ -77,7 +77,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       { name: 'College', value: 'college' },
       { name: 'Comedy', value: 'comedy' },
       { name: 'Corporate', value: 'corporate' },
-      { name: 'Conspirary', value: 'conspirary' },
+      { name: 'Conspiracy', value: 'conspiracy' },
       { name: 'Cosmic', value: 'cosmic' },
       { name: 'Cozy', value: 'cozy' },
       { name: 'Crime', value: 'crime' },
@@ -277,6 +277,10 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     this.teardownSubscriptions();
+  }
+
+  private stripHtml (html) {
+    return html.replace(/<[^>]+>/g, '');
   }
 
   private setupProject () {

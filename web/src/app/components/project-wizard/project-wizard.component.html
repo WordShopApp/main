@@ -142,6 +142,38 @@
         <p>
           Done at last! But wait, before clicking on the <em>Finish</em> button, please review the details of your project and click on any area that needs revision.
         </p>
+        <br>
+        <table class="ws-table" cellspacing="0">
+          <tr (click)="setCurrStep(0)">
+            <td scope="row" class="text-muted name">Title</td>
+            <td>{{project[0].title}}</td>
+          </tr>
+          <tr (click)="setCurrStep(1)">
+            <td scope="row" class="text-muted name">Multipart</td>
+            <td>{{project[1].multipart ? 'Yes' : 'No'}}<span *ngIf="project[1].part_name"> : {{project[1].part_name}}</span></td>
+          </tr>
+          <tr (click)="setCurrStep(2)">
+            <td scope="row" class="text-muted name">Text</td>
+            <td>{{stripHtml(project[2].text.slice(0, 100))}}...</td>
+          </tr>
+          <tr (click)="setCurrStep(3)">
+            <td scope="row" class="text-muted name">Context</td>
+            <td>{{project[3].context && stripHtml(project[3].context.slice(0, 50))}}...</td>
+          </tr>
+          <tr (click)="setCurrStep(4)">
+            <td scope="row" class="text-muted name">Categories</td>
+            <td class="capitalize">{{[project[4].main_category, project[4].adult_category].concat(project[4].categories).join(', ')}}</td>
+          </tr>
+          <tr (click)="setCurrStep(5)">
+            <td scope="row" class="text-muted name">Questions</td>
+            <td>{{project[5].questions.length}}</td>
+          </tr>
+          <tr (click)="setCurrStep(6)">
+            <td scope="row" class="text-muted name">Private</td>
+            <td>{{project[6].private ? 'Yes' : 'No'}}</td>
+          </tr>
+        </table>
+        <br>
         <p>
           Good luck!
         </p>
