@@ -19,6 +19,10 @@ body.dark {
       color: lighten($ws-base-color, 30%);
       background-color: darken($ws-base-color, 35%);
     }
+    &:disabled {
+      color: $ws-base-color;
+      background-color: darken($ws-base-color, 35%);
+    }
     &:empty:not(:focus)::before {
       color: $ws-base-color;
     }
@@ -152,12 +156,18 @@ body.dark {
       &:nth-child(even) {
         background-color: darken($ws-base-color, 35%);
       }
+    }
+  }
+
+  .ws-wizard-table {
+    tr {
+      cursor: pointer;
       &:hover {
+        background-color: $ws-highlight-color;
         td {
           color: white!important;
           border: 1px solid darken($ws-highlight-color, 5%);
         }
-        background-color: $ws-highlight-color;
       }
     }
   }

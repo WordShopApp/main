@@ -540,11 +540,13 @@ $switch-transition: .2s all !default;
 }
 
 $ws-validator-length: 350px;
-$ws-validator-length-sm: 320px;
+$ws-validator-length-md: 250px;
+$ws-validator-length-sm: 150px;
 
 .ws-username-validator {
   max-width: $ws-validator-length;
   width: $ws-validator-length;
+  margin-bottom: 0;
 }
 
 .ws-profile-banner {
@@ -690,9 +692,6 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   margin-bottom: 10px;
   border-collapse: collapse;
   tr {
-    &:hover {
-      cursor: pointer;
-    }
     td {
       text-align: left;
       padding: 18px;
@@ -707,6 +706,24 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   h5 {
     margin-left: 5px;
   }
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    button {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+  .ws-user-settings-avatar {
+    svg {
+      width: 100px;
+      height: 100px;
+    }
+  }
 }
 
 @media (max-width: $ws-tablet-breakpoint) {
@@ -715,6 +732,13 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       button {
         width: 50%;
       }
+    }
+  }
+  .ws-username-validator {
+    max-width: 100%;
+    width: 100%;
+    .input-group-prepend, .input-group-append {
+      display: none;
     }
   }
   .ws-profile-banner {
@@ -753,10 +777,6 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
         margin-left: 0px;
       }
     }
-  }
-  .ws-username-validator {
-    max-width: $ws-validator-length-sm;
-    width: $ws-validator-length-sm;
   }
   .ws-profile-banner {
     .main-area {

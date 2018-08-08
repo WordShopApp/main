@@ -124,12 +124,18 @@ body.light {
       &:nth-child(even) {
         background-color: lighten($ws-base-color, 35%);
       }
+    }
+  }
+
+  .ws-wizard-table {
+    tr {
+      cursor: pointer;
       &:hover {
+        background-color: $ws-highlight-color;
         td {
           color: white!important;
           border: 1px solid darken($ws-highlight-color, 5%);
         }
-        background-color: $ws-highlight-color;
       }
     }
   }

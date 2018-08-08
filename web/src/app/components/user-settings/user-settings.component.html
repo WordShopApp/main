@@ -15,11 +15,15 @@
     <table class="ws-table" cellspacing="0">
       <tr>
         <td scope="row" class="text-muted name">Avatar</td>
-        <td></td>
+        <td>
+          <app-word-icon class="ws-user-settings-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
+        </td>
       </tr>
       <tr>
         <td scope="row" class="text-muted name">Username</td>
-        <td></td>
+        <td>
+          <app-username-selector [profile]="profile" (usernameChanged)="usernameChanged($event)" (validationResults)="validationResults($event)"></app-username-selector>
+        </td>
       </tr>
       <tr>
         <td scope="row" class="text-muted name">Location</td>
@@ -30,20 +34,30 @@
         <td></td>
       </tr>
     </table>
+    <div class="action-buttons">
+      <button (click)="home()" class="btn btn-link">Cancel</button>
+      <button (click)="saveProfileChanges()" class="btn btn-wordshop" [ngClass]="{ disabled: !profileSaveEnabled }">Save Changes</button>
+    </div>
   </div>
   <div *ngIf="area === 'account'" class="ws-panel ws-dashboard-tab-panel">
     <table class="ws-table" cellspacing="0">
       <tr>
         <td scope="row" class="text-muted name">Email</td>
-        <td></td>
+        <td>
+          <span>{{profile.email}}</span>
+        </td>
       </tr>
       <tr>
         <td scope="row" class="text-muted name">Password</td>
-        <td></td>
+        <td>
+          <span>******</span>
+        </td>
       </tr>
       <tr>
         <td scope="row" class="text-muted name">Subscription</td>
-        <td></td>
+        <td>
+            <span>--</span>
+        </td>
       </tr>
       <tr>
         <td scope="row" class="text-muted name">Delete</td>
