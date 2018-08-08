@@ -1,19 +1,11 @@
 <div class="ws-panel ws-profile-banner">
-  <div class="main-area" [ngClass]="{ 'edit-mode': editMode }">
+  <div class="main-area">
     <app-word-icon class="ws-profile-banner-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
-    <div *ngIf="!editMode" class="ws-profile-banner-details">
-      <h4>@{{profile?.username}}
-        <div *ngIf="!editMode" class="ws-profile-banner-edit">
-          <button (click)="setEditMode(true)" class="btn btn-link"><i class="fa fa-edit"></i></button>
-        </div>
-      </h4>
+    <div class="ws-profile-banner-details">
+      <h4>@{{profile?.username}}</h4>
     </div>
-    <div *ngIf="editMode" class="ws-profile-banner-details">
-      <app-username-selector [profile]="profile" (usernameChanged)="usernameChanged($event)" (validationResults)="validationResults($event)"></app-username-selector>
-      <div class="edit-actions">
-        <button (click)="setEditMode(false)" class="btn btn-sm btn-link">Cancel</button>
-        <button (click)="saveChanges()" class="btn btn-sm btn-wordshop" [ngClass]="{ disabled: !saveEnabled }">Save</button>
-      </div>
-    </div>
+  </div>
+  <div class="settings-icon">
+    <a [routerLink]="['/settings/profile']" class="btn btn-link text-muted" preserveFragment><i class="fa fa-cog"></i></a>
   </div>
 </div>

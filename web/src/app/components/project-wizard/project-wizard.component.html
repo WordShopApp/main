@@ -2,7 +2,7 @@
   <h5 class="card-header ws-header ws-wizard-header">
     <span>
       Project Wizard
-      <small class="text-muted" *ngIf="step >= 0">&nbsp;&nbsp;&nbsp;Step {{step + 1}} of {{project.length}}</small>
+      <small class="text-muted steps" *ngIf="step >= 0">Step {{step + 1}} of {{project.length}}</small>
     </span>
     <span class="ws-wizard-icon"><app-word-icon [type]="'project'" [palette]="palette"></app-word-icon></span>
   </h5>
@@ -11,7 +11,7 @@
 
     <section *ngIf="step === -1">
       <p>
-        We found a project already in progress called <em><strong>{{project[0].title}}</strong></em>, last saved on <strong>{{project[project.length - 1].last_saved | date: 'MMMM d, y @ h:mm a' }}</strong>. Would you like to resume that project or would you like to start a new one?
+        We found a project already in progress called <em><strong>{{project[0].title}}</strong></em>, last saved on <strong>{{project[project.length - 1].last_saved | date: 'MMMM d, y @ h:mm a' }}</strong>. Would you like to resume that project or start a new one?
       </p>
     </section>
 
@@ -106,7 +106,7 @@
         <div *ngIf="project[step].main_category">
           <br>
           <p>
-            2. Does your project contain adult content?<br><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(explicit violence or sex, unsuitable for children)</small>
+            2. Does your project contain adult content?<br><small class="adult-parens">(explicit violence or sex, unsuitable for children)</small>
           </p>
           <div class="form-container">
             <div class="form-check">

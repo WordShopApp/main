@@ -1,0 +1,43 @@
+<div class="ws-user-settings-container">
+
+  <h5>Settings</h5>
+
+  <div class="btn-group btn-group-toggle ws-dashboard-tabs" data-toggle="buttons">
+    <label [routerLink]="['/settings/profile']" class="btn btn-wordshop-tab" [ngClass]="{ active: area === 'profile' }">
+      <input type="radio" name="options" autocomplete="off" checked>Profile
+    </label>
+    <label [routerLink]="['/settings/account']" class="btn btn-wordshop-tab" [ngClass]="{ active: area === 'account' }">
+      <input type="radio" name="options" autocomplete="off">Account
+    </label>
+  </div>
+  
+  <div *ngIf="area === 'profile'" class="ws-panel ws-dashboard-tab-panel">
+    <table class="ws-table" cellspacing="0">
+      <tr>
+        <td scope="row" class="text-muted name">Avatar</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td scope="row" class="text-muted name">Username</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td scope="row" class="text-muted name">Bio</td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="area === 'account'" class="ws-panel ws-dashboard-tab-panel">
+    <table class="ws-table" cellspacing="0">
+      <tr>
+        <td scope="row" class="text-muted name">Email</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td scope="row" class="text-muted name">Password</td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+</div>

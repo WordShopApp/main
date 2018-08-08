@@ -548,15 +548,11 @@ $ws-validator-length-sm: 320px;
 }
 
 .ws-profile-banner {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 12px;
-  .edit-actions {
-    text-align: center;
-    margin-top: 12px;
-    width: $ws-validator-length;
-  }
   .main-area {
     display: flex;
     flex-direction: row;
@@ -579,17 +575,12 @@ $ws-validator-length-sm: 320px;
         margin-bottom: 0px;
       }
     }
-    .ws-profile-banner-edit {
-      display: inline-block;
-      position: relative;
-      top: -1px;
-      button {
-        opacity: 0.5;
-        &:hover {
-          opacity: 1.0;
-        }
-      }
-    }
+  }
+  .settings-icon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    opacity: 0.6;
   }
 }
 
@@ -611,6 +602,9 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       top: -2px;
       margin-left: 15px;
     }
+    .steps {
+      margin-left: 12px;
+    }
   }
   .wizard-body {
     h5 {
@@ -629,6 +623,9 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     .form-container {
       margin-left: 20px;
       margin-bottom: 1rem;
+    }
+    .adult-parens {
+      margin-left: 16px;
     }
   }
   .wizard-nav-buttons {
@@ -706,6 +703,12 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   }
 }
 
+.ws-user-settings-container {
+  h5 {
+    margin-left: 5px;
+  }
+}
+
 @media (max-width: $ws-tablet-breakpoint) {
   .ws-wizard-form {
     .wizard-nav-buttons {
@@ -743,6 +746,12 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       section {
         padding: $ws-wizard-padding-mobile;
       }
+      .form-container {
+        margin-left: 0px;
+      }
+      .adult-parens {
+        margin-left: 0px;
+      }
     }
   }
   .ws-username-validator {
@@ -750,12 +759,6 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     width: $ws-validator-length-sm;
   }
   .ws-profile-banner {
-    .edit-actions {
-      text-align: center;
-      margin-top: 6px;
-      margin-bottom: 6px;
-      width: $ws-validator-length-sm;
-    }
     .main-area {
       flex-direction: column;
       .ws-profile-banner-avatar {
@@ -766,12 +769,6 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
         text-align: center;
         font-size: 14px;
         align-items: center;
-        h4 {
-          margin-left: 42px;
-        }
-      }
-      .ws-profile-banner-edit {
-        text-align: right;
       }
     }
   }

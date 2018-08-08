@@ -47,6 +47,7 @@ import { ProjectIndexComponent } from './components/project-index/project-index.
 import { UsernameSelectorComponent } from './components/username-selector/username-selector.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { MultiSelectListComponent } from './components/multi-select-list/multi-select-list.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -74,7 +75,8 @@ import { CookieService } from 'ng2-cookies';
     ProjectIndexComponent,
     UsernameSelectorComponent,
     EditorComponent,
-    MultiSelectListComponent
+    MultiSelectListComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule,

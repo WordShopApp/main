@@ -15,6 +15,7 @@ import { AboutComponent } from './components/about/about.component';
 import { IconTesterComponent } from './components/icon-tester/icon-tester.component';
 import { ProjectWizardComponent } from './components/project-wizard/project-wizard.component';
 import { ProjectIndexComponent } from './components/project-index/project-index.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -59,6 +60,7 @@ export const AppRoutes: Routes  = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'projects/new', component: ProjectWizardComponent },
       { path: 'projects', component: ProjectIndexComponent },
+      { path: 'settings/:area', component: UserSettingsComponent }
     ]
   }
 
