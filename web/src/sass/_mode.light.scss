@@ -96,7 +96,7 @@ body.light {
       li {
         background-color: lighten($ws-base-color, 35%);
         &:hover {
-          background-color: #A22A23;
+          background-color: $ws-red;
           color: white;
         }
       }
@@ -121,15 +121,15 @@ body.light {
       td {
         border: 1px solid #ced4da;
       }
-      &:nth-child(even) {
-        background-color: lighten($ws-base-color, 35%);
-      }
     }
   }
 
   .ws-wizard-table {
     tr {
       cursor: pointer;
+      &:nth-child(even) {
+        background-color: lighten($ws-base-color, 35%);
+      }
       &:hover {
         background-color: $ws-highlight-color;
         td {
@@ -155,6 +155,9 @@ body.light {
       color: white!important;
       border-color: darken($ws-highlight-color, 10%);
       background-color: darken($ws-highlight-color, 10%);
+    }
+    &.disabled {
+      pointer-events: none;
     }
   }
 

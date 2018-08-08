@@ -49,6 +49,9 @@ body.dark {
       color: lighten($ws-base-color, 40%);
       background-color: darken($ws-base-color, 30%);
     }
+    &:focus {
+      outline: none!important;
+    }
   }
 
   .footer {
@@ -129,7 +132,7 @@ body.dark {
       li {
         background-color: darken($ws-base-color, 20%);
         &:hover {
-          background-color: #A22A23;
+          background-color: $ws-red;
         }
       }
     }
@@ -153,15 +156,15 @@ body.dark {
       td {
         border: 1px solid darken($ws-base-color, 20%);
       }
-      &:nth-child(even) {
-        background-color: darken($ws-base-color, 35%);
-      }
     }
   }
 
   .ws-wizard-table {
     tr {
       cursor: pointer;
+      &:nth-child(even) {
+        background-color: darken($ws-base-color, 35%);
+      }
       &:hover {
         background-color: $ws-highlight-color;
         td {
@@ -187,6 +190,9 @@ body.dark {
       color: white!important;
       border-color: darken($ws-highlight-color, 10%);
       background-color: darken($ws-highlight-color, 10%);
+    }
+    &.disabled {
+      pointer-events: none;
     }
   }
   

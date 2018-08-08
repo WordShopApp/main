@@ -50,6 +50,15 @@ export class CognitoService {
     if (user) user.signOut();
   }
 
+  changePassword (email, oldPassword, newPassword): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.cognitoUser(email).changePassword(oldPassword, newPassword, (err, res)  => {
+        if (err) return reject(err);
+        resolve(res);
+      });
+    });
+  }
+
   forgotPassword (email): Promise<any> {
     return new Promise((resolve, reject) => {
       this.cognitoUser(email).forgotPassword({

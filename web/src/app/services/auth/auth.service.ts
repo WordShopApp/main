@@ -60,6 +60,10 @@ export class AuthService {
     });
   }
 
+  changePassword (email, oldPassword, newPassword): Promise<any> {
+    return this.cognitoService.changePassword(email, oldPassword, newPassword);
+  }
+
   forgotPassword (email): Promise<any> {
     return this.cognitoService.forgotPassword(email);
   }

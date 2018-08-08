@@ -29,6 +29,9 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   profileSaveEnabled: boolean;
   profileNewUsername: string;
 
+  accountSaveEnabled: boolean;
+  enableAccountDelete: boolean;
+
   avatarPalette: any;
 
   constructor (
@@ -88,6 +91,19 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
 
   sendMessage(type, header, message) {
     this.messengerService.send('global:alert', { type, header, message });
+  }
+
+  validateDeleteAccount (email) {
+    if (email && this.profile) {
+      this.enableAccountDelete = this.profile.email.toLowerCase() === email.toLowerCase();
+    } else {
+      this.enableAccountDelete = false;
+    }
+  }
+
+  deleteAccount (evt) {
+    evt.preventDefault();
+    console.log('deleteAccount');
   }
 
 }

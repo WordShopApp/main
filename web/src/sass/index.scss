@@ -67,6 +67,10 @@ trix-editor {
   text-transform: capitalize!important;
 }
 
+.full-width {
+  flex-grow: 1!important;
+}
+
 .app-container {
   padding-top: 25px;
 }
@@ -142,6 +146,30 @@ trix-editor {
       border-color: lighten($ws-highlight-color, 5%);
     }
   }
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.btn-wordshop-red {
+  color: #fff!important;
+  background-color: $ws-red;
+  border-color: $ws-red;
+  border-radius: $ws-default-radius-btn;
+  border-bottom: 2px solid darken($ws-red, 10%);
+  cursor: pointer;
+  &:hover {
+    background-color: lighten($ws-red, 5%);
+    border-color: lighten($ws-red, 5%);
+    border-bottom: 2px solid darken($ws-red, 10%);
+  }
+  &.active {
+    border-color: darken($ws-red, 10%);
+    background-color: darken($ws-red, 10%);
+  }
+  &.disabled {
+    pointer-events: none;
+  }
 }
 
 .btn-wordshop-gray {
@@ -160,11 +188,8 @@ trix-editor {
     border-color: darken($ws-base-color, 10%);
     background-color: darken($ws-base-color, 10%);
   }
-  &.loading {
-    border-bottom: 2px solid $ws-base-color;
-    &:hover {
-      border-color: lighten($ws-base-color, 5%);
-    }
+  &.disabled {
+    pointer-events: none;
   }
 }
 
@@ -508,8 +533,8 @@ $switch-transition: .2s all !default;
   }
 
   &.ws-alert-danger {
-    background-color: #A22A23;
-    border-bottom: 2px solid darken(#A22A23, 20%);
+    background-color: $ws-red;
+    border-bottom: 2px solid darken($ws-red, 20%);
   }
 
   &.ws-alert-success {
@@ -691,10 +716,13 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   margin-top: 10px;
   margin-bottom: 10px;
   border-collapse: collapse;
+  table-layout: fixed;
+  white-space: normal;
   tr {
     td {
       text-align: left;
-      padding: 18px;
+      padding: 16px;
+      word-wrap: break-word;
       &.name {
         width: 125px;
       }
@@ -709,13 +737,19 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   .action-buttons {
     display: flex;
     flex-direction: row;
-    width: 50%;
-    margin: auto;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     button {
       margin-left: 5px;
       margin-right: 5px;
+    }
+  }
+  .delete-area {
+    padding: 24px;
+    padding-left: 64px;
+    padding-right: 64px;
+    input {
+      margin-right: 10px;
     }
   }
   .ws-user-settings-avatar {
@@ -727,6 +761,13 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 }
 
 @media (max-width: $ws-tablet-breakpoint) {
+  .ws-user-settings-container {
+    .delete-area {
+      padding: 12px;
+      padding-left: initial;
+      padding-right: initial;
+    }
+  }
   .ws-wizard-form {
     .wizard-nav-buttons {
       button {
@@ -765,6 +806,14 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 
 
 @media (max-width: $ws-phone-breakpoint) {
+  .ws-user-settings-container {
+    .delete-area {
+      input {
+        margin-right: initial;
+        margin-bottom: 10px;
+      }
+    }
+  }
   .ws-wizard-form {
     .wizard-body {
       section {
@@ -789,6 +838,13 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
         text-align: center;
         font-size: 14px;
         align-items: center;
+      }
+    }
+  }
+  .ws-table {
+    tr {
+      td {
+        padding: 8px;
       }
     }
   }
