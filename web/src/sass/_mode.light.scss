@@ -29,6 +29,10 @@ body.light {
       color: darken(#212529, 10%);
       background-color: white;
     }
+    &:focus, &.focus {
+      outline: none!important;
+      box-shadow: none!important;
+    }
   }
 
   .ws-username-is-invalid {
@@ -155,6 +159,27 @@ body.light {
       color: white!important;
       border-color: darken($ws-highlight-color, 10%);
       background-color: darken($ws-highlight-color, 10%);
+    }
+    &.disabled {
+      pointer-events: none;
+    }
+  }
+
+  .btn-wordshop-subtle-gray {
+    color: lighten(#212529, 40%);
+    background-color: lighten($ws-base-color, 30%);
+    border-color: lighten($ws-base-color, 30%);
+    border-bottom: 2px solid lighten($ws-base-color, 30%);
+    &:hover {
+      color: white!important;
+      background-color: lighten($ws-base-color, 5%);
+      border-color: lighten($ws-base-color, 5%);
+      border-bottom: 2px solid darken($ws-base-color, 10%);
+    }
+    &.active {
+      color: white!important;
+      border-color: darken($ws-base-color, 10%);
+      background-color: darken($ws-base-color, 10%);
     }
     &.disabled {
       pointer-events: none;

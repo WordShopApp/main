@@ -6,6 +6,7 @@ module.exports = (app) => {
   app.put('/profile', accountController.profileUpdate);
   app.get('/profile', accountController.profileShow);
   app.get('/profile/validate-username/:username', accountController.usernameValidate);
+  app.delete('/profile', accountController.profileDelete);
 
   // user
   let userController = require('../controllers/userController');

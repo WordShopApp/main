@@ -36,8 +36,8 @@
     </table>
     <br>
     <div class="action-buttons">
-      <button (click)="home()" class="btn btn-wordshop"><i class="fa fa-home"></i></button>
-      <button (click)="saveProfileChanges()" class="btn" [ngClass]="{ 'btn-wordshop': profileSaveEnabled, 'btn-wordshop-subtle': !profileSaveEnabled, 'disabled': !profileSaveEnabled }">Save Changes</button>
+      <button (click)="home()" class="btn btn-wordshop-gray">Cancel</button>
+      <button (click)="saveProfileChanges()" class="btn btn-wordshop" [ngClass]="{ 'disabled': !profileSaveEnabled }">Save Changes</button>
     </div>
   </div>
   <div *ngIf="area === 'account'" class="ws-panel ws-dashboard-tab-panel">
@@ -51,12 +51,18 @@
       <tr>
         <td scope="row" class="text-muted name">Password</td>
         <td>
-          <form class="form-inline">
-            <div class="form-group full-width">
-              <input type="password" class="form-control full-width" placeholder="Old Password">
+          <form class="password-inputs">
+            <div class="form-group input-group">
+              <input #oldPasswordInput (input)="validatePasswords()" [type]="showOldPassword ? 'text' : 'password'" class="form-control" placeholder="Old Password">
+              <div class="input-group-append clickable" (click)="showOldPassword = !showOldPassword">
+                <span class="input-group-text text-muted"><i class="fa fa-eye" aria-hidden="true"></i></span>
+              </div>
             </div>
-            <div class="form-group full-width">
-              <input type="password" class="form-control full-width" placeholder="New Password">
+            <div class="form-group input-group">
+              <input #newPasswordInput (input)="validatePasswords()" [type]="showNewPassword ? 'text' : 'password'" class="form-control" placeholder="New Password">
+              <div class="input-group-append clickable" (click)="showNewPassword = !showNewPassword">
+                <span class="input-group-text text-muted"><i class="fa fa-eye" aria-hidden="true"></i></span>
+              </div>
             </div>
           </form>
         </td>
@@ -70,8 +76,8 @@
     </table>
     <br>
     <div class="action-buttons">
-      <button (click)="home()" class="btn btn-wordshop"><i class="fa fa-home"></i></button>
-      <button (click)="saveProfileChanges()" class="btn" [ngClass]="{ 'btn-wordshop': accountSaveEnabled, 'btn-wordshop-subtle': !accountSaveEnabled, disabled: !accountSaveEnabled }">Save Changes</button>
+      <button (click)="home()" class="btn btn-wordshop-gray">Cancel</button>
+      <button (click)="saveAccountChanges()" class="btn btn-wordshop" [ngClass]="{ disabled: !accountSaveEnabled }">{{actionButtonLabel}}</button>
     </div>
     <br>
     <hr>
@@ -80,7 +86,7 @@
         If you want to delete your account and all associated data, enter your email address and then click the <em>Delete Account</em> button. Be careful, this is <strong>permanent</strong>.
       </p>
       <form class="form-inline">
-        <input type="email" (input)="validateDeleteAccount($event.target.value)" class="form-control full-width" aria-describedby="deleteHelp" placeholder="Email">
+        <input type="email" (keydown.enter)="ignoreEnter($event)" (input)="validateDeleteAccount($event)" class="form-control full-width" aria-describedby="deleteHelp" placeholder="Email">
         <button type="submit" (click)="deleteAccount($event)" class="btn btn-wordshop-subtle" [ngClass]="{ 'btn-wordshop-subtle': !enableAccountDelete, 'btn-wordshop-red': enableAccountDelete, 'disabled': !enableAccountDelete }">Delete Account</button>
       </form>
     </div>

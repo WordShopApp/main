@@ -53,6 +53,15 @@ function fetchUserByNameParams (name) {
   };
 }
 
+function deleteUserParams (user) {
+  return {
+    TableName: 'ws_users',
+    Key: {
+      user_id: user.user_id
+    }
+  };
+}
+
 function updateUserParams (user) {
   return {
     TableName: 'ws_users',
@@ -127,9 +136,27 @@ function createItem (params) {
   });
 }
 
+function deleteItem (params) {
+  return new Promise(function (resolve, reject) {
+    //http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#delete-property
+    dynamodbDocumentClient().delete(params, function (err, res) {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+}
+
 function createUser (user) {
   return new Promise(function (resolve, reject) {
     createItem(createUserParams(user)).then(function (res) {
+      resolve(user);
+    }).catch(reject);
+  });
+}
+
+function deleteUser (user) {
+  return new Promise(function (resolve, reject) {
+    deleteItem(deleteUserParams(user)).then(function (res) {
       resolve(user);
     }).catch(reject);
   });
@@ -338,7 +365,7 @@ module.exports.profileUpdate = (req, res) => {
         console.log(desc, 'internal_server_error', err);
         res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
       }
-    })
+    });
   }).catch(err => {
     if (err.code === 'AccessDeniedException') {
       console.log('GET /profile', 'unauthorizied', err);
@@ -361,6 +388,41 @@ module.exports.profileShow = (req, res) => {
 
     console.log('GET /profile', 'found', user);
     res.status(http.codes.ok).send(user);
+
+  }).catch(err => {
+    if (err.code === 'AccessDeniedException') {
+      console.log('GET /profile', 'unauthorizied', err);
+      res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
+    } else if (err.code === 'ResourceNotFoundException') {
+      console.log('GET /profile', 'profile_does_not_exist', err);
+      res.status(http.codes.not_found).send({ 
+        message: 'profile_does_not_exist'
+      });
+    } else {
+      console.log('GET /profile', 'internal_server_error', err);
+      res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
+    }
+  });
+};
+
+module.exports.profileDelete = (req, res) => {
+  console.log('DELETE /profile', 'user', req.user);
+  fetchUser(req.user).then(user => {
+
+    console.log('DELETE /profile', 'found', user);
+
+    deleteUser(user).then(u => {
+      console.log('DELETE /profile', 'deleted', u);
+      res.status(http.codes.ok).send(u);
+    }).catch(err => {
+      if (err.code === 'AccessDeniedException') {
+        console.log(desc, 'unauthorized', err);
+        res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
+      } else {
+        console.log(desc, 'internal_server_error', err);
+        res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
+      }
+    });
 
   }).catch(err => {
     if (err.code === 'AccessDeniedException') {

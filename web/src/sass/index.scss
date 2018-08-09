@@ -734,10 +734,19 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   h5 {
     margin-left: 5px;
   }
+  .password-inputs {
+    display: flex;
+    flex-direction: row;
+    .form-group {
+      margin-bottom: 0;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
   .action-buttons {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     button {
       margin-left: 5px;
@@ -766,6 +775,15 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       padding: 12px;
       padding-left: initial;
       padding-right: initial;
+    }
+    .password-inputs {
+      display: flex;
+      flex-direction: column;
+      .form-group {
+        margin-bottom: 5px;
+        margin-left: 0px;
+        margin-right: 0px;
+      }
     }
   }
   .ws-wizard-form {

@@ -50,11 +50,28 @@ export class CognitoService {
     if (user) user.signOut();
   }
 
-  changePassword (email, oldPassword, newPassword): Promise<any> {
+  deleteUser (): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.cognitoUser(email).changePassword(oldPassword, newPassword, (err, res)  => {
-        if (err) return reject(err);
-        resolve(res);
+      let currUser = this.userPool().getCurrentUser();
+      currUser.getSession((gse, _) => {
+        if (gse) return reject(gse);
+        currUser.deleteUser((due, res)  => {
+          if (due) return reject(due);
+          resolve(res);
+        });
+      });
+    });
+  }
+
+  changePassword (oldPassword, newPassword): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let currUser = this.userPool().getCurrentUser();
+      currUser.getSession((gse, _) => {
+        if (gse) return reject(gse);
+        currUser.changePassword(oldPassword, newPassword, (cpe, res)  => {
+          if (cpe) return reject(cpe);
+          resolve(res);
+        });
       });
     });
   }

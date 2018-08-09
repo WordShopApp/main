@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { AccountService } from '../../services/account/account.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { AlertTypes } from '../alert/alert.component';
 import { LoggerService } from '../../services/logger/logger.service';
 import { MessengerService } from '../../services/messenger/messenger.service';
@@ -29,15 +30,23 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   profileSaveEnabled: boolean;
   profileNewUsername: string;
 
+  actionButtonLabel = 'Save Changes';
   accountSaveEnabled: boolean;
+
   enableAccountDelete: boolean;
 
   avatarPalette: any;
+
+  showOldPassword = false;
+  showNewPassword = false;
+  @ViewChild('newPasswordInput') newPasswordInput: ElementRef;
+  @ViewChild('oldPasswordInput') oldPasswordInput: ElementRef;
 
   constructor (
     private location: Location,
     private route: ActivatedRoute,
     private accountService: AccountService,
+    private authService: AuthService,
     private loggerService: LoggerService,
     private messengerService: MessengerService,
     private navService: NavService,
@@ -69,10 +78,18 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       this.accountService.updateProfile({ username: this.profileNewUsername }).then(updated => {
         this.storeService.dispatch(Actions.Init.Profile, updated);
         this.home();
-      }).catch(err => {
-        this.loggerService.error(err);
-        this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
-      });
+      }).catch(this.handleError);
+    }
+  }
+
+  saveAccountChanges () {
+    if (this.accountSaveEnabled) {
+      let opswd = this.oldPasswordInput.nativeElement.value;
+      let npswd = this.newPasswordInput.nativeElement.value;
+      this.authService.changePassword(opswd, npswd).then(res => {
+        this.sendMessage(AlertTypes.Success, 'Success:', 'Password has been updated');
+        this.home();
+      }).catch(this.handleError);
     }
   }
 
@@ -93,7 +110,8 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     this.messengerService.send('global:alert', { type, header, message });
   }
 
-  validateDeleteAccount (email) {
+  validateDeleteAccount (evt) {
+    let email = evt.target.value;
     if (email && this.profile) {
       this.enableAccountDelete = this.profile.email.toLowerCase() === email.toLowerCase();
     } else {
@@ -101,9 +119,37 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     }
   }
 
+  ignoreEnter (evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    return false;
+  }
+
   deleteAccount (evt) {
     evt.preventDefault();
-    console.log('deleteAccount');
+    this.authService.deleteUser().then(_ => {
+      this.accountService.deleteProfile().then(res => {
+        this.sendMessage(AlertTypes.Success, 'Success:', 'Your account has been deleted. Please join us again sometime!');
+        this.authService.logout();
+        this.home();
+      }).catch(this.handleError);
+    }).catch(this.handleError);
+  }
+
+  validatePasswords () {
+    let opswd = this.oldPasswordInput.nativeElement.value;
+    let npswd = this.newPasswordInput.nativeElement.value;
+    this.accountSaveEnabled = opswd && npswd;
+    if (this.accountSaveEnabled) {
+      this.actionButtonLabel = 'Change Password';
+    } else {
+      this.actionButtonLabel = 'Save Changes';
+    }
+  }
+
+  handleError (err) {
+    this.loggerService.error(err);
+    this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
   }
 
 }
