@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   loggedIn (): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _) => {
       this.cognitoService.token().then(token => {
         resolve(token ? true : false);
       }).catch(err => {

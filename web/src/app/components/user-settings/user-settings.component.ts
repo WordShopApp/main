@@ -76,9 +76,10 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   saveProfileChanges () {
     if (this.profileSaveEnabled) {
       this.accountService.updateProfile({ username: this.profileNewUsername }).then(updated => {
+        this.sendMessage(AlertTypes.Success, 'Success:', 'Username has been updated');
         this.storeService.dispatch(Actions.Init.Profile, updated);
         this.home();
-      }).catch(this.handleError);
+      }).catch(this.handleError.bind(this));
     }
   }
 
@@ -89,7 +90,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       this.authService.changePassword(opswd, npswd).then(res => {
         this.sendMessage(AlertTypes.Success, 'Success:', 'Password has been updated');
         this.home();
-      }).catch(this.handleError);
+      }).catch(this.handleError.bind(this));
     }
   }
 
@@ -127,13 +128,13 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
 
   deleteAccount (evt) {
     evt.preventDefault();
-    this.authService.deleteUser().then(_ => {
-      this.accountService.deleteProfile().then(res => {
+    this.accountService.deleteProfile().then(dp_res => {
+      this.authService.deleteUser().then(du_res => {
         this.sendMessage(AlertTypes.Success, 'Success:', 'Your account has been deleted. Please join us again sometime!');
         this.authService.logout();
-        this.home();
-      }).catch(this.handleError);
-    }).catch(this.handleError);
+        this.navService.gotoWelcome();
+      }).catch(this.handleError.bind(this));
+    }).catch(this.handleError.bind(this));
   }
 
   validatePasswords () {
