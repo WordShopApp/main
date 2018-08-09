@@ -11,6 +11,7 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
   unselected = [];
 
   filtered = [];
+  hasFilteredMatches: boolean = null;
 
   @Input() list: any;
   @Input() max: number;
@@ -113,8 +114,10 @@ export class MultiSelectListComponent implements OnInit, OnChanges {
       this.filtered = this.unselected
         .filter(u => u.value.indexOf(term.toLowerCase()) === 0)
         .map(f => f.value);
+      this.hasFilteredMatches = this.filtered.length ? true : false;
     } else {
       this.filtered = [];
+      this.hasFilteredMatches = null;
     }
   }
 

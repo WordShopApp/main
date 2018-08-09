@@ -14,6 +14,6 @@
   </div>
 
   <ul class="unselected-list">
-    <li *ngFor="let u of unselected" (click)="addToSelected(u)" [ngClass]="{ hide: (filtered.length && filtered.indexOf(u.value) === -1) }">{{u.name}}</li>
+    <li *ngFor="let u of unselected" (click)="addToSelected(u)" [ngClass]="{ hide: (hasFilteredMatches === false || (filtered.length && filtered.indexOf(u.value) === -1)) }">{{u.name}}</li>
   </ul>
 </div>
