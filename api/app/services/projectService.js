@@ -58,7 +58,9 @@ function newProjBatchParams (params) {
               part_id: partId,
               project_id: projectId,
               text: params.text,
-              word_count: params.wordCount
+              word_count: params.wordCount,
+              created: now,
+              updated: now
             }
           }
         }
