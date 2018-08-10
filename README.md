@@ -79,5 +79,3 @@ $ ./dev.sh
 ### Shutdown
 
 To shutdown the local development environment, enter ```Ctrl+C```.
-
-Thanks for reading!
