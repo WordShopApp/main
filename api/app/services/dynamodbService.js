@@ -2,20 +2,10 @@ const AWS = require('aws-sdk');
 
 // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html
 function dynamodbDocumentClient () {
-  let ddbc;
-  if (IS_OFFLINE === 'true') {
-    ddbc = new AWS.DynamoDB.DocumentClient({
-      region: 'localhost',
-      endpoint: 'http://localhost:8000',
-      apiVersion: '2012-08-10'
-    });
-  } else {
-    ddbc = new AWS.DynamoDB.DocumentClient({
-      region: 'us-east-1',
-      apiVersion: '2012-08-10'
-    });
-  }
-  return ddbc;
+  return new AWS.DynamoDB.DocumentClient({
+    region: 'us-east-1',
+    apiVersion: '2012-08-10'
+  });
 }
 
 function getItem (queryParams) {
