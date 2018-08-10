@@ -122,7 +122,7 @@ function add (user, data) {
 function all (userId) {
   return new Promise((resolve, reject) => {
     dynamodbService
-      .getItem(allProjectsParams(userId))
+      .getItems(allProjectsParams(userId))
       .then(res => {
         resolve(res);
       })

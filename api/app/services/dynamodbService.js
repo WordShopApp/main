@@ -14,10 +14,22 @@ function getItem (queryParams) {
     dynamodbDocumentClient().query(queryParams, function (err, res) {
       if (err) return reject(err);
 
-      var item = res && res.Items && res.Items[0];
+      let item = res && res.Items && res.Items[0];
       if (!item) return reject({ code: 'ResourceNotFoundException' });
 
       resolve(item);
+    });
+  });
+}
+
+function getItems (queryParams) {
+  return new Promise(function (resolve, reject) {
+    // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#query-property
+    dynamodbDocumentClient().query(queryParams, function (err, res) {
+      if (err) return reject(err);
+
+      let items = res && res.Items;
+      resolve(items);
     });
   });
 }
