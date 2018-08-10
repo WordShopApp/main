@@ -70,13 +70,13 @@ export class AccountService extends ApiService {
   }
 
   private usernameValidateUrl (username: string): string {
-    let path = this._settingsService.app('usernameValidatePath')
+    let path = this.settingsService.app('usernameValidatePath')
       .replace(':username', encodeURIComponent(username));
     return this.url(path);
   }
 
   private profileUrl (): string {
-    return this.url(this._settingsService.app('profilePath'));
+    return this.url(this.settingsService.app('profilePath'));
   }
 
 }
