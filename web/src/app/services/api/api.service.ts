@@ -9,14 +9,14 @@ export class ApiService {
 
   constructor (
     private authService: AuthService,
-    protected _http: HttpClient,
-    protected _settingsService: SettingsService
+    protected http: HttpClient,
+    protected settingsService: SettingsService
   ) { }
 
   url (path, opts?) {
-    let wsHost = this._settingsService.env('wsHost') || 'api';
-    let wsDomain = this._settingsService.env('wsDomain') || 'wordshop.app';
-    let wsProtocol = this._settingsService.env('wsProtocol') || 'https';
+    let wsHost = this.settingsService.env('wsHost') || 'api';
+    let wsDomain = this.settingsService.env('wsDomain') || 'wordshop.app';
+    let wsProtocol = this.settingsService.env('wsProtocol') || 'https';
 
     if (opts && opts.host) { 
       wsHost = opts.host;
@@ -90,7 +90,7 @@ export class ApiService {
   get (url, opts?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.token().then(t => {
-        this._http.get(url, this.apiOpts(t, opts))
+        this.http.get(url, this.apiOpts(t, opts))
           .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });
@@ -99,7 +99,7 @@ export class ApiService {
   post (url, body, opts?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.authService.token().then(token => {
-        this._http.post(url, body, this.apiOpts(token, opts))
+        this.http.post(url, body, this.apiOpts(token, opts))
           .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });
@@ -108,7 +108,7 @@ export class ApiService {
   put (url, body, opts?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.authService.token().then(token => {
-        this._http.put(url, body, this.apiOpts(token, opts))
+        this.http.put(url, body, this.apiOpts(token, opts))
           .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });
@@ -117,7 +117,7 @@ export class ApiService {
   delete (url, opts?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.authService.token().then(token => {
-        this._http.delete(url, this.apiOpts(token, opts))
+        this.http.delete(url, this.apiOpts(token, opts))
           .toPromise().then(resolve).catch(reject);
       }).catch(reject);
     });

@@ -13,6 +13,18 @@ function genShortId () {
   return shortid.generate();
 }
 
+function allProjectsParams (userId) {
+  return {
+    TableName: 'ws_projects',
+    IndexName: 'user_id-updated-index',
+    KeyConditionExpression: 'user_id = :user_id',
+    ExpressionAttributeValues: {
+      ':user_id': userId
+    },
+    ScanIndexForward: false
+  };
+}
+
 function newProjBatchParams (params) {
   let now = genTimestamp();
   let projectId = genShortId();
@@ -108,6 +120,17 @@ function add (user, data) {
   });
 }
 
+function all (userId) {
+  return new Promise((resolve, reject) => {
+    dynamodbService
+      .getItem(allProjectsParams(userId))
+      .then(res => {
+        resolve(res);
+      })
+      .catch(reject);
+  });
+}
+
 function get (id, includeParts, includeVersions) {
 
 }
@@ -122,6 +145,7 @@ function del (id) {
 
 module.exports = {
   add: add,
+  all: all,
   get: get,
   put: put,
   del: del

@@ -22,11 +22,15 @@ export class ProjectService extends ApiService  {
     super(authService, http, settingsService);
   }
 
-  createProject (projData): Promise<any> {
-    return this.post(this.projecturl(), projData);
+  all (): Promise<any> {
+    return this.get(`${this.projectUrl()}/mine`);
   }
 
-  private projecturl (): string {
-    return this.url(this._settingsService.app('projectPath'));
+  create (data): Promise<any> {
+    return this.post(this.projectUrl(), data);
+  }
+
+  private projectUrl (): string {
+    return this.url(this.settingsService.app('projectPath'));
   }
 }

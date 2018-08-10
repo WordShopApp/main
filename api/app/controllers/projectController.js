@@ -40,6 +40,25 @@ module.exports.projectCreate = (req, res) => {
 
 };
 
+module.exports.projectMine = (req, res) => {
+  let desc = 'GET /projects/mine';
+
+  userService.get(req.user).then(user => {
+
+    projectService.all(user.user_id).then(projs => {
+
+      console.log(desc, 'projects', projs);
+      res.status(http.codes.ok).send(projs);
+  
+    }).catch(err => {
+      handleException(err, res, desc);
+    });
+
+  }).catch(err => {
+    handleException(err, res, desc);
+  });
+};
+
 module.exports.projectShow = (req, res) => {
 };
 

@@ -720,7 +720,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   }
 
   private createProject () {
-    this.projectService.createProject(this.project).then(proj => {
+    this.projectService.create(this.project).then(proj => {
       this.loggerService.info('new project', proj);
       this.accountService.updateProfile({ project_in_progress: null }).then(updated => {
         this.storeService.dispatch(Actions.Init.Profile, updated);
