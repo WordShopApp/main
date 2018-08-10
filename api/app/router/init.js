@@ -8,6 +8,13 @@ module.exports = (app) => {
   app.get('/profile/validate-username/:username', accountController.usernameValidate);
   app.delete('/profile', accountController.profileDelete);
 
+  // project
+  let projectController = require('../controllers/projectController');
+  app.post('/projects', projectController.projectCreate);
+  app.get('/projects/:project_id', projectController.projectShow);
+  app.put('/projects', projectController.projectUpdate);
+  app.delete('/projects', projectController.projectDelete);
+
   // user
   let userController = require('../controllers/userController');
   app.get('/users/:id', userController.show);

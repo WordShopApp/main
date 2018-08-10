@@ -22,6 +22,7 @@ import { SettingsService } from './services/settings/settings.service';
 import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
 import { WordIconService } from './services/word-icon/word-icon.service';
+import { ProjectService } from './services/project/project.service';
 
 // Components
 import { AboutComponent } from './components/about/about.component';
@@ -94,6 +95,7 @@ import { CookieService } from 'ng2-cookies';
     LoggerService,
     MessengerService,
     NavService,
+    ProjectService,
     RootResolver,
     RosieService,
     SettingsService,

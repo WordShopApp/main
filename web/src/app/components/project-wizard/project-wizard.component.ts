@@ -5,6 +5,7 @@ import * as he from 'he';
 import { AccountService } from '../../services/account/account.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { NavService } from '../../services/nav/nav.service';
+import { ProjectService } from '../../services/project/project.service';
 import { StoreService } from '../../services/store/store.service';
 import { StoreActions as Actions } from '../../services/store/store.actions';
 import { StoreProps as Props } from '../../services/store/store.props';
@@ -661,6 +662,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     private loggerService: LoggerService,
     private navService: NavService,
+    private projectService: ProjectService,
     private storeService: StoreService,
     private wordIconService: WordIconService
   ) { }
@@ -718,7 +720,11 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   }
 
   private createProject () {
-    this.navService.gotoRoot();
+    this.projectService.createProject(this.project).then(proj => {
+      this.navService.gotoRoot();
+    }).catch(err => {
+      this.loggerService.error(err);
+    });
   }
 
   private setupSubscriptions () {
