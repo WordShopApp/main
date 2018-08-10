@@ -2,7 +2,7 @@ const http = require('../services/utils');
 const projectService = require('../services/projectService');
 const userService = require('../services/userService');
 
-function handleException (err) {
+function handleException (err, res, desc) {
   if (err.code === 'AccessDeniedException') {
     console.log(desc, 'unauthorized', err);
     res.status(http.codes.unauthorized).send({ 
@@ -30,9 +30,13 @@ module.exports.projectCreate = (req, res) => {
       console.log(desc, 'created', proj);
       res.status(http.codes.created).send(proj);
   
-    }).catch(handleException.bind(this));
+    }).catch(err => {
+      handleException(err, res, desc);
+    });
 
-  }).catch(handleException.bind(this));
+  }).catch(err => {
+    handleException(err, res, desc);
+  });
 
 };
 
