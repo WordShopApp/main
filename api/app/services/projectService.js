@@ -109,6 +109,7 @@ function newProjBatchParamsToResults (params) {
 function add (user, data) {
   return new Promise((resolve, reject) => {
     let npp = newProjParams(user, data);
+    console.log('NEWPROJPARAMS', npp);
     dynamodbService
       .addBatch(npp)
       .then(res => {
