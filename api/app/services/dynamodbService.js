@@ -68,5 +68,6 @@ module.exports = {
   addBatch: addBatch,
   addItem: addItem,
   getItem: getItem,
+  getItems: getItems,
   delItem: delItem
 };
