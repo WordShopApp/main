@@ -721,10 +721,12 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   private createProject () {
     this.projectService.createProject(this.project).then(proj => {
-      this.navService.gotoRoot();
-    }).catch(err => {
-      this.loggerService.error(err);
-    });
+      this.loggerService.info('new project', proj);
+      this.accountService.updateProfile({ project_in_progress: null }).then(updated => {
+        this.storeService.dispatch(Actions.Init.Profile, updated);
+        this.navService.gotoRoot();
+      }).catch(this.loggerService.error.bind(this));
+    }).catch(this.loggerService.error.bind(this));
   }
 
   private setupSubscriptions () {

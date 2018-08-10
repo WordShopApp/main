@@ -86,11 +86,24 @@ function newProjParams (user, data) {
   });
 }
 
+function newProjBatchParamsToResults (params) {
+  let proj = params.RequestItems.ws_projects[0].PutRequest.Item;
+  let part = params.RequestItems.ws_parts[0].PutRequest.Item;
+  let ver = params.RequestItems.ws_versions[0].PutRequest.Item;
+  part.versions = [ver];
+  proj.parts = [part];
+  return proj;
+}
+
 function add (user, data) {
   return new Promise((resolve, reject) => {
+    let npp = newProjParams(user, data);
     dynamodbService
-      .addBatch(newProjParams(user, data))
-      .then(resolve)
+      .addBatch(npp)
+      .then(res => {
+        // todo: check for items in res.UnprocessedItems
+        resolve(newProjBatchParamsToResults(npp));
+      })
       .catch(reject);
   });
 }
