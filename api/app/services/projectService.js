@@ -16,7 +16,6 @@ function genShortId () {
 function allProjectsParams (userId) {
   return {
     TableName: 'ws_projects',
-    IndexName: 'user_id-updated-index',
     KeyConditionExpression: 'user_id = :user_id',
     ExpressionAttributeValues: {
       ':user_id': userId
