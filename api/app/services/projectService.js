@@ -52,8 +52,8 @@ function newProjBatchParams (params) {
             Item: {
               part_id: partId,
               project_id: projectId,
-              part_name: params.partName || 'Part One',
-              context: params.context || 'NULL',
+              part_name: params.partName,
+              context: params.context,
               questions: params.questions,
               created: now,
               updated: now
@@ -109,7 +109,6 @@ function newProjBatchParamsToResults (params) {
 function add (user, data) {
   return new Promise((resolve, reject) => {
     let npp = newProjParams(user, data);
-    console.log('NEWPROJPARAMS', npp);
     dynamodbService
       .addBatch(npp)
       .then(res => {
