@@ -52,8 +52,8 @@ function newProjBatchParams (params) {
             Item: {
               part_id: partId,
               project_id: projectId,
-              part_name: params.partName,
-              context: params.context,
+              part_name: params.partName || 'Part One',
+              context: params.context || 'NULL',
               questions: params.questions,
               created: now,
               updated: now
