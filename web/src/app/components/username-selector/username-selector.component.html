@@ -10,7 +10,7 @@
     <span class="input-group-text" [ngClass]="{ 'is-valid': (valid === true), 'is-invalid': (valid === false) }">
       <i class="fa fa-check" [ngClass]="{ show: valid === true, hide: valid !== true }"></i>
       <i class="fa fa-close" [ngClass]="{ show: valid === false, hide: valid !== false }"></i>
-      <i class="fa fa-minus" [ngClass]="{ show: valid === null, hide: valid !== null }"></i>
+      <span [ngClass]="{ show: valid === null, hide: valid !== null }">--</span>
     </span>
   </div>
 </div>

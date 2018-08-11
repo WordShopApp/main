@@ -148,12 +148,12 @@ body.light {
     color: lighten(#212529, 40%);
     background-color: lighten($ws-base-color, 30%);
     border-color: lighten($ws-base-color, 30%);
-    border-bottom: 2px solid lighten($ws-base-color, 30%);
+    border-bottom: 1px solid lighten($ws-base-color, 30%);
     &:hover {
       color: white!important;
       background-color: lighten($ws-highlight-color, 5%);
       border-color: lighten($ws-highlight-color, 5%);
-      border-bottom: 2px solid darken($ws-highlight-color, 10%);
+      border-bottom: 1px solid darken($ws-highlight-color, 10%);
     }
     &.active {
       color: white!important;
@@ -169,12 +169,12 @@ body.light {
     color: lighten(#212529, 40%);
     background-color: lighten($ws-base-color, 30%);
     border-color: lighten($ws-base-color, 30%);
-    border-bottom: 2px solid lighten($ws-base-color, 30%);
+    border-bottom: 1px solid lighten($ws-base-color, 30%);
     &:hover {
       color: white!important;
       background-color: lighten($ws-base-color, 5%);
       border-color: lighten($ws-base-color, 5%);
-      border-bottom: 2px solid darken($ws-base-color, 10%);
+      border-bottom: 1px solid darken($ws-base-color, 10%);
     }
     &.active {
       color: white!important;
