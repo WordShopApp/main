@@ -51,8 +51,10 @@ import { MultiSelectListComponent } from './components/multi-select-list/multi-s
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { ProjectItemComponent } from './components/project-item/project-item.component';
 import { ProjectComponent } from './components/project/project.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 import { CookieService } from 'ng2-cookies';
+
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { CookieService } from 'ng2-cookies';
     MultiSelectListComponent,
     UserSettingsComponent,
     ProjectItemComponent,
-    ProjectComponent
+    ProjectComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

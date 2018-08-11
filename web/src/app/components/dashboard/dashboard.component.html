@@ -11,12 +11,18 @@
   <a [routerLink]="['/projects/new']" class="btn btn-block btn-wordshop-subtle" preserveFragment>
     <i class="fa fa-plus"></i> Project
   </a>
-  <ul>
-    <li *ngFor="let p of projects" [routerLink]="['/projects', p.project_id]">
-      <app-project-item [project]="p"></app-project-item>
-    </li>
-  </ul>
-  <div style="flex:1"></div>
+  <div *ngIf="projects">
+    <ul class="ws-project-list">
+      <li *ngFor="let p of projects" [routerLink]="['/projects', p.project_id]">
+        <app-project-item [project]="p"></app-project-item>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="!projects">
+    <br>
+    <app-loading></app-loading>
+    <br>
+  </div>
 </div>
 <div *ngIf="activeTab === 'critiques'" class="ws-panel ws-dashboard-tab-panel">
   <a [routerLink]="['/projects']" class="btn btn-block btn-wordshop-subtle" preserveFragment><i class="fa fa-plus"></i> Critique</a>

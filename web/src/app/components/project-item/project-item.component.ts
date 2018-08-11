@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { WordIconService } from '../../services/word-icon/word-icon.service';
 
 @Component({
   selector: 'app-project-item',
@@ -8,10 +9,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProjectItemComponent implements OnInit {
 
   @Input() project: any;
+  palette: any;
 
-  constructor() { }
+  constructor (
+    private wordIconService: WordIconService
+  ) { }
 
   ngOnInit() {
+    this.palette = this.wordIconService.getPalette(this.project.title);
   }
 
 }
