@@ -8,11 +8,6 @@ const { IS_OFFLINE } = process.env;
 const MIN_USERNAME_LENGTH = 5;
 const MAX_USERNAME_LENGTH = 15;
 
-function log (msg, obj) {
-  console.log('WordShop API: ' + msg);
-  if (obj) console.log(obj);
-}
-
 // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html
 function dynamodbDocumentClient () {
   let ddbc;
@@ -299,50 +294,51 @@ module.exports.usernameValidate = (req, res) => {
   // 4) validate username already exists
   fetchUserByName(username).then(user => {
     if (user.email === req.user) {
-      console.log(desc, 'wants to update own username', username);
+      console.log(desc, 'Wants to Update Own Username', username);
       res.status(http.codes.ok).send({ valid: true, message: 'This is you!' });
     } else {
-      console.log(desc, 'exists', username);
+      console.log(desc, 'Exists', username);
       res.status(http.codes.ok).send({ valid: false, message: 'Username already taken' });
     }
   }).catch(err => {
     if (err.code === 'AccessDeniedException') {
-      console.log(desc, 'unauthorized', err);
+      console.log(desc, 'Unauthorized', err);
       res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
     } else if (err.code === 'ResourceNotFoundException') {
       res.status(http.codes.ok).send({ valid: true, message: 'Username available' });
     } else {
-      console.log(desc, 'internal_server_error', err);
+      console.log(desc, 'Internal Server Error', err);
       res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
     }
   });
 };
 
 module.exports.profileCreate = (req, res) => {
+  let desc = 'POST /profile';
   let newUser = formatNewUser(req.body);
   fetchUser(newUser.email).then(user => {
-    console.log('POST /profile', 'exists', user);
+    console.log(desc, 'Exists', user);
     res.status(http.codes.ok).send(user);
   }).catch(err => {
     if (err.code === 'AccessDeniedException') {
-      console.log('POST /profile', 'unauthorized', err);
+      console.log(desc, 'Unauthorized', err);
       res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
     } else if (err.code === 'ResourceNotFoundException') {
 
       createNewUser(newUser).then(user => {
-        console.log('POST /profile', 'created', user);
+        console.log(desc, 'Created', user);
         res.status(http.codes.created).send(user);
       }).catch(err => {
         if (err.code === 'AccessDeniedException') {
-          console.log('POST /profile', 'unauthorized', err);
+          console.log(desc, 'Unauthorized', err);
           res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
         } else {
-          console.log('POST /profile', 'internal_server_error', err);
+          console.log(desc, 'Internal Server Error', err);
           res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
         }
       });
     } else {
-      console.log('POST /profile', 'internal_server_error', err);
+      console.log(desc, 'Internal Server Error', err);
       res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
     }
   });
@@ -350,92 +346,29 @@ module.exports.profileCreate = (req, res) => {
 
 module.exports.profileUpdate = (req, res) => {
   let desc = 'PUT /profile';
-  console.log(desc, 'user', req.user);
-  fetchUser(req.user).then(user => {
-    let updated = { ...user, ...req.body };
-    if (req.body.username) updated.username_lookup = req.body.username.toLocaleLowerCase();
-    console.log('updated user', updated);
-    updateUser(updated).then(u => {
-      res.status(http.codes.ok).send(u);
-    }).catch(err => {
-      if (err.code === 'AccessDeniedException') {
-        console.log(desc, 'unauthorized', err);
-        res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
-      } else {
-        console.log(desc, 'internal_server_error', err);
-        res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
-      }
-    });
+  let updated = { ...req.user, ...req.body };
+  if (req.body.username) updated.username_lookup = req.body.username.toLocaleLowerCase();
+  console.log(desc, 'User', updated);
+  updateUser(updated).then(u => {
+    res.status(http.codes.ok).send(u);
   }).catch(err => {
-    if (err.code === 'AccessDeniedException') {
-      console.log('GET /profile', 'unauthorizied', err);
-      res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
-    } else if (err.code === 'ResourceNotFoundException') {
-      console.log('GET /profile', 'profile_does_not_exist', err);
-      res.status(http.codes.not_found).send({ 
-        message: 'profile_does_not_exist'
-      });
-    } else {
-      console.log('GET /profile', 'internal_server_error', err);
-      res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
-    }
+    console.log(desc, 'Internal Server Error', err);
+    res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
   });
 };
 
 module.exports.profileShow = (req, res) => {
-  console.log('GET /profile', 'user', req.user);
-  fetchUser(req.user).then(user => {
-
-    console.log('GET /profile', 'found', user);
-    res.status(http.codes.ok).send(user);
-
-  }).catch(err => {
-    if (err.code === 'AccessDeniedException') {
-      console.log('GET /profile', 'unauthorizied', err);
-      res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
-    } else if (err.code === 'ResourceNotFoundException') {
-      console.log('GET /profile', 'profile_does_not_exist', err);
-      res.status(http.codes.not_found).send({ 
-        message: 'profile_does_not_exist'
-      });
-    } else {
-      console.log('GET /profile', 'internal_server_error', err);
-      res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
-    }
-  });
+  console.log('GET /profile', 'User', req.user);
+  res.status(http.codes.ok).send(req.user);
 };
 
 module.exports.profileDelete = (req, res) => {
-  console.log('DELETE /profile', 'user', req.user);
-  fetchUser(req.user).then(user => {
-
-    console.log('DELETE /profile', 'found', user);
-
-    deleteUser(user).then(u => {
-      console.log('DELETE /profile', 'deleted', u);
-      res.status(http.codes.ok).send(u);
-    }).catch(err => {
-      if (err.code === 'AccessDeniedException') {
-        console.log(desc, 'unauthorized', err);
-        res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
-      } else {
-        console.log(desc, 'internal_server_error', err);
-        res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
-      }
-    });
-
+  console.log('DELETE /profile', 'User', req.user);
+  deleteUser(req.user).then(u => {
+    console.log('DELETE /profile', 'Deleted', u);
+    res.status(http.codes.ok).send(u);
   }).catch(err => {
-    if (err.code === 'AccessDeniedException') {
-      console.log('GET /profile', 'unauthorizied', err);
-      res.status(http.codes.unauthorized).send({ message: 'unauthorizied' });
-    } else if (err.code === 'ResourceNotFoundException') {
-      console.log('GET /profile', 'profile_does_not_exist', err);
-      res.status(http.codes.not_found).send({ 
-        message: 'profile_does_not_exist'
-      });
-    } else {
-      console.log('GET /profile', 'internal_server_error', err);
-      res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
-    }
+    console.log(desc, 'internal_server_error', err);
+    res.status(http.codes.internal_server_error).send({ message: 'internal_server_error' });
   });
 };

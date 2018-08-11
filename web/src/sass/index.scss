@@ -119,6 +119,8 @@ trix-editor {
   padding: 24px;
   margin-bottom: $ws-default-padding * 2;
   &.ws-dashboard-tab-panel {
+    display: flex;
+    flex-direction: column;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }

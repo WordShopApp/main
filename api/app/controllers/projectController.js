@@ -1,6 +1,5 @@
 const http = require('../services/utils');
 const projectService = require('../services/projectService');
-const userService = require('../services/userService');
 
 function handleException (err, res, desc) {
   if (err.code === 'AccessDeniedException') {
@@ -17,43 +16,22 @@ function handleException (err, res, desc) {
 }
 
 module.exports.projectCreate = (req, res) => {
-
   let desc = 'POST /projects';
-
-  userService.get(req.user).then(user => {
-
-    let newProjData = req.body;
-    console.log(desc, 'newProjData', newProjData);
-
-    projectService.add(user, newProjData).then(proj => {
-
-      console.log(desc, 'created', proj);
-      res.status(http.codes.created).send(proj);
-  
-    }).catch(err => {
-      handleException(err, res, desc);
-    });
-
+  let newProjData = req.body;
+  console.log(desc, 'newProjData', newProjData);
+  projectService.add(req.user, newProjData).then(proj => {
+    console.log(desc, 'Created', proj);
+    res.status(http.codes.created).send(proj);
   }).catch(err => {
     handleException(err, res, desc);
   });
-
 };
 
 module.exports.projectMine = (req, res) => {
   let desc = 'GET /projects/mine';
-
-  userService.get(req.user).then(user => {
-
-    projectService.all(user.user_id).then(projs => {
-
-      console.log(desc, 'projects', projs);
-      res.status(http.codes.ok).send(projs);
-  
-    }).catch(err => {
-      handleException(err, res, desc);
-    });
-
+  projectService.all(req.user.user_id).then(projs => {
+    console.log(desc, 'Projects', projs);
+    res.status(http.codes.ok).send(projs);
   }).catch(err => {
     handleException(err, res, desc);
   });
