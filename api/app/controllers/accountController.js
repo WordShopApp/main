@@ -276,6 +276,10 @@ function validateLength (username) {
   return res;
 }
 
+function updateUsernameQueryField (username, updated) {
+  if (username) updated.query_key_01 = `usr:username:${username.toLocaleLowerCase()}`;
+}
+
 module.exports.usernameValidate = (req, res) => {
   let username = req.params.username;
   let desc = 'GET /profile/validate-username';
@@ -350,7 +354,7 @@ module.exports.profileCreate = (req, res) => {
 module.exports.profileUpdate = (req, res) => {
   let desc = 'PUT /profile';
   let updated = { ...req.user, ...req.body };
-  if (req.body.username) updated.username_lookup = req.body.username.toLocaleLowerCase();
+  updateUsernameQueryField(req.body.username, updated);
   console.log(desc, 'User', updated);
   updateUser(updated).then(u => {
     res.status(http.codes.ok).send(u);
