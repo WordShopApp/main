@@ -16,6 +16,7 @@ function genShortId () {
 function allProjectsParams (userId) {
   return {
     TableName: 'WordShop',
+    IndexName: 'query_key_01-updated-index',
     KeyConditionExpression: 'query_key_01 = :qk01',
     ExpressionAttributeValues: {
       ':qk01': `prj:usr:${userId}`
@@ -116,7 +117,7 @@ function add (user, data) {
       .addBatch(npp)
       .then(res => {
         // todo: check for items in res.UnprocessedItems
-        resolve(newProjBatchParamsToResults(npp));
+        resolve(res);
       })
       .catch(reject);
   });
