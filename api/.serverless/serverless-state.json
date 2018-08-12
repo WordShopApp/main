@@ -347,13 +347,13 @@
             "Properties": {
               "AttributeDefinitions": [
                 {
-                  "AttributeName": "user_id",
+                  "AttributeName": "ws_key",
                   "AttributeType": "S"
                 }
               ],
               "KeySchema": [
                 {
-                  "AttributeName": "user_id",
+                  "AttributeName": "ws_key",
                   "KeyType": "HASH"
                 }
               ],
