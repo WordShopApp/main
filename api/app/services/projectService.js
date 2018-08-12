@@ -15,10 +15,10 @@ function genShortId () {
 
 function allProjectsParams (userId) {
   return {
-    TableName: 'ws_projects',
-    KeyConditionExpression: 'user_id = :user_id',
+    TableName: 'WordShop',
+    KeyConditionExpression: 'query_key_01 = :qk01',
     ExpressionAttributeValues: {
-      ':user_id': userId
+      ':qk01': `prj:usr:${userId}`
     },
     ScanIndexForward: false
   };
@@ -31,47 +31,50 @@ function newProjBatchParams (params) {
   let versionId = genShortId();
   return {
     RequestItems: {
-      'ws_projects': [
+      'WordShop': [
         {
           PutRequest: {
             Item: {
+              ws_key: `prj:${projectId}`,
               project_id: projectId,
               user_id: params.userId,
               title: params.title,
               categories: params.categories,
               private: params.private,
               created: now,
-              updated: now
+              updated: now,
+              query_key_01: `prj:usr:${params.userId}`
             }
           }
-        }
-      ],
-      'ws_parts': [
+        },
         {
           PutRequest: {
             Item: {
+              ws_key: `prt:${partId}`,
               part_id: partId,
               project_id: projectId,
               part_name: params.partName,
               context: params.context,
               questions: params.questions,
               created: now,
-              updated: now
+              updated: now,
+              query_key_01: `prt:prj:${projectId}`
             }
           }
-        }
-      ],
-      'ws_versions': [
+        },
         {
           PutRequest: {
             Item: {
+              ws_key: `ver:${versionId}`,
               version_id: versionId,
               part_id: partId,
               project_id: projectId,
               text: params.text,
               word_count: params.wordCount,
               created: now,
-              updated: now
+              updated: now,
+              query_key_01: `ver:prj:${projectId}`,
+              query_key_02: `ver:prt:${partId}`
             }
           }
         }
@@ -130,7 +133,7 @@ function all (userId) {
   });
 }
 
-function get (id, includeParts, includeVersions) {
+function get (id) {
 
 }
 
