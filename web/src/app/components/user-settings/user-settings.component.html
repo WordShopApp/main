@@ -87,7 +87,7 @@
       </p>
       <form class="form-inline">
         <input type="email" (keydown.enter)="ignoreEnter($event)" (input)="validateDeleteAccount($event)" class="form-control full-width" aria-describedby="deleteHelp" placeholder="Email">
-        <button type="submit" (click)="deleteAccount($event)" class="btn btn-wordshop-subtle" [ngClass]="{ 'btn-wordshop-subtle': !enableAccountDelete, 'btn-wordshop-red': enableAccountDelete, 'disabled': !enableAccountDelete }">Delete Account</button>
+        <button type="submit" (click)="deleteAccount($event)" class="btn btn-wordshop-subtle btn-delete-account" [ngClass]="{ 'btn-wordshop-subtle': !enableAccountDelete, 'btn-wordshop-red': enableAccountDelete, 'disabled': !enableAccountDelete }">Delete Account</button>
       </form>
     </div>
   </div>

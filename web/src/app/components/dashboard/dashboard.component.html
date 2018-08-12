@@ -21,7 +21,6 @@
   <div *ngIf="!projects && projectsLoading">
     <br>
     <app-loading></app-loading>
-    <br>
   </div>
   <div *ngIf="(!projects || (projects && !projects.length)) && !projectsLoading" class="zero-state text-muted">
     <p>You don't have any projects yet. Click on the button above to create one.</p>

@@ -35,7 +35,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   ngOnInit () {
     this.param$ = this.route.paramMap.subscribe(params => {
       this.projectId = params.get('id');
-      this.projectService.get(this.projectId).then(proj => {
+      this.projectService.show(this.projectId).then(proj => {
         this.project = proj;
       }).catch(err => {
         this.loggerService.error(err);

@@ -26,7 +26,7 @@ export class ProjectService extends ApiService  {
     return this.get(`${this.projectUrl()}/mine`);
   }
 
-  get (projectId): Promise<any> {
+  show (projectId): Promise<any> {
     return this.get(`${this.projectUrl()}/${projectId}`);
   }
 

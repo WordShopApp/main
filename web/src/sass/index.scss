@@ -801,11 +801,9 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   margin: 0;
   padding: 0;
   margin-top: 12px;
-  margin-bottom: 12px;
   li {
     padding: 12px;
     margin-top: 6px;
-    margin-bottom: 6px;
   }
 }
 
@@ -917,12 +915,24 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       }
     }
   }
+  .ws-project-item {
+    h5 {
+      font-size: 16px;
+    }
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
   .ws-table {
     tr {
       td {
         padding: 8px;
       }
     }
+  }
+  .btn-delete-account {
+    flex: 1;
   }
   .mobile-hide {
     display: none!important;

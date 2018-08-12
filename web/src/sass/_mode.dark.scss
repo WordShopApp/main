@@ -233,7 +233,7 @@ body.dark {
         border: 1px solid darken($ws-base-color, 32%);
         border-bottom: 1px solid darken($ws-base-color, 40%);
       }
-      &:hover {
+      &:hover, &:active {
         background-color: $ws-highlight-color;
         border: 1px solid transparent;
         border-bottom: 1px solid darken($ws-highlight-color, 10%);
