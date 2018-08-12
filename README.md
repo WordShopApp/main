@@ -80,4 +80,4 @@ $ ./dev.sh
 
 To shutdown the local development environment, enter ```Ctrl+C```.
 
-Thanks for reading!
+Thanks for reading, friend!
