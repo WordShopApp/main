@@ -161,7 +161,7 @@ function textUploadParams (params) {
   let part = params.RequestItems.WordShop[1].PutRequest.Item;
   let ver = params.RequestItems.WordShop[2].PutRequest.Item;
   return {
-    ACL: this.textUploadAcl(), 
+    ACL: textUploadAcl(), 
     Body: data[2].text,
     Bucket: textUploadBucket(), 
     Key: textUploadKey(proj.user_id, proj.project_id, part.part_id, ver.version_id)
