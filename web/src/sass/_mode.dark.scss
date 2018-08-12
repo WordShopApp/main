@@ -228,15 +228,20 @@ body.dark {
         background-color: darken($ws-base-color, 35%);
         border: 1px solid transparent;
         border-bottom: 1px solid darken($ws-base-color, 45%);
+        &:hover, &:active {
+          background-color: darken($ws-base-color, 32%);
+          border-bottom: 1px solid darken($ws-base-color, 42%);
+        }
       }
       &:nth-child(odd) {
-        border: 1px solid darken($ws-base-color, 32%);
-        border-bottom: 1px solid darken($ws-base-color, 40%);
-      }
-      &:hover, &:active {
-        background-color: $ws-highlight-color;
+        background-color: darken($ws-base-color, 25%);
         border: 1px solid transparent;
-        border-bottom: 1px solid darken($ws-highlight-color, 10%);
+        border-bottom: 1px solid darken($ws-base-color, 40%);
+        &:hover, &:active {
+          background-color: darken($ws-base-color, 23%);
+          border: 1px solid transparent;
+          border-bottom: 1px solid darken($ws-base-color, 37%);
+        }
       }
     }
   }
