@@ -1,7 +1,8 @@
 const moment = require('moment');
 const shortid = require('shortid');
 
-let dynamodbService = require('./dynamodbService');
+const dynamodbService = require('./dynamodbService');
+const s3Service = require('./s3Service');
 
 function genTimestamp () {
   // http://momentjs.com/docs/#/displaying/unix-timestamp-milliseconds/
@@ -135,12 +136,36 @@ function newProjParams (user, data) {
 }
 
 function newProjBatchParamsToResults (params) {
-  let proj = params.RequestItems.ws_projects[0].PutRequest.Item;
-  let part = params.RequestItems.ws_parts[0].PutRequest.Item;
-  let ver = params.RequestItems.ws_versions[0].PutRequest.Item;
+  let proj = params.RequestItems.WordShop[0].PutRequest.Item;
+  let part = params.RequestItems.WordShop[1].PutRequest.Item;
+  let ver = params.RequestItems.WordShop[2].PutRequest.Item;
   part.versions = [ver];
   proj.parts = [part];
   return proj;
+}
+
+function textUploadKey (userId, projectId, partId, versionId) {
+  return `usr:${userId}/prj:${projectId}/prt:${partId}/ver:${versionId}`;
+}
+
+function textUploadBucket () {
+  return 'store.wordshop.app';
+}
+
+function textUploadAcl () {
+  return 'authenticated-read';
+}
+
+function textUploadParams (params) {
+  let proj = params.RequestItems.WordShop[0].PutRequest.Item;
+  let part = params.RequestItems.WordShop[1].PutRequest.Item;
+  let ver = params.RequestItems.WordShop[2].PutRequest.Item;
+  return {
+    ACL: this.textUploadAcl(), 
+    Body: data[2].text,
+    Bucket: textUploadBucket(), 
+    Key: textUploadKey(proj.user_id, proj.project_id, part.part_id, ver.version_id)
+   };
 }
 
 function add (user, data) {
@@ -148,7 +173,12 @@ function add (user, data) {
     let npp = newProjParams(user, data);
     dynamodbService
       .addBatch(npp)
-      .then(resolve)
+      .then(res => {
+        s3Service
+          .put(textUploadParams(npp))
+          .then(resolve)
+          .catch(reject);
+      })
       .catch(reject);
   });
 }
