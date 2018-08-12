@@ -344,6 +344,7 @@
           },
           "UsersDynamoDBTable": {
             "Type": "AWS::DynamoDB::Table",
+            "DeletionPolicy": "Retain",
             "Properties": {
               "AttributeDefinitions": [
                 {
@@ -443,6 +444,7 @@
       "Resources": {
         "UsersDynamoDBTable": {
           "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
           "Properties": {
             "AttributeDefinitions": [
               {

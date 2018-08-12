@@ -322,6 +322,7 @@
     },
     "UsersDynamoDBTable": {
       "Type": "AWS::DynamoDB::Table",
+      "DeletionPolicy": "Retain",
       "Properties": {
         "AttributeDefinitions": [
           {
