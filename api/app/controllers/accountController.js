@@ -28,42 +28,41 @@ function dynamodbDocumentClient () {
 
 function fetchUserParams (email) {
   return {
-    TableName: 'ws_users',
-    IndexName: 'email-index',
-    KeyConditionExpression: 'email = :email',
+    TableName: 'WordShop',
+    KeyConditionExpression: 'ws_key = :wskey',
     ExpressionAttributeValues: {
-      ':email': email
+      ':wskey': `usr:${email}`
     }
   };
 }
 
-function fetchUserByNameParams (name) {
+function fetchUserByNameParams (username) {
   return {
-    TableName: 'ws_users',
-    IndexName: 'username_lookup-index',
-    KeyConditionExpression: 'username_lookup = :usernamelookup',
+    TableName: 'WordShop',
+    IndexName: 'query_key_01-updated-index',
+    KeyConditionExpression: 'query_key_01 = :qk01',
     ExpressionAttributeValues: {
-      ':usernamelookup': name.toLocaleLowerCase()
+      ':qk01': `usr:username:${username.toLocaleLowerCase()}`
     }
   };
 }
 
 function deleteUserParams (user) {
   return {
-    TableName: 'ws_users',
+    TableName: 'WordShop',
     Key: {
-      user_id: user.user_id
+      ws_key: `usr:${user.email}`
     }
   };
 }
 
 function updateUserParams (user) {
   return {
-    TableName: 'ws_users',
+    TableName: 'WordShop',
     Item: {
+      ws_key: user.ws_key,
       user_id: user.user_id,
       username: user.username,
-      username_lookup: user.username_lookup,
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
@@ -72,18 +71,19 @@ function updateUserParams (user) {
       new_user: user.new_user,
       avatar: user.avatar,
       created: user.created,
-      updated: genTimestamp()
+      updated: genTimestamp(),
+      query_key_01: user.query_key_01
     }
   };
 }
 
 function createUserParams (user) {
   return {
-    TableName: 'ws_users',
+    TableName: 'WordShop',
     Item: {
+      ws_key: user.ws_key,
       user_id: user.user_id,
       username: user.username,
-      username_lookup: user.username_lookup,
       email: user.email,
       subscription: user.subscription,
       join_mailing_list: user.join_mailing_list,
@@ -92,7 +92,8 @@ function createUserParams (user) {
       critique_in_progress: user.critique_in_progress,
       avatar: user.avatar,
       created: user.created,
-      updated: user.updated
+      updated: user.updated,
+      query_key_01: user.query_key_01
     }
   };
 }
@@ -217,7 +218,6 @@ function genUserName (email, shortId) {
 
 function createNewUser (user) {
   return new Promise((resolve, reject) => {
-    user.user_id = genUserId();
     createUser(user).then(resolve).catch(err => {
       if (err.code === 'TODO: some error code for duplicate userId') {
         createNewUser(user).then(resolve).catch(reject);
@@ -231,18 +231,21 @@ function createNewUser (user) {
 function formatNewUser (data) {
   let now = genTimestamp();
   let username = genUserName(data.email, shortid());
+  let userId = genUserId();
   return {
+    ws_key: `usr:${data.email}`,
+    user_id: userId,
     username: username,
-    username_lookup: username.toLocaleLowerCase(),
     email: data.email,
     avatar: data.avatar,
-    subscription: data.subscription,
+    cognito_subscription: data.subscription,
     join_mailing_list: data.join_mailing_list,
     new_user: true,
     project_in_progress: null,
     critique_in_progress: null,
     created: now,
-    updated: now
+    updated: now,
+    query_key_01: `usr:username:${username.toLocaleLowerCase()}`
   }
 }
 
@@ -293,7 +296,7 @@ module.exports.usernameValidate = (req, res) => {
 
   // 4) validate username already exists
   fetchUserByName(username).then(user => {
-    if (user.email === req.user) {
+    if (user.email.toLocaleLowerCase() === req.user.email.toLocaleLowerCase()) {
       console.log(desc, 'Wants to Update Own Username', username);
       res.status(http.codes.ok).send({ valid: true, message: 'This is you!' });
     } else {

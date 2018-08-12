@@ -5,7 +5,7 @@ plugins:
   - serverless-offline
 
 custom:
-  tableName: 'ws_users'
+  tableName: 'WordShop'
   dynamodb:
     start:
       migrate: true

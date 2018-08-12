@@ -32,7 +32,7 @@
         }
       ],
       "environment": {
-        "USERS_TABLE": "ws_users"
+        "USERS_TABLE": "WordShop"
       },
       "versionFunctions": true,
       "remoteFunctionData": null,
@@ -148,7 +148,7 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "USERS_TABLE": "ws_users"
+                  "USERS_TABLE": "WordShop"
                 }
               }
             },
@@ -361,7 +361,7 @@
                 "ReadCapacityUnits": 1,
                 "WriteCapacityUnits": 1
               },
-              "TableName": "ws_users"
+              "TableName": "WordShop"
             }
           }
         },
@@ -417,7 +417,7 @@
       "vpc": {}
     },
     "custom": {
-      "tableName": "ws_users"
+      "tableName": "WordShop"
     },
     "pluginsData": {},
     "functions": {
@@ -446,13 +446,13 @@
           "Properties": {
             "AttributeDefinitions": [
               {
-                "AttributeName": "user_id",
+                "AttributeName": "ws_key",
                 "AttributeType": "S"
               }
             ],
             "KeySchema": [
               {
-                "AttributeName": "user_id",
+                "AttributeName": "ws_key",
                 "KeyType": "HASH"
               }
             ],
@@ -460,7 +460,7 @@
               "ReadCapacityUnits": 1,
               "WriteCapacityUnits": 1
             },
-            "TableName": "ws_users"
+            "TableName": "WordShop"
           }
         }
       },

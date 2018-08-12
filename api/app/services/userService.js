@@ -2,11 +2,10 @@ let dynamodbService = require('./dynamodbService');
 
 function getParams (email) {
   return {
-    TableName: 'ws_users',
-    IndexName: 'email-index',
-    KeyConditionExpression: 'email = :email',
+    TableName: 'WordShop',
+    KeyConditionExpression: 'ws_key = :wskey',
     ExpressionAttributeValues: {
-      ':email': email
+      ':wskey': `usr:${email}`
     }
   };
 }

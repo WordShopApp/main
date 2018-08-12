@@ -658,6 +658,9 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
     ]
   };
 
+  wizardFinishText = 'Finish';
+  creatingProject = false;
+
   constructor (
     private accountService: AccountService,
     private loggerService: LoggerService,
@@ -720,13 +723,27 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
   }
 
   private createProject () {
-    this.projectService.create(this.project).then(proj => {
-      this.loggerService.info('new project', proj);
-      this.accountService.updateProfile({ project_in_progress: null }).then(updated => {
-        this.storeService.dispatch(Actions.Init.Profile, updated);
-        this.navService.gotoRoot();
-      }).catch(this.loggerService.error.bind(this));
-    }).catch(this.loggerService.error.bind(this));
+    if (!this.creatingProject) {
+      this.creatingProject = true;
+      this.wizardFinishText = 'Creating';
+      this.projectService.create(this.project).then(proj => {
+        this.loggerService.info('new project', proj);
+        this.accountService.updateProfile({ project_in_progress: null }).then(updated => {
+          this.creatingProject = false;
+          this.wizardFinishText = 'Finish';
+          this.storeService.dispatch(Actions.Init.Profile, updated);
+          this.navService.gotoRoot();
+        }).catch(err => {
+          this.creatingProject = false;
+          this.wizardFinishText = 'Finish';
+          this.loggerService.error(err);
+        });
+      }).catch(err => {
+        this.creatingProject = false;
+        this.wizardFinishText = 'Finish';
+        this.loggerService.error(err);
+      });
+    }
   }
 
   private setupSubscriptions () {

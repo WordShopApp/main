@@ -123,6 +123,10 @@ trix-editor {
     flex-direction: column;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    .zero-state {
+      text-align: center;
+      padding: 12px;
+    }
   }
 }
 
@@ -665,6 +669,18 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       width: 25%;
       margin-left: 5px;
       margin-right: 5px;
+    }
+    .btn-finish {
+      img {
+        height: 20px;
+        margin-left: 2px;
+        display: none;
+      }
+      &.creating-project {
+        img {
+          display: initial;
+        }
+      }
     }
   }
 }

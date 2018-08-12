@@ -192,7 +192,10 @@
     <div *ngIf="step >= 0" class="wizard-nav-buttons">
       <button *ngIf="step > 0" (click)="setCurrStep(step - 1)" class="btn btn-wordshop-gray">Back</button>
       <button *ngIf="step !== (project.length - 1)" (click)="setCurrStep(project[step].complete ? (step + 1) : null)" class="btn btn-wordshop" [ngClass]="{ disabled: !project[step].complete }">Next</button>
-      <button *ngIf="step === (project.length - 1)" (click)="createProject()" class="btn btn-wordshop">Finish</button>
+      <button *ngIf="step === (project.length - 1)" (click)="createProject()" class="btn btn-wordshop btn-finish" [ngClass]="{ 'creating-project': creatingProject }">
+        {{wizardFinishText}}
+        <img src="/assets/images/ws-loading.svg">
+      </button>
     </div>
     <div *ngIf="step === -1" class="wizard-nav-buttons">
       <button (click)="setCurrStep(getCurrStep(project))" class="btn btn-wordshop">Resume project</button>

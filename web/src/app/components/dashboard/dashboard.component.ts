@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   profile$: Subscription;
 
   projects: any;
+  projectsLoading = false;
 
   activeTab: string;
   activeTabKey = 'dashboardActiveTab';
@@ -34,9 +35,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.setupSubscriptions();
     this.rosieService.cleanup();
 
+    this.projectsLoading = true;
     this.projectService.all().then(p => {
       this.projects = p;
-    }).catch(this.loggerService.error);
+      this.projectsLoading = false;
+    }).catch(err => {
+      this.loggerService.error(err);
+      this.projectsLoading = false;
+    });
   }
 
   ngOnDestroy () {
