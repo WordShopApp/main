@@ -8,6 +8,16 @@ function dynamodbDocumentClient () {
   });
 }
 
+function getSingleItem (params) {
+  return new Promise(function (resolve, reject) {
+    // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property
+    dynamodbDocumentClient().get(params, function (err, res) {
+      if (err) return reject(err);
+      resolve(res && res.Item);
+    });
+  });
+}
+
 function getItem (queryParams) {
   return new Promise(function (resolve, reject) {
     // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#query-property
@@ -68,6 +78,7 @@ module.exports = {
   addBatch: addBatch,
   addItem: addItem,
   getItem: getItem,
+  getSingleItem: getSingleItem,
   getItems: getItems,
   delItem: delItem
 };

@@ -9,6 +9,7 @@ import { AlertTypes } from '../alert/alert.component';
 import { LoggerService } from '../../services/logger/logger.service';
 import { MessengerService } from '../../services/messenger/messenger.service';
 import { NavService } from '../../services/nav/nav.service';
+import { ProjectService } from '../../services/project/project.service';
 import { StoreService } from '../../services/store/store.service';
 import { StoreProps as Props } from '../../services/store/store.props';
 import { StoreActions as Actions } from '../../services/store/store.actions';
@@ -23,13 +24,22 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   param$: Subscription;
   projectId: any;
+  project: any;
 
-  constructor (private route: ActivatedRoute) { }
+  constructor (
+    private route: ActivatedRoute,
+    private loggerService: LoggerService,
+    private projectService: ProjectService
+   ) { }
 
   ngOnInit () {
     this.param$ = this.route.paramMap.subscribe(params => {
       this.projectId = params.get('id');
-      console.log(this.projectId);
+      this.projectService.get(this.projectId).then(proj => {
+        this.project = proj;
+      }).catch(err => {
+        this.loggerService.error(err);
+      });
     });
   }
 

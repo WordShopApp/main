@@ -13,6 +13,39 @@ function genShortId () {
   return shortid.generate();
 }
 
+function getProjectParams (projectId) {
+  return {
+    TableName: 'WordShop',
+    Key: {
+      'ws_key': `prj:${projectId}`
+    }
+  }
+}
+
+function getProjectPartsParams (projectId) {
+  return {
+    TableName: 'WordShop',
+    IndexName: 'query_key_01-updated-index',
+    KeyConditionExpression: 'query_key_01 = :qk01',
+    ExpressionAttributeValues: {
+      ':qk01': `prt:prj:${projectId}`
+    },
+    ScanIndexForward: false
+  };
+}
+
+function getProjectVersionsParams (projectId) {
+  return {
+    TableName: 'WordShop',
+    IndexName: 'query_key_01-updated-index',
+    KeyConditionExpression: 'query_key_01 = :qk01',
+    ExpressionAttributeValues: {
+      ':qk01': `ver:prj:${projectId}`
+    },
+    ScanIndexForward: false
+  };
+}
+
 function allProjectsParams (userId) {
   return {
     TableName: 'WordShop',
@@ -115,10 +148,7 @@ function add (user, data) {
     let npp = newProjParams(user, data);
     dynamodbService
       .addBatch(npp)
-      .then(res => {
-        // todo: check for items in res.UnprocessedItems
-        resolve(res);
-      })
+      .then(resolve)
       .catch(reject);
   });
 }
@@ -127,15 +157,38 @@ function all (userId) {
   return new Promise((resolve, reject) => {
     dynamodbService
       .getItems(allProjectsParams(userId))
-      .then(res => {
-        resolve(res);
-      })
+      .then(resolve)
       .catch(reject);
   });
 }
 
-function get (id) {
+function formatProjectResults (results) {
+  let project = results[0];
+  let parts = results[1];
+  let versions = results[2];
+  for (let v = 0; v < versions.length; v += 1) {
+    let ver = versions[v];
+    for (let p = 0; p < parts.length; p += 1) {
+      let prt = parts[p];
+      if (prt.part_id === ver.part_id) {
+        if (!prt.versions) prt.versions = [];
+        prt.versions.push(ver);
+      }
+    }
+  }
+  project.parts = parts;
+  return project;
+}
 
+function get (projectId) {
+  return new Promise((resolve, reject) => {
+    let prjp = dynamodbService.getSingleItem(getProjectParams(projectId));
+    let prtp = dynamodbService.getItems(getProjectPartsParams(projectId));
+    let verp = dynamodbService.getItems(getProjectVersionsParams(projectId));
+    Promise.all([prjp, prtp, verp]).then(res => {
+      resolve(formatProjectResults(res));
+    }).catch(reject);
+  });
 }
 
 function put (id, data) {

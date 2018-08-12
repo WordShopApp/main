@@ -38,6 +38,13 @@ module.exports.projectMine = (req, res) => {
 };
 
 module.exports.projectShow = (req, res) => {
+  let desc = `GET /projects/${req.params.project_id}`;
+  projectService.get(req.params.project_id).then(proj => {
+    console.log(desc, 'Project', proj);
+    res.status(http.codes.ok).send(proj);
+  }).catch(err => {
+    handleException(err, res, desc);
+  });
 };
 
 module.exports.projectUpdate = (req, res) => {
