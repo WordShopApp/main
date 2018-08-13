@@ -90,7 +90,6 @@ function newProjItemParams (params) {
           versions: [
             {
               version_id: versionId,
-              text: params.text,
               word_count: params.wordCount,
               created: now,
               updated: now
@@ -166,12 +165,12 @@ function textDownloadParams (proj, part, version) {
 
 function add (user, data) {
   return new Promise((resolve, reject) => {
-    let proj = newProjParams(user, data);
+    let projParams = newProjParams(user, data);
     dynamodbService
-      .addItem(proj)
+      .addItem(projParams)
       .then(_ => {
         s3Service
-          .put(textUploadParams(proj))
+          .put(textUploadParams(projParams.Item))
           .then(resolve)
           .catch(reject);
       })
