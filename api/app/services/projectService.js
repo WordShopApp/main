@@ -231,13 +231,15 @@ function get (projectId) {
       let proj = formatProjectResults(res);
       let part = proj.parts[0];
       let ver = proj.parts[0].versions[0];
+      ver.text = 'I am Error.';
+      ver.active = false;
       s3Service.get(textDownloadParams(proj, part, ver))
         .then(data => {
           let text = data.Body.toString('utf-8');
           proj.parts[0].versions[0].text = text;
           proj.parts[0].versions[0].active = true;
+          resolve(proj);
         }).catch(reject);
-      resolve(proj);
     }).catch(reject);
   });
 }
