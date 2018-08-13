@@ -17,6 +17,7 @@ import { ProjectWizardComponent } from './components/project-wizard/project-wiza
 import { ProjectIndexComponent } from './components/project-index/project-index.component';
 import { ProjectComponent } from './components/project/project.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { ProjectConfigComponent } from './components/project-config/project-config.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -62,6 +63,7 @@ export const AppRoutes: Routes  = [
       { path: 'projects', component: ProjectIndexComponent },
       { path: 'projects/new', component: ProjectWizardComponent },
       { path: 'projects/:id', component: ProjectComponent },
+      { path: 'projects/:id/config', component: ProjectConfigComponent },
       { path: 'settings/:area', component: UserSettingsComponent }
     ]
   }

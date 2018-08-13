@@ -1,11 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WordIconService } from '../../services/word-icon/word-icon.service';
-import { AlertTypes } from '../alert/alert.component';
-import { MessengerService } from '../../services/messenger/messenger.service';
-import { AccountService } from '../../services/account/account.service';
-import { LoggerService } from '../../services/logger/logger.service';
-import { StoreService } from '../../services/store/store.service';
-import { StoreActions as Actions } from '../../services/store/store.actions';
 
 @Component({
   selector: 'app-profile-banner',
@@ -17,52 +11,10 @@ export class ProfileBannerComponent implements OnInit {
   @Input() profile: any;
   avatarPalette: any;
 
-  editMode: boolean;
-  saveEnabled: boolean;
-  newUsername: string;
-
-  constructor (
-    private accountService: AccountService,
-    private loggerService: LoggerService,
-    private messengerService: MessengerService,
-    private storeService: StoreService,
-    private wordIconService: WordIconService
-  ) { }
+  constructor (private wordIconService: WordIconService) { }
 
   ngOnInit() {
-    this.setEditMode(false);
-  }
-
-  setEditMode (enabled: boolean) {
-    this.editMode = enabled;
-    if (!enabled) this.updateAvatarPalette(this.profile.username);
-  }
-
-  saveChanges () {
-    if (this.saveEnabled) {
-      this.accountService.updateProfile({ username: this.newUsername }).then(updated => {
-        this.storeService.dispatch(Actions.Init.Profile, updated);
-        this.setEditMode(false);
-        this.updateAvatarPalette(updated.username);
-      }).catch(err => {
-        this.loggerService.error(err);
-        this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
-        this.setEditMode(false);
-      });
-    }
-  }
-
-  validationResults (res) {
-    this.saveEnabled = res.valid;
-    this.newUsername = res.username;
-  }
-
-  usernameChanged (username) {
-    this.updateAvatarPalette(username);
-  }
-
-  sendMessage(type, header, message) {
-    this.messengerService.send('global:alert', { type, header, message });
+    this.updateAvatarPalette(this.profile.username);
   }
 
   updateAvatarPalette (username) {

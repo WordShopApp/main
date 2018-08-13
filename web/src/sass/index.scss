@@ -580,7 +580,7 @@ $ws-validator-length-sm: 150px;
   margin-bottom: 0;
 }
 
-.ws-profile-banner {
+.ws-profile-banner, .ws-project-banner {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -590,14 +590,14 @@ $ws-validator-length-sm: 150px;
     display: flex;
     flex-direction: row;
     width: 100%;
-    .ws-profile-banner-avatar {
+    .ws-profile-banner-avatar, .ws-project-banner-avatar {
       margin-left: 5px;
       svg {
         width: 125px;
         height: 125px;
       }
     }
-    .ws-profile-banner-details {
+    .ws-profile-banner-details, .ws-project-banner-details {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -856,18 +856,18 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       display: none;
     }
   }
-  .ws-profile-banner {
+  .ws-profile-banner, .ws-project-banner {
     flex-direction: column;
     align-items: center;
     .main-area {
-      .ws-profile-banner-avatar {
+      .ws-profile-banner-avatar, .ws-project-banner-avatar {
         margin-left: 0px;
         svg {
           width: 100px;
           height: 100px;;
         }
       }
-      .ws-profile-banner-details {
+      .ws-profile-banner-details, .ws-project-banner-details {
         margin-top: 10px;
         text-align: left;
         h4 {
@@ -901,13 +901,13 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       }
     }
   }
-  .ws-profile-banner {
+  .ws-profile-banner, .ws-project-banner {
     .main-area {
       flex-direction: column;
-      .ws-profile-banner-avatar {
+      .ws-profile-banner-avatar, .ws-project-banner-avatar {
         text-align: center;
       }
-      .ws-profile-banner-details {
+      .ws-profile-banner-details, .ws-project-banner-details {
         margin-left: 0px;
         text-align: center;
         font-size: 14px;

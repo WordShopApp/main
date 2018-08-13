@@ -1,0 +1,11 @@
+<div class="ws-panel ws-project-banner">
+  <div class="main-area">
+    <app-word-icon class="ws-project-banner-avatar" [type]="'project'" [palette]="palette"></app-word-icon>
+    <div class="ws-project-banner-details">
+      <h4>{{project?.title}}</h4>
+    </div>
+  </div>
+  <div class="settings-icon">
+    <a [routerLink]="['config']" class="btn btn-link text-muted" preserveFragment><i class="fa fa-cog"></i></a>
+  </div>
+</div>

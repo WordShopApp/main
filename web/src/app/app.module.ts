@@ -52,9 +52,10 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { ProjectItemComponent } from './components/project-item/project-item.component';
 import { ProjectComponent } from './components/project/project.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ProjectBannerComponent } from './components/project-banner/project-banner.component';
+import { ProjectConfigComponent } from './components/project-config/project-config.component';
 
 import { CookieService } from 'ng2-cookies';
-
 
 @NgModule({
   declarations: [
@@ -84,7 +85,9 @@ import { CookieService } from 'ng2-cookies';
     UserSettingsComponent,
     ProjectItemComponent,
     ProjectComponent,
-    LoadingComponent
+    LoadingComponent,
+    ProjectBannerComponent,
+    ProjectConfigComponent
   ],
   imports: [
     BrowserModule,
