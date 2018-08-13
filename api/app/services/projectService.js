@@ -140,12 +140,12 @@ function textUploadAcl () {
   return 'authenticated-read';
 }
 
-function textUploadParams (proj) {
+function textUploadParams (proj, text) {
   let partId = proj.parts[0].part_id;
   let verId = proj.parts[0].versions[0].version_id;
   return {
     ACL: textUploadAcl(), 
-    Body: ver.text,
+    Body: text,
     Bucket: textUploadBucket(), 
     Key: textUploadKey(proj.user_id, proj.project_id, partId, verId)
    };
@@ -166,11 +166,12 @@ function textDownloadParams (proj, part, version) {
 function add (user, data) {
   return new Promise((resolve, reject) => {
     let projParams = newProjParams(user, data);
+    let text = data[2].text;
     dynamodbService
       .addItem(projParams)
       .then(_ => {
         s3Service
-          .put(textUploadParams(projParams.Item))
+          .put(textUploadParams(projParams.Item, text))
           .then(resolve)
           .catch(reject);
       })
