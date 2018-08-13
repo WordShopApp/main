@@ -281,7 +281,7 @@ function validateLength (username) {
 }
 
 function updateUsernameQueryField (username, updated) {
-  if (username) updated.query_key_01 = `usr:username:${username.toLocaleLowerCase()}`;
+  if (username) updated.query_key_02 = `usr:username:${username.toLocaleLowerCase()}`;
 }
 
 module.exports.usernameValidate = (req, res) => {
