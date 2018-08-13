@@ -194,16 +194,18 @@ body.light {
         background-color: lighten($ws-base-color, 35%);
         border: 1px solid transparent;
         border-bottom: 1px solid lighten($ws-base-color, 22%);
+        &:hover, &:active {
+          background-color: lighten($ws-base-color, 31%);
+          border-bottom: 1px solid lighten($ws-base-color, 18%);
+        }
       }
       &:nth-child(odd) {
         border: 1px solid lighten($ws-base-color, 40%);
         border-bottom: 1px solid lighten($ws-base-color, 25%);
-      }
-      &:hover, &:active {
-        background-color: $ws-highlight-color;
-        border: 1px solid transparent;
-        border-bottom: 1px solid darken($ws-highlight-color, 10%);
-        color: white;
+        &:hover, &:active {
+          background-color: lighten($ws-base-color, 42%);
+          border-bottom: 1px solid lighten($ws-base-color, 27%);
+        }
       }
     }
   }

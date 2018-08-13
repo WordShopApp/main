@@ -168,6 +168,18 @@ function textUploadParams (params) {
    };
 }
 
+function textDownloadParams (proj, part, version) {
+  return {
+    Bucket: textUploadBucket(),
+    Key: textUploadKey(
+      proj.user_id,
+      proj.project_id,
+      part.part_id, 
+      version.version_id
+    )
+   };
+}
+
 function add (user, data) {
   return new Promise((resolve, reject) => {
     let npp = newProjParams(user, data);
@@ -216,7 +228,16 @@ function get (projectId) {
     let prtp = dynamodbService.getItems(getProjectPartsParams(projectId));
     let verp = dynamodbService.getItems(getProjectVersionsParams(projectId));
     Promise.all([prjp, prtp, verp]).then(res => {
-      resolve(formatProjectResults(res));
+      let proj = formatProjectResults(res);
+      let part = proj.parts[0];
+      let ver = proj.parts[0].versions[0];
+      s3Service.get(textDownloadParams(proj, part, ver))
+        .then(data => {
+          let text = data.Body.toString('utf-8');
+          proj.parts[0].versions[0].text = text;
+          proj.parts[0].versions[0].active = true;
+        }).catch(reject);
+      resolve(proj);
     }).catch(reject);
   });
 }
