@@ -498,7 +498,7 @@ $switch-transition: .2s all !default;
   }
 }
 
-.ws-icon-tester-container {
+.ws-icon-tester-container, .ws-crop-tester-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -870,6 +870,9 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       .ws-profile-banner-details, .ws-project-banner-details {
         margin-top: 10px;
         text-align: left;
+        h3 {
+          font-size: 24px;
+        }
         h4 {
           font-size: 20px;
         }
@@ -941,3 +944,17 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 
 @import 'mode.light';
 @import 'mode.dark';
+
+.croppie-container {
+  .cr-boundary {
+    .cr-vp-circle {
+      border: none;
+    }
+  }
+  .cr-slider-wrap {
+    .cr-slider {
+      background-color: transparent;
+      border: none;
+    }
+  }
+}

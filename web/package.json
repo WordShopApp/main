@@ -28,6 +28,8 @@
     "aws-sdk": "^2.279.1",
     "bootstrap": "^4.1.2",
     "core-js": "^2.5.4",
+    "croppie": "^2.6.2",
+    "exif-js": "^2.3.0",
     "font-awesome": "^4.7.0",
     "he": "^1.1.1",
     "immutable": "^3.8.2",

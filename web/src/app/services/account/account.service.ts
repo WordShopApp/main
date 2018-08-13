@@ -34,7 +34,7 @@ export class AccountService extends ApiService {
             let email = this.storeService.local.get('email');
             let subscription = this.storeService.local.get('subscription');
             let joinMailingList = this.storeService.local.get('join_mailing_list');
-            let avatar = this.gravatarService.url(email);
+            let avatar = null;
             this.createProfile({ 
               email, 
               subscription,

@@ -24,9 +24,12 @@
             "styles": [
               "src/sass/index.scss",
               "src/scripts/trix/trix.css",
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/croppie/croppie.css"
             ],
             "scripts": [
+              "./node_modules/exif-js/exif.js",
+              "./node_modules/croppie/croppie.min.js",
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/popper.js/dist/umd/popper.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",

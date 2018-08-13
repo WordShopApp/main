@@ -18,6 +18,7 @@ import { ProjectIndexComponent } from './components/project-index/project-index.
 import { ProjectComponent } from './components/project/project.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { ProjectConfigComponent } from './components/project-config/project-config.component';
+import { CropTesterComponent } from './components/crop-tester/crop-tester.component';
 
 import { AuthService } from './services/auth/auth.service';
 
@@ -51,6 +52,9 @@ export const AppRoutes: Routes  = [
   },
   {
     path: 'icon-tester', component: IconTesterComponent
+  },
+  {
+    path: 'crop-tester', component: CropTesterComponent
   },
   {
     path: '',
