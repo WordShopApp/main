@@ -234,8 +234,7 @@ function get (projectId) {
       ver.text = 'I am Error.';
       ver.active = false;
       s3Service.get(textDownloadParams(proj, part, ver))
-        .then(data => {
-          let text = data.Body.toString('utf-8');
+        .then(text => {
           proj.parts[0].versions[0].text = text;
           proj.parts[0].versions[0].active = true;
           resolve(proj);
