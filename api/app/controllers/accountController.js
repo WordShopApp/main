@@ -26,12 +26,13 @@ function dynamodbDocumentClient () {
   return ddbc;
 }
 
-function fetchUserParams (email) {
+function fetchUserByEmailParams (email) {
   return {
     TableName: 'WordShop',
-    KeyConditionExpression: 'ws_key = :wskey',
+    IndexName: 'query_key_01-updated-index',
+    KeyConditionExpression: 'query_key_01 = :qk01',
     ExpressionAttributeValues: {
-      ':wskey': `usr:${email}`
+      ':qk01': `usr:email:${email.toLocaleLowerCase()}`
     }
   };
 }
@@ -39,10 +40,10 @@ function fetchUserParams (email) {
 function fetchUserByNameParams (username) {
   return {
     TableName: 'WordShop',
-    IndexName: 'query_key_01-updated-index',
-    KeyConditionExpression: 'query_key_01 = :qk01',
+    IndexName: 'query_key_02-created-index',
+    KeyConditionExpression: 'query_key_02 = :qk02',
     ExpressionAttributeValues: {
-      ':qk01': `usr:username:${username.toLocaleLowerCase()}`
+      ':qk02': `usr:username:${username.toLocaleLowerCase()}`
     }
   };
 }
@@ -51,7 +52,7 @@ function deleteUserParams (user) {
   return {
     TableName: 'WordShop',
     Key: {
-      ws_key: `usr:${user.email}`
+      ws_key: `usr:${user.user_id}`
     }
   };
 }
@@ -72,7 +73,8 @@ function updateUserParams (user) {
       avatar: user.avatar,
       created: user.created,
       updated: genTimestamp(),
-      query_key_01: user.query_key_01
+      query_key_01: user.query_key_01,
+      query_key_02: user.query_key_02
     }
   };
 }
@@ -93,7 +95,8 @@ function createUserParams (user) {
       avatar: user.avatar,
       created: user.created,
       updated: user.updated,
-      query_key_01: user.query_key_01
+      query_key_01: user.query_key_01,
+      query_key_02: user.query_key_02
     }
   };
 }
@@ -188,7 +191,7 @@ function updateItem (params) {
 
 function fetchUser (email) {
   return new Promise ((resolve, reject) => {
-    fetchItem(fetchUserParams(email)).then(resolve).catch(reject);
+    fetchItem(fetchUserByEmailParams(email)).then(resolve).catch(reject);
   });
 }
 
@@ -233,7 +236,7 @@ function formatNewUser (data) {
   let username = genUserName(data.email, shortid());
   let userId = genUserId();
   return {
-    ws_key: `usr:${data.email}`,
+    ws_key: `usr:${userId}`,
     user_id: userId,
     username: username,
     email: data.email,
@@ -245,7 +248,8 @@ function formatNewUser (data) {
     critique_in_progress: null,
     created: now,
     updated: now,
-    query_key_01: `usr:username:${username.toLocaleLowerCase()}`
+    query_key_01: `usr:email:${data.email.toLocaleLowerCase()}`,
+    query_key_02: `usr:username:${username.toLocaleLowerCase()}`
   }
 }
 

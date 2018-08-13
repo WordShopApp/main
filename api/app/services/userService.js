@@ -3,9 +3,10 @@ let dynamodbService = require('./dynamodbService');
 function getParams (email) {
   return {
     TableName: 'WordShop',
-    KeyConditionExpression: 'ws_key = :wskey',
+    IndexName: 'query_key_01-updated-index',
+    KeyConditionExpression: 'query_key_01 = :qk01',
     ExpressionAttributeValues: {
-      ':wskey': `usr:${email}`
+      ':qk01': `usr:email:${email.toLocaleLowerCase()}`
     }
   };
 }
