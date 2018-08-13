@@ -59,67 +59,52 @@ function allProjectsParams (userId) {
   };
 }
 
-function newProjBatchParams (params) {
+function tableName () {
+  return 'WordShop';
+}
+
+function newProjItemParams (params) {
   let now = genTimestamp();
   let projectId = genShortId();
   let partId = genShortId();
   let versionId = genShortId();
   return {
-    RequestItems: {
-      'WordShop': [
+    TableName: tableName(),
+    Item: {
+      ws_key: `prj:${projectId}`,
+      project_id: projectId,
+      user_id: params.userId,
+      title: params.title,
+      categories: params.categories,
+      private: params.private,
+      created: now,
+      updated: now,
+      parts: [ 
         {
-          PutRequest: {
-            Item: {
-              ws_key: `prj:${projectId}`,
-              project_id: projectId,
-              user_id: params.userId,
-              title: params.title,
-              categories: params.categories,
-              private: params.private,
-              created: now,
-              updated: now,
-              query_key_01: `prj:usr:${params.userId}`
-            }
-          }
-        },
-        {
-          PutRequest: {
-            Item: {
-              ws_key: `prt:${partId}`,
-              part_id: partId,
-              project_id: projectId,
-              part_name: params.partName,
-              context: params.context,
-              questions: params.questions,
-              created: now,
-              updated: now,
-              query_key_01: `prt:prj:${projectId}`
-            }
-          }
-        },
-        {
-          PutRequest: {
-            Item: {
-              ws_key: `ver:${versionId}`,
+          part_id: partId,
+          part_name: params.partName,
+          context: params.context,
+          questions: params.questions,
+          created: now,
+          updated: now,
+          versions: [
+            {
               version_id: versionId,
-              part_id: partId,
-              project_id: projectId,
               text: params.text,
               word_count: params.wordCount,
               created: now,
-              updated: now,
-              query_key_01: `ver:prj:${projectId}`,
-              query_key_02: `ver:prt:${partId}`
+              updated: now
             }
-          }
+          ]
         }
-      ]
+      ],
+      query_key_01: `prj:usr:${params.userId}`
     }
   };
 }
 
 function newProjParams (user, data) {
-  return newProjBatchParams({
+  return newProjItemParams({
     userId: user.user_id,
     title: data[0].title,
     partName: data[1].part_name,
@@ -156,15 +141,14 @@ function textUploadAcl () {
   return 'authenticated-read';
 }
 
-function textUploadParams (params) {
-  let proj = params.RequestItems.WordShop[0].PutRequest.Item;
-  let part = params.RequestItems.WordShop[1].PutRequest.Item;
-  let ver = params.RequestItems.WordShop[2].PutRequest.Item;
+function textUploadParams (proj) {
+  let partId = proj.parts[0].part_id;
+  let verId = proj.parts[0].versions[0].version_id;
   return {
     ACL: textUploadAcl(), 
     Body: ver.text,
     Bucket: textUploadBucket(), 
-    Key: textUploadKey(proj.user_id, proj.project_id, part.part_id, ver.version_id)
+    Key: textUploadKey(proj.user_id, proj.project_id, partId, verId)
    };
 }
 
@@ -182,12 +166,12 @@ function textDownloadParams (proj, part, version) {
 
 function add (user, data) {
   return new Promise((resolve, reject) => {
-    let npp = newProjParams(user, data);
+    let proj = newProjParams(user, data);
     dynamodbService
-      .addBatch(npp)
-      .then(res => {
+      .addItem(proj)
+      .then(_ => {
         s3Service
-          .put(textUploadParams(npp))
+          .put(textUploadParams(proj))
           .then(resolve)
           .catch(reject);
       })
@@ -224,22 +208,17 @@ function formatProjectResults (results) {
 
 function get (projectId) {
   return new Promise((resolve, reject) => {
-    let prjp = dynamodbService.getSingleItem(getProjectParams(projectId));
-    let prtp = dynamodbService.getItems(getProjectPartsParams(projectId));
-    let verp = dynamodbService.getItems(getProjectVersionsParams(projectId));
-    Promise.all([prjp, prtp, verp]).then(res => {
-      let proj = formatProjectResults(res);
-      let part = proj.parts[0];
-      let ver = proj.parts[0].versions[0];
-      ver.text = 'I am Error.';
-      ver.active = false;
-      s3Service.get(textDownloadParams(proj, part, ver))
+    dynamodbService.getSingleItem(getProjectParams(projectId))
+      .then(proj => {
+        let part = proj.parts[0];
+        let ver = part.versions[0];
+        s3Service.get(textDownloadParams(proj, part, ver))
         .then(text => {
-          proj.parts[0].versions[0].text = text;
-          proj.parts[0].versions[0].active = true;
+          ver.text = text;
           resolve(proj);
         }).catch(reject);
-    }).catch(reject);
+      })
+      .catch(reject);
   });
 }
 
