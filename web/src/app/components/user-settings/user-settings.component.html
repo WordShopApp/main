@@ -15,8 +15,22 @@
     <table class="ws-table" cellspacing="0">
       <tr>
         <td scope="row" class="text-muted name">Avatar</td>
-        <td>
-          <app-word-icon class="ws-user-settings-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
+        <td class="settings-avatar">
+          <app-word-icon *ngIf="!avatarData" class="ws-user-settings-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
+          <div *ngIf="avatarData" class="pending-container">
+            <i class="fa fa-ellipsis-h"></i>
+            <img [src]="avatarData">
+          </div>
+          <div>
+            &nbsp;&nbsp;
+            <button *ngIf="!profile?.avatar" class="btn btn-wordshop-subtle btn-wordshop-file-btn">
+              <i class="fa fa-upload"></i>
+              <input type="file" (change)="avatarImageChosen($event)" value="Choose a file" accept="image/*" />
+            </button>
+            <button *ngIf="profile?.avatar" (click)="removeAvatar()" class="btn btn-wordshop-subtle-red">
+              <i class="fa fa-close"></i>
+            </button>
+          </div>
         </td>
       </tr>
       <tr>
@@ -25,19 +39,14 @@
           <app-username-selector [profile]="profile" (usernameChanged)="usernameChanged($event)" (validationResults)="validationResults($event)"></app-username-selector>
         </td>
       </tr>
-      <tr>
-        <td scope="row" class="text-muted name">Location</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td scope="row" class="text-muted name">Bio</td>
-        <td></td>
-      </tr>
     </table>
     <br>
     <div class="action-buttons">
       <button (click)="home()" class="btn btn-wordshop-gray">Cancel</button>
-      <button (click)="saveProfileChanges()" class="btn btn-wordshop" [ngClass]="{ 'disabled': !profileSaveEnabled }">Save Changes</button>
+      <button (click)="saveProfileChanges()" class="btn btn-wordshop btn-user-profile-save" [ngClass]="{ 'disabled': !profileSaveEnabled, loading: (avatarSaveInProgress || usernameSaveInProgress) }">
+        {{profileSaveText}}
+        <img src="/assets/images/ws-loading.svg">
+      </button>
     </div>
   </div>
   <div *ngIf="area === 'account'" class="ws-panel ws-dashboard-tab-panel">
@@ -67,12 +76,6 @@
           </form>
         </td>
       </tr>
-      <tr>
-        <td scope="row" class="text-muted name">Subscription</td>
-        <td>
-            <span>--</span>
-        </td>
-      </tr>
     </table>
     <br>
     <div class="action-buttons">
@@ -83,7 +86,7 @@
     <hr>
     <div class="delete-area">
       <p class="text-muted">
-        <small><span>To delete your account and project data, enter your email address below and then click on the <em>Delete Account</em> button. </span><span>Be careful, this is <strong>permanent</strong>.</span></small>
+        <small><span>To delete your account and all project data, enter your email address below and then click on the <em>Delete Account</em> button. </span><span>Be careful, this is <strong>permanent</strong>.</span></small>
       </p>
       <form class="form-inline">
         <input type="email" (keydown.enter)="ignoreEnter($event)" (input)="validateDeleteAccount($event)" class="form-control full-width" aria-describedby="deleteHelp" placeholder="Email">
@@ -93,3 +96,27 @@
   </div>
 
 </div>
+
+<!-- avatar modal -->
+<div class="modal ws-modal" id="ui-avatar-crop-modal" tabindex="-1" role="dialog" aria-labelledby="avatar-crop-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <div class="avatar-crop-container">
+          <span>Loading...</span>
+          <div id="ui-avatar-crop"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="doneCroppingAvatar()" class="btn btn-block btn-wordshop-subtle">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- / avatar modal -->

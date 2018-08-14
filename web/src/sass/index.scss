@@ -199,6 +199,23 @@ trix-editor {
   }
 }
 
+.btn-wordshop-file-btn {
+  position: relative;
+  input[type="file"] {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -550,7 +567,7 @@ $switch-transition: .2s all !default;
 
 }
 
-.ws-login-button {
+.ws-login-button, .btn-user-profile-save {
   img {
     height: 20px;
     margin-left: 2px;
@@ -785,6 +802,33 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       height: 100px;
     }
   }
+  .settings-avatar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none!important;
+    .pending-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      width: 100px;
+      height: 100px;
+      img {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        opacity: 0.4;
+      }
+      i {
+        position: relative;
+        z-index: 9999;
+        opacity: 0.85;
+      }
+    }
+  }
 }
 
 .ws-loading {
@@ -822,6 +866,15 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   svg {
     width: 50px;
     height: 50px;
+  }
+}
+
+.avatar-crop-container {
+  position: relative;
+  span {
+    position: absolute;
+    top: 35%;
+    left: 43%;
   }
 }
 
@@ -883,6 +936,12 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 
 
 @media (max-width: $ws-phone-breakpoint) {
+  .avatar-crop-container {
+    span {
+      left: 40%;
+    }
+  }
+
   .ws-user-settings-container {
     .delete-area {
       input {
@@ -956,5 +1015,14 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       background-color: transparent;
       border: none;
     }
+  }
+}
+
+.ws-modal {
+  .modal-header {
+    border-bottom: none;
+  }
+  .modal-footer {
+    border-top: none;
   }
 }

@@ -7,6 +7,8 @@ export class CognitoService {
   region = 'us-east-1';
   userPoolId = 'us-east-1_k0qjPXdf5';
   appClientId = 'e5rga197fhitemj2ffs5go1u2';
+  identityPoolId = 'us-east-1:476ca719-86b9-48e1-bb8f-fa479196db91';
+  identityPoolLogin = 'cognito-idp.us-east-1.amazonaws.com/us-east-1_k0qjPXdf5';
   fetchDelay = 250;
 
   constructor () { }
@@ -146,20 +148,26 @@ export class CognitoService {
     });
   }
 
-  fetchCredentials (authProvider, authToken) {
+  refreshCredentials () {
     return new Promise((resolve, reject) => {
-      this.clearCredentialCache();
-      AWS.config.region = this.region;
-      /*
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: this.userIdentityPool,
-        Logins: this.loginsMap(authProvider, authToken)
-      });
-      AWS.config.credentials['get']((err) => {
-        if (err) return reject(err);
-        setTimeout(() => resolve(this.awsCreds()), this.fetchDelay);
-      });
-      */
+      let currUser = this.userPool().getCurrentUser();
+      if (currUser) {
+        currUser.getSession(function(serr, sesh) {
+          if (serr) return reject(serr);
+          if (sesh) {
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: 'us-east-1:476ca719-86b9-48e1-bb8f-fa479196db91',
+              Logins: {
+                'cognito-idp.us-east-1.amazonaws.com/us-east-1_k0qjPXdf5': sesh.getIdToken().getJwtToken()
+              }
+            });
+            AWS.config.credentials['refresh']((cerr) => {
+              if (cerr) return reject(cerr);
+              resolve(AWS.config.credentials);
+            });
+          }
+        });
+      }
     });
   }
 

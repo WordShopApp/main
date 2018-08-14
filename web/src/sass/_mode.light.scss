@@ -74,9 +74,14 @@ body.light {
     background-color: darken($ws-base-color, 35%);
   }
 
-  .ws-wordicon-container {
-    svg {
+  .ws-wordicon-container, .settings-avatar {
+    svg, img {
       filter: drop-shadow(0 1px 0 lighten($ws-base-color, 15%));
+    }
+    .pending-container {
+      i {
+        color: #212529;
+      }
     }
   }
 
@@ -149,6 +154,7 @@ body.light {
     background-color: lighten($ws-base-color, 30%);
     border-color: lighten($ws-base-color, 30%);
     border-bottom: 1px solid lighten($ws-base-color, 30%);
+    border-radius: $ws-default-radius-btn;
     &:hover {
       color: white!important;
       background-color: lighten($ws-highlight-color, 5%);
@@ -170,6 +176,8 @@ body.light {
     background-color: lighten($ws-base-color, 30%);
     border-color: lighten($ws-base-color, 30%);
     border-bottom: 1px solid lighten($ws-base-color, 30%);
+    border-radius: $ws-default-radius-btn;
+    cursor: pointer;
     &:hover {
       color: white!important;
       background-color: lighten($ws-base-color, 5%);
@@ -180,6 +188,29 @@ body.light {
       color: white!important;
       border-color: darken($ws-base-color, 10%);
       background-color: darken($ws-base-color, 10%);
+    }
+    &.disabled {
+      pointer-events: none;
+    }
+  }
+
+  .btn-wordshop-subtle-red {
+    color: lighten(#212529, 40%);
+    background-color: lighten($ws-base-color, 30%);
+    border-color: lighten($ws-base-color, 30%);
+    border-bottom: 1px solid lighten($ws-base-color, 30%);
+    border-radius: $ws-default-radius-btn;
+    cursor: pointer;
+    &:hover {
+      color: white!important;
+      background-color: lighten($ws-red, 5%);
+      border-color: lighten($ws-red, 5%);
+      border-bottom: 1px solid darken($ws-red, 10%);
+    }
+    &.active {
+      color: white!important;
+      border-color: darken($ws-red, 10%);
+      background-color: darken($ws-red, 10%);
     }
     &.disabled {
       pointer-events: none;
@@ -206,6 +237,15 @@ body.light {
           background-color: lighten($ws-base-color, 42%);
           border-bottom: 1px solid lighten($ws-base-color, 27%);
         }
+      }
+    }
+  }
+
+  .ws-modal {
+    .modal-content {
+      background-color: white;
+      .modal-body {
+        background-color: lighten($ws-base-color, 15%);
       }
     }
   }

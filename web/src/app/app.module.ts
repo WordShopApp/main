@@ -23,6 +23,8 @@ import { StoreService } from './services/store/store.service';
 import { StoreReducer } from './services/store/store.reducer';
 import { WordIconService } from './services/word-icon/word-icon.service';
 import { ProjectService } from './services/project/project.service';
+import { ImageService } from './services/image/image.service';
+import { S3Service } from './services/s3/s3.service';
 
 // Components
 import { AboutComponent } from './components/about/about.component';
@@ -104,12 +106,14 @@ import { CookieService } from 'ng2-cookies';
     CognitoService,
     CookieService,
     GravatarService,
+    ImageService,
     LoggerService,
     MessengerService,
     NavService,
     ProjectService,
     RootResolver,
     RosieService,
+    S3Service,
     SettingsService,
     StoreReducer,
     StoreService,

@@ -89,27 +89,6 @@ export class AuthService {
     Object.keys(this.providers).map(key => this.providers[key].init());
   }
 
-  loginOld (): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.authToken().then(token => {
-        if (token) {
-          let provider = this.getProvider();
-          this.loggerService.info('AuthService', 'Login Provider Token', provider, token);
-          this.cognitoService.fetchCredentials(provider, token).then(creds => {
-            this.loggerService.info('AuthService', 'Login Creds', creds);
-            resolve(creds);
-          }).catch(err => {
-            this.loggerService.error('AuthService', 'Login Error', err);
-            reject(err);
-          });
-        } else {
-          this.loggerService.error('AuthService', 'Provider Token not found');
-          reject(null);
-        }
-      }).catch(reject);
-    });
-  }
-
   token (): Promise<any> {
     return this.cognitoService.token();
   }

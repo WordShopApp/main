@@ -16,3 +16,25 @@
     </div>
   </div>
 </div>
+
+<div class="modal ws-modal" id="ui-avatar-crop-modal" tabindex="-1" role="dialog" aria-labelledby="avatar-crop-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <div class="avatar-crop-container">
+          <span>Loading...</span>
+          <div id="ui-avatar-crop"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="saveModal($event)" class="btn btn-block btn-wordshop-subtle">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

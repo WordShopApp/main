@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { AccountService } from '../../services/account/account.service';
@@ -13,6 +12,10 @@ import { StoreService } from '../../services/store/store.service';
 import { StoreProps as Props } from '../../services/store/store.props';
 import { StoreActions as Actions } from '../../services/store/store.actions';
 import { WordIconService } from '../../services/word-icon/word-icon.service';
+import { ImageService } from '../../services/image/image.service';
+import { S3Service } from '../../services/s3/s3.service';
+
+declare var $;
 
 @Component({
   selector: 'app-user-settings',
@@ -28,14 +31,22 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   profile$: Subscription;
 
   profileSaveEnabled: boolean;
-  profileNewUsername: string;
+
+  usernameSaveInProgress: boolean;
+  avatarSaveInProgress: boolean;
+  profileSaveText = 'Save Changes';
+
+  usernameResults: any;
+
+  avatarPalette: any;
+  avatarCropper: any;
+  avatarCanvas: HTMLCanvasElement;
+  avatarData: any;
 
   actionButtonLabel = 'Save Changes';
   accountSaveEnabled: boolean;
 
   enableAccountDelete: boolean;
-
-  avatarPalette: any;
 
   showOldPassword = false;
   showNewPassword = false;
@@ -43,13 +54,14 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   @ViewChild('oldPasswordInput') oldPasswordInput: ElementRef;
 
   constructor (
-    private location: Location,
     private route: ActivatedRoute,
     private accountService: AccountService,
     private authService: AuthService,
+    private imageService: ImageService,
     private loggerService: LoggerService,
     private messengerService: MessengerService,
     private navService: NavService,
+    private s3Service: S3Service,
     private storeService: StoreService,
     private wordIconService: WordIconService
   ) { }
@@ -62,6 +74,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       this.profile = p && p.toJS();
       this.updateAvatarPalette(this.profile.username);
     });
+    this.setupAvatarCropper();
   }
 
   ngOnDestroy () {
@@ -69,17 +82,110 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     this.profile$.unsubscribe();
   }
 
+  setupAvatarCropper () {
+    let el = document.getElementById('ui-avatar-crop');
+    this.avatarCropper = new window['Croppie'](el, {
+      enableExif: true,
+      viewport: {
+        width: 200,
+        height: 200,
+        type: 'circle'
+      },
+      boundary: {
+        width: 200,
+        height: 200
+      }
+    });
+  }
+
   home () {
     this.navService.gotoRoot();
   }
 
+  avatarUploadParams (userId, timestamp, size, data) {
+    return {
+      Bucket: 'store.wordshop.app',
+      Key: `usr:${userId}/${timestamp}-${size}.jpg`,
+      Body: data,
+      ContentType: 'image/jpeg',
+      ACL: 'public-read'
+    }
+  }
+
   saveProfileChanges () {
-    if (this.profileSaveEnabled) {
-      this.accountService.updateProfile({ username: this.profileNewUsername }).then(updated => {
-        this.sendMessage(AlertTypes.Success, 'Success:', 'Username has been updated');
-        this.storeService.dispatch(Actions.Init.Profile, updated);
-        this.home();
-      }).catch(this.handleError.bind(this));
+    if (this.profileSaveEnabled && (!this.usernameSaveInProgress || !this.avatarSaveInProgress)) {
+      if (this.usernameResults && this.usernameResults.valid) {
+        this.profileSaveText = 'Saving';
+        this.usernameSaveInProgress = true;
+        this.accountService.updateProfile({ 
+          username: this.usernameResults.username 
+        }).then(updated => {
+          this.usernameResults = null;
+          this.storeService.dispatch(Actions.Init.Profile, updated);
+          this.checkProfileSaveComplete();
+        }).catch(err => {
+          this.profileSaveText = 'Save Changes';
+          this.usernameSaveInProgress = false;
+          this.handleError(err);
+        });
+      }
+      if (this.avatarCanvas) {
+        this.profileSaveText = 'Saving';
+        this.avatarSaveInProgress = true;
+
+        // 1) resize 400 canvas to 200, 100, 50 and then convert to blobs
+        let twoHundredCanvas = this.imageService.copy(this.avatarCanvas);
+        let oneHundredCanvas = this.imageService.copy(this.avatarCanvas);
+        let fiftyCanvas = this.imageService.copy(this.avatarCanvas);
+
+        this.imageService.resize(twoHundredCanvas, 200, 200, true);
+        this.imageService.resize(oneHundredCanvas, 100, 100, true);
+        this.imageService.resize(fiftyCanvas, 50, 50, true);
+
+        this.avatarCanvas.toBlob(fhblob => {
+          twoHundredCanvas.toBlob(thblob => {
+            oneHundredCanvas.toBlob(ohblob => {
+              fiftyCanvas.toBlob(fblob => {
+                let now = (new Date()).valueOf();
+                let userId = this.profile.user_id;
+                let fhp = this.s3Service.upload(this.avatarUploadParams(userId, now, 400, fhblob));
+                let thp = this.s3Service.upload(this.avatarUploadParams(userId, now, 200, thblob));
+                let ohp = this.s3Service.upload(this.avatarUploadParams(userId, now, 100, ohblob));
+                let fp = this.s3Service.upload(this.avatarUploadParams(userId, now, 50, fblob));
+                Promise.all([fhp, thp, ohp, fp]).then(res => {
+                  this.accountService.updateProfile({ 
+                    avatar: `usr:${userId}/${now}-{{size}}.jpg`
+                  }).then(updated => {
+                    this.storeService.dispatch(Actions.Init.Profile, updated);
+                    this.avatarCanvas = null;
+                    this.checkProfileSaveComplete();
+                  }).catch(err => {
+                    this.profileSaveText = 'Save Changes';
+                    this.avatarSaveInProgress = false;
+                    this.handleError(err);
+                  });
+                }).catch(err => {
+                  this.profileSaveText = 'Save Changes';
+                  this.avatarSaveInProgress = false;
+                  this.handleError(err);
+                });
+
+              });
+            });
+          });
+        });
+        
+      }
+    }
+  }
+
+  checkProfileSaveComplete () {
+    if ((!this.usernameSaveInProgress || (this.usernameSaveInProgress && this.usernameResults === null)) && 
+        (!this.avatarSaveInProgress || (this.avatarSaveInProgress && this.avatarCanvas === null))) {
+          this.profileSaveText = 'Save Changes';
+          this.usernameSaveInProgress = false;
+          this.avatarSaveInProgress = false;
+          this.home();
     }
   }
 
@@ -95,8 +201,12 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   }
 
   validationResults (res) {
-    this.profileSaveEnabled = res.valid;
-    this.profileNewUsername = res.username;
+    this.usernameResults = res;
+    this.updateProfileSaveEnabled();
+  }
+
+  updateProfileSaveEnabled () {
+    this.profileSaveEnabled = this.avatarCanvas || (this.usernameResults && this.usernameResults.valid);
   }
 
   usernameChanged (name) {
@@ -151,6 +261,78 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   handleError (err) {
     this.loggerService.error(err);
     this.sendMessage(AlertTypes.Danger, 'Error:', err.message);
+  }
+
+  showAvatarModal (show: boolean, cb = null) {
+    let sel = '#ui-avatar-crop-modal';
+    if (show) {
+      let sevt = 'shown.bs.modal';
+      if (cb) $(sel).on(sevt, () => {
+        cb();
+        $(sel).off(sevt);
+      });
+      $(sel).modal({ backdrop: 'static' });
+    } else {
+      let hevt = 'hidden.bs.modal';
+      if (cb) $(sel).on(hevt, () => {
+        cb();
+        $(sel).off(hevt);
+      });
+      $(sel).modal('hide');
+    }
+  }
+
+  getEventFile (evt) {
+    return evt && evt.target && evt.target['files'] && evt.target['files'][0];
+  }
+
+  avatarImageChosen (evt) {
+    let file = this.getEventFile(evt);
+    if (file) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.avatarCropper.bind({
+          url: e.target['result']
+        });
+      };
+      reader.readAsDataURL(file);
+      this.showAvatarModal(true);
+    } else {
+      this.loggerService.error('Sorry, your browser does not support the FileReader API');
+    }
+  }
+
+  doneCroppingAvatar () {
+    this.avatarCropper.result({
+      type: 'rawcanvas',
+      size: { width: 400, height: 400 },
+      format: 'jpeg',
+      quality: 1,
+      circle: false
+    }).then(canvas => {
+      this.avatarCanvas = canvas;
+      this.updateProfileSaveEnabled();
+    }).catch(this.loggerService.error.bind(this));
+    this.avatarCropper.result({
+      type: 'base64',
+      size: { width: 400, height: 400 },
+      format: 'jpeg',
+      quality: 1,
+      circle: false
+    }).then(data => {
+      this.avatarData = data;
+      this.showAvatarModal(false);
+    }).catch(this.loggerService.error.bind(this));
+  }
+
+  removeAvatar () {
+    this.accountService.updateProfile({ 
+      avatar: null
+    }).then(updated => {
+      this.storeService.dispatch(Actions.Init.Profile, updated);
+    }).catch(err => {
+      this.handleError(err);
+    });
   }
 
 }

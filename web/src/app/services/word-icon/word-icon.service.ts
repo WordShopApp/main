@@ -18,7 +18,6 @@ export class WordIconService {
     quinary: '#4C4C4C'
   };
 
-
   constructor() { }
 
   getPalette (hash: string): WordIconPalette {
