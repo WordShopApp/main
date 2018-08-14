@@ -57,6 +57,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { ProjectBannerComponent } from './components/project-banner/project-banner.component';
 import { ProjectConfigComponent } from './components/project-config/project-config.component';
 import { CropTesterComponent } from './components/crop-tester/crop-tester.component';
+import { WordImageComponent } from './components/word-image/word-image.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -91,7 +92,8 @@ import { CookieService } from 'ng2-cookies';
     LoadingComponent,
     ProjectBannerComponent,
     ProjectConfigComponent,
-    CropTesterComponent
+    CropTesterComponent,
+    WordImageComponent
   ],
   imports: [
     BrowserModule,
