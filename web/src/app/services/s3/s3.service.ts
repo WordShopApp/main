@@ -10,8 +10,8 @@ export class S3Options {
   Bucket: string;
   Key: string;
   Body: any;
-  ContentType?: string;
-  ACL? = 'public-read';
+  ContentType: string;
+  ACL: string;
 }
 
 @Injectable({

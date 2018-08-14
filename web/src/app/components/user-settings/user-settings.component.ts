@@ -109,7 +109,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       Body: data,
       ContentType: 'image/jpeg',
       ACL: 'public-read'
-    }
+    };
   }
 
   saveProfileChanges () {
