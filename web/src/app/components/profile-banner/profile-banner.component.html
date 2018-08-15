@@ -1,6 +1,7 @@
 <div class="ws-panel ws-profile-banner">
   <div class="main-area">
-    <app-word-icon class="ws-profile-banner-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
+    <app-word-image *ngIf="profile?.avatar" class="ws-profile-banner-avatar" [url]="assetUrl(profile?.avatar)" [size]="200"></app-word-image>
+    <app-word-icon *ngIf="!profile?.avatar" class="ws-profile-banner-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
     <div class="ws-profile-banner-details">
       <h4>@{{profile?.username}}</h4>
     </div>

@@ -7,6 +7,7 @@ export class SettingsService {
     profilePath: '/profile',
     usernameValidatePath: '/profile/validate-username/:username',
     projectPath: '/projects',
+    assetBaseUrl: 'https://store.wordshop.app'
   };
 
   app (key): any {
@@ -19,6 +20,10 @@ export class SettingsService {
 
   appUrl (path: string = ''): string {
     return `${this.baseUrl()}${path}`;
+  }
+
+  assetUrl (path: string = ''): string {
+    return `${this.appSettings['assetBaseUrl']}/${path}`;
   }
 
   private baseUrl (): string {

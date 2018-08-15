@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WordIconService } from '../../services/word-icon/word-icon.service';
+import { SettingsService } from '../../services/settings/settings.service';
 
 @Component({
   selector: 'app-profile-banner',
@@ -11,7 +12,7 @@ export class ProfileBannerComponent implements OnInit {
   @Input() profile: any;
   avatarPalette: any;
 
-  constructor (private wordIconService: WordIconService) { }
+  constructor (private settingsService: SettingsService, private wordIconService: WordIconService) { }
 
   ngOnInit() {
     this.updateAvatarPalette(this.profile.username);
@@ -19,6 +20,10 @@ export class ProfileBannerComponent implements OnInit {
 
   updateAvatarPalette (username) {
     this.avatarPalette = this.wordIconService.getPalette(username);
+  }
+
+  assetUrl (path) {
+    return this.settingsService.assetUrl(path);
   }
 
 }

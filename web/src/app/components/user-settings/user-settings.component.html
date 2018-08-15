@@ -16,7 +16,8 @@
       <tr>
         <td scope="row" class="text-muted name">Avatar</td>
         <td class="settings-avatar">
-          <app-word-icon *ngIf="!avatarData" class="ws-user-settings-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
+          <app-word-image *ngIf="profile?.avatar && !avatarData" class="ws-user-settings-avatar" [url]="assetUrl(profile?.avatar)" [size]="200"></app-word-image>
+          <app-word-icon *ngIf="!profile?.avatar && !avatarData" class="ws-user-settings-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
           <div *ngIf="avatarData" class="pending-container">
             <i class="fa fa-ellipsis-h"></i>
             <img [src]="avatarData">

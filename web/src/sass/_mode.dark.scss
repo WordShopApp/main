@@ -126,6 +126,10 @@ body.dark {
     }
   }
 
+  .ws-word-image {
+    filter: drop-shadow(0 1px 0 darken($ws-base-color, 40%));
+  }
+
   a, .btn-link {
     color: lighten($ws-base-color, 30%);
     &:hover {

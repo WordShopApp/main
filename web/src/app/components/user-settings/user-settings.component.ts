@@ -14,6 +14,7 @@ import { StoreActions as Actions } from '../../services/store/store.actions';
 import { WordIconService } from '../../services/word-icon/word-icon.service';
 import { ImageService } from '../../services/image/image.service';
 import { S3Service } from '../../services/s3/s3.service';
+import { SettingsService } from '../../services/settings/settings.service';
 
 declare var $;
 
@@ -62,6 +63,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     private messengerService: MessengerService,
     private navService: NavService,
     private s3Service: S3Service,
+    private settingsService: SettingsService,
     private storeService: StoreService,
     private wordIconService: WordIconService
   ) { }
@@ -289,6 +291,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   avatarImageChosen (evt) {
     let file = this.getEventFile(evt);
     if (file) {
+      this.avatarData = null;
       let reader = new FileReader();
       reader.onload = (e) => {
         this.avatarCropper.bind({
@@ -326,13 +329,20 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
   }
 
   removeAvatar () {
-    this.accountService.updateProfile({ 
-      avatar: null
-    }).then(updated => {
-      this.storeService.dispatch(Actions.Init.Profile, updated);
-    }).catch(err => {
-      this.handleError(err);
-    });
+    let remove = window.confirm('Are you sure you want to remove your avatar?');
+    if (remove) {
+      this.accountService.updateProfile({ 
+        avatar: null
+      }).then(updated => {
+        this.storeService.dispatch(Actions.Init.Profile, updated);
+      }).catch(err => {
+        this.handleError(err);
+      });
+    }
+  }
+
+  assetUrl (path) {
+    return this.settingsService.assetUrl(path);
   }
 
 }

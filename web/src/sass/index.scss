@@ -609,7 +609,7 @@ $ws-validator-length-sm: 150px;
     width: 100%;
     .ws-profile-banner-avatar, .ws-project-banner-avatar {
       margin-left: 5px;
-      svg {
+      svg, img {
         width: 125px;
         height: 125px;
       }
@@ -797,7 +797,7 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     }
   }
   .ws-user-settings-avatar {
-    svg {
+    svg, img {
       width: 100px;
       height: 100px;
     }
@@ -820,7 +820,7 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
         width: 100px;
         height: 100px;
         border-radius: 50px;
-        opacity: 0.4;
+        opacity: 0.5;
       }
       i {
         position: relative;
@@ -829,6 +829,10 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       }
     }
   }
+}
+
+.ws-word-image {
+  border-radius: 100%;
 }
 
 .ws-loading {
@@ -915,7 +919,7 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     .main-area {
       .ws-profile-banner-avatar, .ws-project-banner-avatar {
         margin-left: 0px;
-        svg {
+        svg, img {
           width: 100px;
           height: 100px;;
         }
