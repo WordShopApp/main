@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/co
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import * as moment from 'moment';
+
 import { AccountService } from '../../services/account/account.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { AlertTypes } from '../alert/alert.component';
@@ -110,6 +112,8 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       Key: `usr:${userId}/${timestamp}-${size}.jpg`,
       Body: data,
       ContentType: 'image/jpeg',
+      CacheControl: 'max-age=31536000',
+      Expires: moment().add(1, 'month').toDate().toUTCString(),
       ACL: 'public-read'
     };
   }
