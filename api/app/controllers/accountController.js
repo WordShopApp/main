@@ -2,6 +2,8 @@ const AWS = require('aws-sdk');
 const moment = require('moment');
 const shortid = require('shortid');
 
+const s3Service = require('../services/s3Service');
+
 const http = require('../services/utils');
 
 const { IS_OFFLINE } = process.env;
@@ -53,6 +55,28 @@ function deleteUserParams (user) {
     TableName: 'WordShop',
     Key: {
       ws_key: `usr:${user.user_id}`
+    }
+  };
+}
+
+function deleteAvatarParams (key) {
+  return {
+    Bucket: 'store.wordshop.app',
+    Delete: {
+      Objects: [
+        {
+          Key: key.replace('{{size}}', 400)
+        },
+        {
+          Key: key.replace('{{size}}', 200)
+        },
+        {
+          Key: key.replace('{{size}}', 100)
+        },
+        {
+          Key: key.replace('{{size}}', 50)
+        }
+      ]
     }
   };
 }
@@ -284,6 +308,20 @@ function updateUsernameQueryField (username, updated) {
   if (username) updated.query_key_02 = `usr:username:${username.toLocaleLowerCase()}`;
 }
 
+function hasAvatarUpdate (req) {
+  return Object.keys(req.body).indexOf('avatar') > -1;
+}
+
+function removeOldAvatars (desc, avatarKey) {
+  if (avatarKey) {
+    s3Service.del(deleteAvatarParams(avatarKey)).then(res => {
+      console.log(desc, 'Success Removing Avatars', res);
+    }).catch(err => {
+      console.log(desc, 'Error Removing Avatars', avatarKey);
+    });
+  }
+}
+
 module.exports.usernameValidate = (req, res) => {
   let username = req.params.username;
   let desc = 'GET /profile/validate-username';
@@ -357,6 +395,13 @@ module.exports.profileCreate = (req, res) => {
 
 module.exports.profileUpdate = (req, res) => {
   let desc = 'PUT /profile';
+
+  if (hasAvatarUpdate(req)) {
+    let oldAvatarKey = req.user.avatar;
+    console.log(desc, 'Old Avatar Key', oldAvatarKey);
+    removeOldAvatars(desc, oldAvatarKey);
+  }
+
   let updated = { ...req.user, ...req.body };
   updateUsernameQueryField(req.body.username, updated);
   console.log(desc, 'User', updated);

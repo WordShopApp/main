@@ -28,7 +28,18 @@ function put (params) {
   });
 }
 
+function del (params) {
+  return new Promise((resolve, reject) => {
+    // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#deleteObjects-property
+    s3Client().deleteObjects(params, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+}
+
 module.exports = {
+  del: del,
   get: get,
   put: put
 };
