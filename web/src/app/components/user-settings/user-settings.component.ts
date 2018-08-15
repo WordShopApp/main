@@ -113,7 +113,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       Body: data,
       ContentType: 'image/jpeg',
       CacheControl: 'max-age=31536000',
-      Expires: moment().add(1, 'month').toDate().toUTCString(),
+      Expires: moment().add(1, 'month').toDate(),
       ACL: 'public-read'
     };
   }
