@@ -309,6 +309,18 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteProject () {
+    let remove = window.confirm('Are you sure you want to delete this project?');
+    if (remove) {
+      this.projectService.remove(this.projectId)
+      .then(_ => {
+        this.navService.gotoRoot();
+      }).catch(err => {
+        this.handleError(err);
+      });
+    }
+  }
+
   /* / Project Config */
 
 }

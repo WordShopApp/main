@@ -214,6 +214,15 @@ function formatProjectResults (results) {
   return project;
 }
 
+function deleteProjectParams (projectId) {
+  return {
+    TableName: 'WordShop',
+    Key: {
+      ws_key: `prj:${projectId}`
+    }
+  };
+}
+
 function get (projectId, skipText = false) {
   return new Promise((resolve, reject) => {
     dynamodbService.getSingleItem(getProjectParams(projectId))
@@ -246,7 +255,14 @@ function put (proj) {
 }
 
 function del (id) {
-
+  return new Promise((resolve, reject) => {
+    dynamodbService
+      .delItem(deleteProjectParams(id))
+      .then(_ => {
+        resolve(id);
+      })
+      .catch(reject);
+  });
 }
 
 module.exports = {

@@ -14,7 +14,7 @@ module.exports = (app) => {
   app.get('/projects/mine', projectController.projectMine);
   app.get('/projects/:project_id', projectController.projectShow);
   app.put('/projects/:project_id', projectController.projectUpdate);
-  app.delete('/projects', projectController.projectDelete);
+  app.delete('/projects/:project_id', projectController.projectDelete);
 
   // user
   let userController = require('../controllers/userController');

@@ -128,4 +128,33 @@ module.exports.projectUpdate = (req, res) => {
 };
 
 module.exports.projectDelete = (req, res) => {
+  let projId = req.params.project_id;
+  let desc = `DELETE /projects/${projId}`;
+
+  // 1) get project to delete
+  projectService.get(projId, true).then(proj => {
+
+    console.log(desc, 'Found', proj);
+
+    if (!userCreatedProject(req.user.user_id, proj.user_id)) {
+      return res.status(http.codes.unauthorized).send({ 
+        message: 'You may only delete your own projects' 
+      });
+    }
+
+    // 2) delete project by id
+    projectService.del(projId).then(res => {
+
+      console.log(desc, 'Deleted', proj);
+
+      // 3) send ok response
+      res.status(http.codes.ok).send(proj);
+
+    }).catch(err => {
+      handleException(err, res, desc);
+    });
+
+  }).catch(err => {
+    handleException(err, res, desc);
+  });
 };

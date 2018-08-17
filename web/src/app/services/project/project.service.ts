@@ -38,6 +38,10 @@ export class ProjectService extends ApiService  {
     return this.put(`${this.projectUrl()}/${projectId}`, data);
   }
 
+  remove (projectId): Promise<any> {
+    return this.delete(`${this.projectUrl()}/${projectId}`);
+  }
+
   private projectUrl (): string {
     return this.url(this.settingsService.app('projectPath'));
   }
