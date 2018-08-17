@@ -293,6 +293,15 @@ body.dark {
       }
     }
   }
+
+  .ws-project-panel {
+    .header, .footer {
+      background-color: transparent;
+    }
+    .content {
+      background-color: darken($ws-base-color, 35%);
+    }
+  }
   
 }
 

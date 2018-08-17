@@ -1,2 +1,11 @@
 <app-project-banner [project]="project"></app-project-banner>
-<pre *ngIf="project">{{project | json}}</pre>
+<div class="ws-panel ws-project-panel">
+  <div class="header">
+    <h4>Prologue</h4>
+  </div>
+  <div class="content">
+    {{project?.parts[0]?.versions[0]?.text}}
+  </div>
+  <div class="footer">
+  </div>
+</div>

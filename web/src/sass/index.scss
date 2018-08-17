@@ -882,6 +882,23 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   }
 }
 
+.ws-project-panel {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  .header, .footer {
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0;
+    }
+    padding: 12px;
+  }
+  .content {
+    padding: 12px;
+    flex: 1;
+  }
+}
+
 @media (max-width: $ws-tablet-breakpoint) {
   .ws-user-settings-container {
     .delete-area {

@@ -9,6 +9,20 @@ export class ImageService {
 
   constructor() { }
 
+  copyAndResizeToBlob (canvas, width, height, resizeCanvas): Promise<any> {
+    return new Promise((resolve, _) => {
+      let cpy = this.copy(canvas);
+      this.resize(cpy, width, height, resizeCanvas);
+      this.blob(cpy).then(resolve);
+    });
+  }
+
+  blob (canvas): Promise<any> {
+    return new Promise((resolve, _) => {
+      canvas.toBlob(resolve);
+    });
+  }
+
   copy (canvas) {
     let copyCanvas = document.createElement("canvas");
     let copyCanvasCtx = copyCanvas.getContext('2d');
