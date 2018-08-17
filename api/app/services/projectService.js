@@ -223,6 +223,29 @@ function deleteProjectParams (projectId) {
   };
 }
 
+function deleteProjectDataListParams (userId, projectId) {
+  return {
+    Bucket: 'store.wordshop.app',
+    Prefix: `usr:${userId}/prj:${projectId}`
+  };
+}
+
+function deleteProjectDataObjectParams (keys) {
+  return {
+    Bucket: 'store.wordshop.app',
+    Delete: {
+      Objects: keys
+    }
+  };
+}
+
+function deleteKeys (items) {
+  return items && items.Contents && 
+  items.Contents.map(i => { 
+    return { 'Key': i.Key }; 
+  });
+}
+
 function get (projectId, skipText = false) {
   return new Promise((resolve, reject) => {
     dynamodbService.getSingleItem(getProjectParams(projectId))
@@ -254,14 +277,26 @@ function put (proj) {
   });
 }
 
-function del (id) {
+function del (proj) {
   return new Promise((resolve, reject) => {
     dynamodbService
-      .delItem(deleteProjectParams(id))
+      .delItem(deleteProjectParams(proj.project_id))
       .then(_ => {
-        resolve(id);
-      })
-      .catch(reject);
+        let dpdlp = deleteProjectDataListParams(proj.user_id, proj.project_id);
+        s3Service
+          .lst(dpdlp)
+          .then(items => {
+            let keys = deleteKeys(items);
+            if (keys && keys.length) {
+              let dpdop = deleteProjectDataObjectParams(keys);
+              s3Service.del(dpdop).then(res => {
+                resolve('Project Deleted');
+              }).catch(reject);
+            } else {
+              reject(`No project data keys found: ${proj.project_id}`);
+            }
+          }).catch(reject);
+      }).catch(reject);
   });
 }
 

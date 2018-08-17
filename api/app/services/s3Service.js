@@ -38,8 +38,19 @@ function del (params) {
   });
 }
 
+function lst (params) {
+  return new Promise((resolve, reject) => {
+    // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjectsV2-property
+    s3Client().listObjectsV2(params, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+}
+
 module.exports = {
   del: del,
   get: get,
-  put: put
+  put: put,
+  lst: lst
 };

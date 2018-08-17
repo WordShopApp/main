@@ -143,7 +143,7 @@ module.exports.projectDelete = (req, res) => {
     }
 
     // 2) delete project by id
-    projectService.del(projId).then(res => {
+    projectService.del(proj).then(_ => {
 
       console.log(desc, 'Deleted', proj);
 

@@ -23,6 +23,7 @@ var params = {
  });
  */
 
+ /*
  var dp = {
   Bucket: 'store.wordshop.app',
   Delete: {
@@ -48,3 +49,31 @@ var params = {
  }).catch(err => {
    console.error(err);
  })
+ */
+
+var params = {
+  Bucket: 'store.wordshop.app',
+  Prefix: 'usr:Q8jdXBI4Gr/prj:21TNF0tn_'
+};
+
+s3Service
+  .lst(params)
+  .then(items => {
+    let keys = items && 
+      items.Contents && 
+      items.Contents.map(i => { 
+        return { 'Key': i.Key }; 
+      });
+    if (keys && keys.length) {
+      console.log(keys);
+      s3Service.del({
+        Bucket: 'store.wordshop.app',
+        Delete: {
+          Objects: keys
+        }
+      }).then(res => {
+        console.log('Items Deleted');
+      }).catch(console.error);
+    }
+  })
+  .catch(console.error);
