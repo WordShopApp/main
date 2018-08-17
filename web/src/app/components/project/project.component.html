@@ -3,9 +3,8 @@
   <div class="header">
     <h4>Prologue</h4>
   </div>
-  <div class="content">
-    {{project?.parts[0]?.versions[0]?.text}}
-  </div>
+  <div class="content" [innerHTML]="format(project?.parts[0]?.versions[0]?.text)"></div>
   <div class="footer">
+    <button class="btn btn-block btn-wordshop">Write a Critique</button>
   </div>
 </div>

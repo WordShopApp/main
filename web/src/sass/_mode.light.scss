@@ -254,6 +254,15 @@ body.light {
     }
   }
 
+  .ws-project-panel {
+    .header, .footer {
+      background-color: lighten($ws-base-color, 42%);
+    }
+    .content {
+      background-color: white;
+    }
+  }
+
   .ws-user-settings-container, .ws-project-config-container {
     hr {
       width: 100%;

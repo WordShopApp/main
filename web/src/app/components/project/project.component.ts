@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
@@ -27,6 +28,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   project: any;
 
   constructor (
+    private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private loggerService: LoggerService,
     private projectService: ProjectService
@@ -45,6 +47,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     this.param$.unsubscribe();
+  }
+
+  format (html) {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
 }

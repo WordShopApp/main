@@ -3,7 +3,7 @@
     <app-word-image *ngIf="project?.image" class="ws-project-banner-avatar" [url]="assetUrl(project?.image)" [size]="200"></app-word-image>
     <app-word-icon *ngIf="!project?.image" class="ws-project-banner-avatar" [type]="'project'" [palette]="palette"></app-word-icon>
     <div class="ws-project-banner-details">
-      <h3>{{project?.title}}</h3>
+      <h1>{{project?.title}}</h1>
     </div>
   </div>
   <div class="settings-icon">
