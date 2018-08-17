@@ -53,12 +53,13 @@ var params = {
 
 var params = {
   Bucket: 'store.wordshop.app',
-  Prefix: 'usr:Q8jdXBI4Gr/prj:21TNF0tn_'
+  Prefix: 'usr:343434/prj:'
 };
 
 s3Service
   .lst(params)
   .then(items => {
+    console.log('items', items);
     let keys = items && 
       items.Contents && 
       items.Contents.map(i => { 

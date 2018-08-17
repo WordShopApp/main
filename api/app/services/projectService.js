@@ -223,7 +223,14 @@ function deleteProjectParams (projectId) {
   };
 }
 
+function blank (str) {
+  return !str || !str.length || str.trim().length === 0;
+}
+
 function deleteProjectDataListParams (userId, projectId) {
+  // added as safeguards
+  if (blank(userId)) userId = 'NULL';
+  if (blank(projectId)) projectId = 'NULL';
   return {
     Bucket: 'store.wordshop.app',
     Prefix: `usr:${userId}/prj:${projectId}`
