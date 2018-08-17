@@ -22,6 +22,14 @@ export class NavService {
     this.gotoPath('/confirmation');
   }
 
+  gotoProject (projectId) {
+    this.gotoPath(`/projects/${projectId}`);
+  }
+
+  gotoProjectConfig (projectId, area) {
+    this.gotoPath(`/projects/${projectId}/config/${area}`);
+  }
+
   gotoPath (path: string) {
     this.router.navigate([path]);
   }

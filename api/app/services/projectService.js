@@ -63,6 +63,14 @@ function tableName () {
   return 'WordShop';
 }
 
+function updateProjParams (proj) {
+  proj.updated = genTimestamp();
+  return {
+    TableName: tableName(),
+    Item: proj
+  };
+}
+
 function newProjItemParams (params) {
   let now = genTimestamp();
   let projectId = genShortId();
@@ -206,24 +214,35 @@ function formatProjectResults (results) {
   return project;
 }
 
-function get (projectId) {
+function get (projectId, skipText = false) {
   return new Promise((resolve, reject) => {
     dynamodbService.getSingleItem(getProjectParams(projectId))
       .then(proj => {
         let part = proj.parts[0];
         let ver = part.versions[0];
-        s3Service.get(textDownloadParams(proj, part, ver))
-        .then(text => {
-          ver.text = text;
+        if (skipText) {
           resolve(proj);
-        }).catch(reject);
+        } else {
+          s3Service.get(textDownloadParams(proj, part, ver))
+          .then(text => {
+            ver.text = text;
+            resolve(proj);
+          }).catch(reject);
+        }
       })
       .catch(reject);
   });
 }
 
-function put (id, data) {
-
+function put (proj) {
+  return new Promise((resolve, reject) => {
+    dynamodbService
+      .addItem(updateProjParams(proj))
+      .then(_ => {
+        resolve(proj);
+      })
+      .catch(reject);
+  });
 }
 
 function del (id) {

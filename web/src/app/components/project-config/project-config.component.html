@@ -1,3 +1,56 @@
-<p>
-  project-config works!
-</p>
+<div class="ws-project-config-container">
+
+  <h4>Config</h4>
+
+  <div class="btn-group btn-group-toggle ws-dashboard-tabs">
+    <label class="btn btn-wordshop-tab" [ngClass]="{ active: area === 'prj' }">
+      <input (change)="setActiveArea('prj')" type="radio" name="options" autocomplete="off">Project
+    </label>
+    <label class="btn btn-wordshop-tab" [ngClass]="{ active: area === 'prt' }">
+      <input (change)="setActiveArea('prt')" type="radio" name="options" autocomplete="off">Parts
+    </label>
+    <label class="btn btn-wordshop-tab" [ngClass]="{ active: area === 'ver' }">
+      <input (change)="setActiveArea('ver')" type="radio" name="options" autocomplete="off">Versions
+    </label>
+  </div>
+
+  <div *ngIf="area === 'prj'" class="ws-panel ws-dashboard-tab-panel">
+    <table class="ws-table" cellspacing="0">
+      <tr>
+        <td scope="row" class="text-muted name">Image</td>
+        <td class="settings-avatar">
+          <app-word-icon *ngIf="!project?.image && !imageData" class="ws-project-config-image" [type]="'project'" [palette]="imagePalette"></app-word-icon>
+        </td>
+      </tr>
+      <tr>
+        <td scope="row" class="text-muted name">Title</td>
+        <td>
+          <form class="title-input">
+              <div class="input-group">
+                <input (input)="validateTitle($event.target.value)" type="text" class="form-control" placeholder="Title" [value]="project?.title">
+              </div>
+            </form>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <div class="action-buttons">
+      <button (click)="backToProject()" class="btn btn-wordshop-gray">Cancel</button>
+      <button (click)="saveProject()" class="btn btn-wordshop btn-user-profile-save" [ngClass]="{ 'disabled': !titleValid, loading: titleSaveInProgress }">
+        {{projectSaveText}}
+        <img src="/assets/images/ws-loading.svg">
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="area === 'prt'" class="ws-panel ws-dashboard-tab-panel">
+    <table class="ws-table" cellspacing="0">
+      <tr></tr>
+    </table>
+  </div>
+
+  <div *ngIf="area === 'ver'" class="ws-panel ws-dashboard-tab-panel">
+    <table class="ws-table" cellspacing="0">
+      <tr></tr>
+    </table>
+  </div>

@@ -15,6 +15,15 @@ function handleException (err, res, desc) {
   }
 }
 
+function updateProject (proj) {
+  return new Promise((resolve, reject) => {
+    projectService.put()
+    saveItem(updateUserParams(user)).then(function (res) {
+      resolve(user);
+    }).catch(reject);
+  });
+}
+
 module.exports.projectCreate = (req, res) => {
   let desc = 'POST /projects';
   let newProjData = req.body;
@@ -48,6 +57,36 @@ module.exports.projectShow = (req, res) => {
 };
 
 module.exports.projectUpdate = (req, res) => {
+  let projId = req.params.project_id;
+  let desc = `PUT /projects/${projId}`;
+
+  // 1) get project to update
+  projectService.get(projId, true).then(proj => {
+
+    if (req.user.user_id !== proj.user_id) {
+      return res.status(http.codes.unauthorized).send({ 
+        message: 'You may only update your own projects' 
+      });
+    }
+
+    console.log(desc, 'Existing', proj);
+
+    // 2) update project with new data
+    let updated = { ...proj, ...req.body };
+    projectService.put(updated).then(p => {
+
+      console.log(desc, 'Updated', p);
+
+      // 3) respond with updated project
+      res.status(http.codes.ok).send(p);
+
+    }).catch(err => {
+      handleException(err, res, desc);
+    });
+
+  }).catch(err => {
+    handleException(err, res, desc);
+  });
 };
 
 module.exports.projectDelete = (req, res) => {

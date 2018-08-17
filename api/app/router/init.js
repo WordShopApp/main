@@ -13,7 +13,7 @@ module.exports = (app) => {
   app.post('/projects', projectController.projectCreate);
   app.get('/projects/mine', projectController.projectMine);
   app.get('/projects/:project_id', projectController.projectShow);
-  app.put('/projects', projectController.projectUpdate);
+  app.put('/projects/:project_id', projectController.projectUpdate);
   app.delete('/projects', projectController.projectDelete);
 
   // user

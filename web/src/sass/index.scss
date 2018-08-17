@@ -765,7 +765,7 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   }
 }
 
-.ws-user-settings-container {
+.ws-user-settings-container, .ws-project-config-container {
   h5 {
     margin-left: 5px;
   }
@@ -796,7 +796,9 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       margin-right: 10px;
     }
   }
-  .ws-user-settings-avatar {
+  .ws-user-settings-avatar, .ws-project-config-image {
+    width: 100px!important;
+    height: 100px!important;
     svg, img {
       width: 100px;
       height: 100px;
@@ -817,9 +819,7 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
       height: 100px;
       img {
         position: absolute;
-        width: 100px;
-        height: 100px;
-        border-radius: 50px;
+        border-radius: 100%;
         opacity: 0.5;
       }
       i {
@@ -957,6 +957,25 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 
 
 @media (max-width: $ws-phone-breakpoint) {
+  .ws-user-settings-container, .ws-project-config-container {
+    .ws-user-settings-avatar, .ws-project-config-image {
+      width: 75px!important;
+      height: 75px!important;
+      svg, img {
+        width: 75px;
+        height: 75px;
+      }
+    }
+    .action-buttons {
+      flex-direction: column-reverse;
+      button {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+    }
+  }
   .avatar-crop-container {
     span {
       left: 40%;

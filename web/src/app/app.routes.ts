@@ -67,7 +67,7 @@ export const AppRoutes: Routes  = [
       { path: 'projects', component: ProjectIndexComponent },
       { path: 'projects/new', component: ProjectWizardComponent },
       { path: 'projects/:id', component: ProjectComponent },
-      { path: 'projects/:id/config', component: ProjectConfigComponent },
+      { path: 'projects/:id/config/:area', component: ProjectConfigComponent },
       { path: 'settings/:area', component: UserSettingsComponent }
     ]
   }

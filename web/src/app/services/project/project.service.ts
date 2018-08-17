@@ -34,6 +34,10 @@ export class ProjectService extends ApiService  {
     return this.post(this.projectUrl(), data);
   }
 
+  update (projectId, data): Promise<any> {
+    return this.put(`${this.projectUrl()}/${projectId}`, data);
+  }
+
   private projectUrl (): string {
     return this.url(this.settingsService.app('projectPath'));
   }

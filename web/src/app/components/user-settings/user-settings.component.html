@@ -18,7 +18,7 @@
         <td class="settings-avatar">
           <app-word-image *ngIf="profile?.avatar && !avatarData" class="ws-user-settings-avatar" [url]="assetUrl(profile?.avatar)" [size]="200"></app-word-image>
           <app-word-icon *ngIf="!profile?.avatar && !avatarData" class="ws-user-settings-avatar" [type]="'profile'" [palette]="avatarPalette"></app-word-icon>
-          <div *ngIf="avatarData" class="pending-container">
+          <div *ngIf="avatarData" class="pending-container ws-user-settings-avatar">
             <i class="fa fa-ellipsis-h"></i>
             <img [src]="avatarData">
           </div>
@@ -43,7 +43,7 @@
     </table>
     <br>
     <div class="action-buttons">
-      <button (click)="home()" class="btn btn-wordshop-gray">Cancel</button>
+      <button (click)="goHome()" class="btn btn-wordshop-gray">Cancel</button>
       <button (click)="saveProfileChanges()" class="btn btn-wordshop btn-user-profile-save" [ngClass]="{ 'disabled': !profileSaveEnabled, loading: (avatarSaveInProgress || usernameSaveInProgress) }">
         {{profileSaveText}}
         <img src="/assets/images/ws-loading.svg">
@@ -80,7 +80,7 @@
     </table>
     <br>
     <div class="action-buttons">
-      <button (click)="home()" class="btn btn-wordshop-gray">Cancel</button>
+      <button (click)="goHome()" class="btn btn-wordshop-gray">Cancel</button>
       <button (click)="saveAccountChanges()" class="btn btn-wordshop" [ngClass]="{ disabled: !accountSaveEnabled }">{{actionButtonLabel}}</button>
     </div>
     <br>

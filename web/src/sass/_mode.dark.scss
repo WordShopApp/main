@@ -302,6 +302,13 @@ body.dark {
       background-color: darken($ws-base-color, 35%);
     }
   }
+
+  .ws-user-settings-container, .ws-project-config-container {
+    hr {
+      width: 100%;
+      border-top: 1px solid darken($ws-base-color, 20%);
+    }
+  }
   
 }
 
