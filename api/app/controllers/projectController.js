@@ -1,5 +1,6 @@
 const http = require('../services/utils');
 const projectService = require('../services/projectService');
+const s3Service = require('../services/s3Service');
 
 function handleException (err, res, desc) {
   if (err.code === 'AccessDeniedException') {
