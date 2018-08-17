@@ -1,6 +1,7 @@
 <div class="ws-panel ws-project-banner">
   <div class="main-area">
-    <app-word-icon class="ws-project-banner-avatar" [type]="'project'" [palette]="palette"></app-word-icon>
+    <app-word-image *ngIf="project?.image" class="ws-project-banner-avatar" [url]="assetUrl(project?.image)" [size]="200"></app-word-image>
+    <app-word-icon *ngIf="!project?.image" class="ws-project-banner-avatar" [type]="'project'" [palette]="palette"></app-word-icon>
     <div class="ws-project-banner-details">
       <h3>{{project?.title}}</h3>
     </div>

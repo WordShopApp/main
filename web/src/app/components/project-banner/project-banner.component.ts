@@ -6,6 +6,7 @@ import { AccountService } from '../../services/account/account.service';
 import { LoggerService } from '../../services/logger/logger.service';
 import { StoreService } from '../../services/store/store.service';
 import { StoreActions as Actions } from '../../services/store/store.actions';
+import { SettingsService } from '../../services/settings/settings.service';
 
 @Component({
   selector: 'app-project-banner',
@@ -17,7 +18,10 @@ export class ProjectBannerComponent implements OnInit, OnChanges {
   @Input() project: any;
   palette: any;
 
-  constructor (private wordIconService: WordIconService) { }
+  constructor (
+    private settingsService: SettingsService,
+    private wordIconService: WordIconService
+  ) { }
 
   ngOnInit() {}
 
@@ -27,6 +31,10 @@ export class ProjectBannerComponent implements OnInit, OnChanges {
 
   updatePalette (title) {
     this.palette = this.wordIconService.getPalette(title);
+  }
+
+  assetUrl (path) {
+    return this.settingsService.assetUrl(path);
   }
 
 }

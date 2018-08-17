@@ -19,7 +19,23 @@
       <tr>
         <td scope="row" class="text-muted name">Image</td>
         <td class="settings-avatar">
+          <app-word-image *ngIf="project?.image && !imageData" class="ws-project-config-image" [url]="assetUrl(project?.image)" [size]="200"></app-word-image>
           <app-word-icon *ngIf="!project?.image && !imageData" class="ws-project-config-image" [type]="'project'" [palette]="imagePalette"></app-word-icon>
+          <div *ngIf="imageData" class="pending-container ws-project-config-image">
+            <i class="fa fa-ellipsis-h"></i>
+            <img [src]="imageData">
+          </div>
+          <div>
+            &nbsp;&nbsp;
+            <button *ngIf="!project?.image" class="btn btn-wordshop-subtle btn-wordshop-file-btn">
+              <i class="fa fa-upload"></i>
+              <input type="file" (change)="projectImageChosen($event)" value="Choose a file" accept="image/*" />
+            </button>
+            <button *ngIf="project?.image" (click)="removeProjectImage()" class="btn btn-wordshop-subtle-red">
+              <i class="fa fa-close"></i>
+            </button>
+          </div>        
+        
         </td>
       </tr>
       <tr>
@@ -36,7 +52,7 @@
     <br>
     <div class="action-buttons">
       <button (click)="backToProject()" class="btn btn-wordshop-gray">Cancel</button>
-      <button (click)="saveProject()" class="btn btn-wordshop btn-user-profile-save" [ngClass]="{ 'disabled': !titleValid, loading: titleSaveInProgress }">
+      <button (click)="saveProject()" class="btn btn-wordshop btn-user-profile-save" [ngClass]="{ 'disabled': !projectSaveEnabled, loading: titleSaveInProgress }">
         {{projectSaveText}}
         <img src="/assets/images/ws-loading.svg">
       </button>
@@ -54,3 +70,27 @@
       <tr></tr>
     </table>
   </div>
+
+<!-- image modal -->
+<div class="modal ws-modal" id="ui-image-crop-modal" tabindex="-1" role="dialog" aria-labelledby="image-crop-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <div class="avatar-crop-container">
+          <span>Loading...</span>
+          <div id="ui-image-crop"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="doneCroppingImage()" class="btn btn-block btn-wordshop-subtle">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- / image modal -->

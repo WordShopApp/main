@@ -15,13 +15,44 @@ function handleException (err, res, desc) {
   }
 }
 
-function updateProject (proj) {
-  return new Promise((resolve, reject) => {
-    projectService.put()
-    saveItem(updateUserParams(user)).then(function (res) {
-      resolve(user);
-    }).catch(reject);
-  });
+function deleteImageParams (key) {
+  return {
+    Bucket: 'store.wordshop.app',
+    Delete: {
+      Objects: [
+        {
+          Key: key.replace('{{size}}', 400)
+        },
+        {
+          Key: key.replace('{{size}}', 200)
+        },
+        {
+          Key: key.replace('{{size}}', 100)
+        },
+        {
+          Key: key.replace('{{size}}', 50)
+        }
+      ]
+    }
+  };
+}
+
+function hasImageUpdate (req) {
+  return Object.keys(req.body).indexOf('image') > -1;
+}
+
+function removeOldImages(desc, imageKey) {
+  if (imageKey) {
+    s3Service.del(deleteImageParams(imageKey)).then(res => {
+      console.log(desc, 'Success Removing Images', res);
+    }).catch(err => {
+      console.log(desc, 'Error Removing Images', imageKey);
+    });
+  }
+}
+
+function userCreatedProject (userId, projectUserId) {
+  return userId === projectUserId ? true : false;
 }
 
 module.exports.projectCreate = (req, res) => {
@@ -63,10 +94,16 @@ module.exports.projectUpdate = (req, res) => {
   // 1) get project to update
   projectService.get(projId, true).then(proj => {
 
-    if (req.user.user_id !== proj.user_id) {
+    if (!userCreatedProject(req.user.user_id, proj.user_id)) {
       return res.status(http.codes.unauthorized).send({ 
         message: 'You may only update your own projects' 
       });
+    }
+
+    if (hasImageUpdate(req)) {
+      let oldImageKey = proj.image;
+      console.log(desc, 'Old Image Key', oldImageKey);
+      removeOldImages(desc, oldImageKey);
     }
 
     console.log(desc, 'Existing', proj);
