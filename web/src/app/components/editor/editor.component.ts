@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-editor',
@@ -14,10 +14,13 @@ export class EditorComponent implements OnInit, OnDestroy {
   @Input() showWordCount: boolean;
   @Input() maxWordCount: number;
 
+  @ViewChild('trix') trix: ElementRef;
+
   @Output() textChanged = new EventEmitter<any>();
 
   onTrixChangeEvent: any;
   onTrixPasteEvent: any;
+  onTrixKeydownEvent: any;
 
   constructor () { }
 
@@ -31,10 +34,8 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   clearInput () {
-    let trix = document.querySelector('trix-editor');
-    if (trix && trix['editor']) {
-      trix['editor'].loadHTML('');
-    }
+    let ed = this.trixEditor();
+    if (ed) ed.loadHTML('');
   }
 
   onTrixChange (evt) {
@@ -60,6 +61,17 @@ export class EditorComponent implements OnInit, OnDestroy {
     this.justPasted = true;
   }
 
+  onTrixKeydown (evt) {
+    switch (evt.key) {
+      case 'Tab':
+        evt.preventDefault();
+        this.trixEditor().insertString('  ');
+        break;
+      default:
+        break;
+    }
+  }
+
   private initText () {
     if (this.text) {
       let ed = this.trixEditor();
@@ -71,8 +83,11 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   private trixEditor () {
-    let trix = document.querySelector('trix-editor');
-    return trix['editor'];
+    return (this.trix && this.trix.nativeElement && this.trix.nativeElement['editor']) || null;
+  }
+
+  private trixElement () {
+    return (this.trix && this.trix.nativeElement) || null;
   }
 
   private countWords (str) {
@@ -83,20 +98,23 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   private setupSubscriptions () {
-    let trix = document.querySelector('trix-editor');
+    let trix = this.trixElement();
     if (trix) {
       this.onTrixChangeEvent = this.onTrixChange.bind(this);
       trix.addEventListener('trix-change', this.onTrixChangeEvent);
       this.onTrixPasteEvent = this.onTrixPaste.bind(this);
       trix.addEventListener('trix-paste', this.onTrixPasteEvent);
+      this.onTrixKeydownEvent = this.onTrixKeydown.bind(this);
+      trix.addEventListener('keydown', this.onTrixKeydownEvent);
     }
   }
 
   private teardownSubscriptions () {
-    let trix = document.querySelector('trix-editor');
+    let trix = this.trixElement();
     if (trix) {
       trix.removeEventListener('trix-change', this.onTrixChangeEvent);
       trix.removeEventListener('trix-paste', this.onTrixPasteEvent);
+      trix.removeEventListener('keydown', this.onTrixKeydownEvent);
     }
   }
 

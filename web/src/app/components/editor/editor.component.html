@@ -1,5 +1,5 @@
 <div class="ws-editor">
   <div *ngIf="showWordCount" class="word-counter" [ngClass]="{ 'is-valid': (wordCount > 0 && wordCount <= maxWordCount), 'is-invalid': wordCount > maxWordCount }">{{wordCount || 0}}</div>
   <div id="tb"></div>
-  <trix-editor id="ui-ws-editor-text" class="form-control" toolbar="tb" placeholder="Text goes here..."></trix-editor>
+  <trix-editor #trix id="ui-ws-editor-text" class="form-control" toolbar="tb" placeholder="Text goes here..."></trix-editor>
 </div>
