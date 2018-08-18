@@ -357,7 +357,6 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
 
   textChanged (results) {
     if (results && results.word_count <= 5000) {
-      console.log(results);
       this.newTextResults = results;
     }
   }
