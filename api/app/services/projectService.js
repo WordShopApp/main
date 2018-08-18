@@ -159,6 +159,15 @@ function textUploadParams (proj, text) {
    };
 }
 
+function textUpdateParams (userId, projId, partId, verId, text) {
+  return {
+    ACL: textUploadAcl(), 
+    Body: text,
+    Bucket: textUploadBucket(), 
+    Key: textUploadKey(userId, projId, partId, verId)
+   };
+}
+
 function textDownloadParams (proj, part, version) {
   return {
     Bucket: textUploadBucket(),
@@ -180,6 +189,20 @@ function add (user, data) {
       .then(_ => {
         s3Service
           .put(textUploadParams(projParams.Item, text))
+          .then(resolve)
+          .catch(reject);
+      })
+      .catch(reject);
+  });
+}
+
+function updateText (proj, projId, partId, verId, text) {
+  return new Promise((resolve, reject) => {
+    dynamodbService
+      .addItem(updateProjParams(proj))
+      .then(_ => {
+        s3Service
+          .put(textUpdateParams(proj.user_id, projId, partId, verId, text))
           .then(resolve)
           .catch(reject);
       })
@@ -312,5 +335,6 @@ module.exports = {
   all: all,
   get: get,
   put: put,
-  del: del
+  del: del,
+  updateText: updateText
 };

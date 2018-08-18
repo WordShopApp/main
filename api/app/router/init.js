@@ -14,6 +14,7 @@ module.exports = (app) => {
   app.get('/projects/mine', projectController.projectMine);
   app.get('/projects/:project_id', projectController.projectShow);
   app.put('/projects/:project_id', projectController.projectUpdate);
+  app.put('/projects/:project_id/text', projectController.projectUpdateText);
   app.delete('/projects/:project_id', projectController.projectDelete);
 
   // user

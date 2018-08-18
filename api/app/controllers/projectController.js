@@ -127,6 +127,54 @@ module.exports.projectUpdate = (req, res) => {
   });
 };
 
+module.exports.projectUpdateText = (req, res) => {
+
+  let projId = req.params.project_id;
+  let partId = req.body.part_id;
+  let verId = req.body.version_id;
+  let text = req.body.text;
+  let desc = `PUT /projects/${projId}/text`;
+
+  // 1) get project to update
+  projectService.get(projId, true).then(proj => {
+
+    if (!userCreatedProject(req.user.user_id, proj.user_id)) {
+      return res.status(http.codes.unauthorized).send({ 
+        message: 'You may only update your own projects' 
+      });
+    }
+
+    console.log(desc, 'Existing', proj);
+
+    for (let p = 0; p < proj.parts.length; p += 1) {
+      let prt = proj.parts[p];
+      if (prt.part_id === partId) {
+        for (let v = 0; v < proj.parts[p].versions.length; v += 1) {
+          let ver = proj.parts[p].versions[v];
+          if (ver.version_id === verId) {
+            ver.word_count = req.body.word_count;
+          }
+        }
+      }
+    }
+
+    // 2) update project with new word count for version and text
+    projectService.updateText(proj, projId, partId, verId, text).then(_ => {
+
+      console.log(desc, 'Updated', proj);
+
+      // 3) respond with updated project
+      res.status(http.codes.ok).send(proj);
+
+    }).catch(err => {
+      handleException(err, res, desc);
+    });
+
+  }).catch(err => {
+    handleException(err, res, desc);
+  });
+};
+
 module.exports.projectDelete = (req, res) => {
   let projId = req.params.project_id;
   let desc = `DELETE /projects/${projId}`;

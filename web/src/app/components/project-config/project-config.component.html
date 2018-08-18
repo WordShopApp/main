@@ -49,13 +49,13 @@
         </td>
       </tr>
       <tr>
-        <td scope="row" class="text-muted name">Delete</td>
-        <td>
-          <button (click)="deleteProject()" class="btn btn-wordshop-subtle-red">
-            Delete Project
-          </button>
-        </td>
-      </tr>
+        <td scope="row" class="text-muted name">Text</td>
+          <td>
+            <div *ngIf="project?.parts[0]?.versions[0]?.text" class="project-config-text-input">
+              <app-editor [showWordCount]="true" [maxWordCount]="5000" [text]="project?.parts[0]?.versions[0]?.text" (textChanged)="textChanged($event)"></app-editor>
+            </div>
+          </td>
+        </tr>
     </table>
     <br>
     <div class="action-buttons">
@@ -65,6 +65,16 @@
         <img src="/assets/images/ws-loading.svg">
       </button>
     </div>
+    <br>
+    <table class="ws-table">
+      <tr>
+        <td scope="row" class="text-muted right">
+          <button (click)="deleteProject()" class="btn btn-wordshop-subtle-red">
+            Delete Project
+          </button>
+        </td>
+      </tr>
+    </table>
   </div>
 
   <div *ngIf="area === 'prt'" class="ws-panel ws-dashboard-tab-panel">

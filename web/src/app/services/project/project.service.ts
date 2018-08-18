@@ -38,6 +38,10 @@ export class ProjectService extends ApiService  {
     return this.put(`${this.projectUrl()}/${projectId}`, data);
   }
 
+  updateText (projectId, data): Promise<any> {
+    return this.put(`${this.projectUrl()}/${projectId}/text`, data);
+  }
+
   remove (projectId): Promise<any> {
     return this.delete(`${this.projectUrl()}/${projectId}`);
   }

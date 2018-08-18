@@ -63,6 +63,10 @@ trix-editor {
   display: none!important;
 }
 
+.spacer {
+  flex: 1;
+}
+
 .capitalize {
   text-transform: capitalize!important;
 }
@@ -73,6 +77,18 @@ trix-editor {
 
 .app-container {
   padding-top: 25px;
+}
+
+.text-highlight {
+  color: $ws-highlight-color;
+}
+
+.right {
+  text-align: right!important;
+}
+
+.left {
+  text-align: left!important;
 }
 
 .auth-container {
@@ -766,6 +782,12 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
 }
 
 .ws-user-settings-container, .ws-project-config-container {
+  .project-config-text-input {
+    trix-editor {
+      height: 300px;
+      overflow: auto;
+    }
+  }
   h5 {
     margin-left: 5px;
   }
@@ -892,9 +914,15 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   .header, .footer {
     h1, h2, h3, h4, h5, h6 {
       margin-bottom: 0;
-      padding-left: 8px;
     }
     padding: 12px;
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 18px;
+    padding-right: 18px;
   }
   .content {
     padding: 48px;

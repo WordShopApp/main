@@ -48,6 +48,9 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
   imageCanvas: HTMLCanvasElement;
   imageSaveInProgress: boolean;
 
+  newTextResults: any;
+  textSaveInProgress: boolean;
+
   constructor (
     private route: ActivatedRoute,
     private accountService: AccountService,
@@ -113,7 +116,8 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
 
   readyToSaveProject (): boolean {
     return this.titleValid && !this.titleSaveInProgress ||
-           this.imageData && !this.imageSaveInProgress;
+           this.imageData && !this.imageSaveInProgress ||
+           this.newTextResults && !this.textSaveInProgress;
   }
 
   hasTitleChanges (): boolean {
@@ -187,21 +191,51 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
     }).catch(this.imageSaveError.bind(this));
   }
 
+  hasTextChanges (): boolean {
+    return this.newTextResults ? true : false;
+  }
+
+  saveTextChanges () {
+    this.projectSaveText = 'Saving';
+    this.textSaveInProgress = true;
+    let prjId = this.projectId;
+    let prtId = this.project.parts[0].part_id;
+    let verId = this.project.parts[0].versions[0].version_id;
+    this.projectService
+      .updateText(prjId, {
+        text: this.newTextResults.text,
+        word_count: this.newTextResults.word_count,
+        project_id: prjId,
+        part_id: prtId,
+        version_id: verId
+      })
+      .then(_ => {
+        this.newTextResults = null;
+        this.checkProjectSaveComplete();
+      }).catch(err => {
+        this.projectSaveText = 'Save Changes';
+        this.textSaveInProgress = false;
+        this.handleError(err);
+      });
+  }
 
   saveProject () {
     if (this.readyToSaveProject()) {
       if (this.hasTitleChanges()) this.saveTitleChanges();
       if (this.hasImageChanges()) this.saveImageChanges();
+      if (this.hasTextChanges()) this.saveTextChanges();
     }
   }
 
   checkProjectSaveComplete () {
     let titleComplete = (!this.titleSaveInProgress || (this.titleSaveInProgress && this.newTitle === null));
     let imageComplete = (!this.imageSaveInProgress || (this.imageSaveInProgress && this.imageCanvas === null));
-    if (titleComplete && imageComplete) {
+    let textComplete = (!this.textSaveInProgress || (this.textSaveInProgress && this.newTextResults === null));
+    if (titleComplete && imageComplete && textComplete) {
       this.projectSaveText = 'Save Changes';
       this.titleSaveInProgress = false;
       this.imageSaveInProgress = false;
+      this.textSaveInProgress = false;
       this.backToProject();
     }
   }
@@ -318,6 +352,13 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
       }).catch(err => {
         this.handleError(err);
       });
+    }
+  }
+
+  textChanged (results) {
+    if (results && results.word_count <= 5000) {
+      console.log(results);
+      this.newTextResults = results;
     }
   }
 
