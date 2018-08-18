@@ -60,7 +60,7 @@
     <br>
     <div class="action-buttons">
       <button (click)="backToProject()" class="btn btn-wordshop-gray">Cancel</button>
-      <button (click)="saveProject()" class="btn btn-wordshop btn-user-profile-save" [ngClass]="{ 'disabled': !projectSaveEnabled, loading: (imageSaveInProgress || titleSaveInProgress) }">
+      <button (click)="saveProject()" class="btn btn-wordshop btn-user-profile-save" [ngClass]="{ 'disabled': !projectSaveEnabled, loading: (imageSaveInProgress || titleSaveInProgress || textSaveInProgress) }">
         {{projectSaveText}}
         <img src="/assets/images/ws-loading.svg">
       </button>

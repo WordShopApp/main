@@ -241,7 +241,10 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
   }
 
   updateProjectSaveEnabled () {
-    this.projectSaveEnabled = (this.hasTitleChanges() || this.hasImageChanges()) ? true : false;
+    this.projectSaveEnabled = 
+      (this.hasTitleChanges() || 
+       this.hasImageChanges() || 
+       this.hasTextChanges()) ? true : false;
   }
 
   hasImageChanges (): boolean {
@@ -358,6 +361,7 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
   textChanged (results) {
     if (results && results.word_count <= 5000) {
       this.newTextResults = results;
+      this.updateProjectSaveEnabled();
     }
   }
 
