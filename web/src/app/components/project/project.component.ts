@@ -27,6 +27,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
   projectId: any;
   project: any;
 
+  showCritiqueEditor: boolean;
+
   constructor (
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,

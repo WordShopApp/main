@@ -1,0 +1,17 @@
+<div class="card ws-form ws-critique-editor">
+  <h5 class="card-header ws-header">Critique Editor</h5>
+  <div class="critique-content">
+    <div *ngFor="let c of critique; let idx = index" class="critique">
+      <h6>{{c.question}}</h6>
+      <app-editor [maxWordCount]="500" [text]="c.answer" (textChanged)="textChanged(idx, c.question, $event)"></app-editor>
+    </div>
+  </div>
+  <hr>
+  <div class="action-buttons">
+    <button (click)="cancelCritique()" class="btn btn-wordshop-gray">Close</button>
+    <button (click)="submitCritique()" class="btn btn-wordshop" [ngClass]="{ 'disabled': !ableToSubmit, 'loading': submitInProgress }">
+      Submit Critique
+      <img src="/assets/images/ws-loading.svg">
+    </button>
+  </div>
+</div>

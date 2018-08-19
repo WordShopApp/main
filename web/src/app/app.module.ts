@@ -58,6 +58,8 @@ import { ProjectBannerComponent } from './components/project-banner/project-bann
 import { ProjectConfigComponent } from './components/project-config/project-config.component';
 import { CropTesterComponent } from './components/crop-tester/crop-tester.component';
 import { WordImageComponent } from './components/word-image/word-image.component';
+import { CritiqueComponent } from './components/critique/critique.component';
+import { CritiqueEditorComponent } from './components/critique-editor/critique-editor.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -93,7 +95,9 @@ import { CookieService } from 'ng2-cookies';
     ProjectBannerComponent,
     ProjectConfigComponent,
     CropTesterComponent,
-    WordImageComponent
+    WordImageComponent,
+    CritiqueComponent,
+    CritiqueEditorComponent
   ],
   imports: [
     BrowserModule,

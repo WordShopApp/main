@@ -924,17 +924,39 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
     padding-left: 18px;
     padding-right: 18px;
   }
-  .content {
-    padding: 48px;
+  .content-container {
     flex: 1;
-    line-height: 1.75;
+    padding: 12px;
+    padding-top: 15%;
+    padding-bottom: 15%;
+    .content {
+      line-height: 1.75;
+      max-width: $ws-content-width;
+      margin: auto;
+    }
+  }
+}
+
+.ws-critique-editor {
+  width: 100%;
+  min-width: initial;
+  max-width: initial;
+  .critique-content {
+    max-width: $ws-content-width;
+    margin: auto;
+    padding: 24px;
+    .critique {
+      margin-bottom: 36px;
+      margin-top: 24px;
+    }
   }
 }
 
 @media (max-width: $ws-tablet-breakpoint) {
   .ws-project-panel {
-    .content {
-      padding: 24px;
+    .content-container {
+      padding-top: 10%;
+      padding-bottom: 10%;
     }
   }
   .ws-user-settings-container {

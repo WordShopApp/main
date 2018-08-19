@@ -41,7 +41,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   onTrixChange (evt) {
     let res = { text: null };
     res.text = evt.target.value;
-    if (this.showWordCount) {
+    if (this.showWordCount || this.maxWordCount) {
       let ed = this.trixEditor();
       if (this.justPasted) {
         this.justPasted = false;

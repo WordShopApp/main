@@ -298,7 +298,7 @@ body.dark {
     .header, .footer {
       background-color: transparent;
     }
-    .content {
+    .content-container {
       background-color: darken($ws-base-color, 35%);
     }
   }
