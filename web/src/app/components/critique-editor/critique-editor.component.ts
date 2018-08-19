@@ -15,9 +15,10 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
   @Output() cancelled = new EventEmitter<any>();
   @Output() submitted = new EventEmitter<any>();
 
+  ableToSubmit: boolean;
   maxQuestionLength = 500;
-  critique;
-
+  critique: any;
+  
   constructor(
     private storeService: StoreService
   ) { }
