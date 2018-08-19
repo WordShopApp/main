@@ -15,9 +15,10 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
   @Output() cancelled = new EventEmitter<any>();
   @Output() submitted = new EventEmitter<any>();
 
-  ableToSubmit: boolean;
-  maxQuestionLength = 500;
   critique: any;
+  ableToSubmit: boolean;
+  submitInProgress: boolean;
+  maxQuestionLength = 500;
   
   constructor(
     private storeService: StoreService
@@ -27,32 +28,33 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges (changes: SimpleChanges) {
-    this.initCritique();
+    if (!this.critique) this.initCritique();
   }
 
   ngOnDestroy() {
   }
 
   initCritique () {
-    let crit = this.storeService.local.get(this.critiqueKey());
-    if (crit) {
-      this.critique = JSON.parse(crit);
+    let existingCritique = this.storeService.local.get(this.critiqueKey());
+    if (existingCritique) {
+      this.critique = JSON.parse(existingCritique);
     } else {
       this.critique = [];
       for (let q = 0; q < this.part.questions.length; q += 1) {
-        this.critique.push({
-          question: this.part.questions[q],
-          answer: null
-        });
+        this.critique.push(this.critiqueItem(this.part.questions[q], null));
       }
-      this.critique.push({
-        question: 'General Feedback',
-        answer: null
-      });
+      this.critique.push(this.critiqueItem('General Feedback', null));
     }
   }
 
-  textChanged (idx, question, answer) {
+  critiqueItem (question, answer) {
+    return {
+      question,
+      answer
+    };
+  }
+
+  textChanged (idx, answer) {
     if (answer.word_count <= this.maxQuestionLength) {
       this.critique[idx].answer = answer.text;
       this.saveCritiqueInProgress(this.critique);

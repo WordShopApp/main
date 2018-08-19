@@ -3,7 +3,7 @@
   <div class="critique-content">
     <div *ngFor="let c of critique; let idx = index" class="critique">
       <h6>{{c.question}}</h6>
-      <app-editor [maxWordCount]="500" [text]="c.answer" (textChanged)="textChanged(idx, c.question, $event)"></app-editor>
+      <app-editor [maxWordCount]="500" [text]="c.answer" (textChanged)="textChanged(idx, $event)"></app-editor>
     </div>
   </div>
   <hr>
