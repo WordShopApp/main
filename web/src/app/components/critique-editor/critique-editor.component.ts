@@ -40,15 +40,17 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
       this.critique = JSON.parse(existingCritique);
     } else {
       this.critique = [];
-      this.part.questions.map(q => this.critique.push(this.critiqueItem(q, null)));
-      this.critique.push(this.critiqueItem('General Feedback', null));
+      this.part.questions.map(q => this.critique.push(this.critiqueItem(q, null, true)));
+      this.critique.push(this.critiqueItem('General Feedback', null, false));
     }
+    this.updateAbleToSubmit();
   }
 
-  critiqueItem (question, answer) {
+  critiqueItem (question, answer, required) {
     return {
       question,
-      answer
+      answer,
+      required
     };
   }
 
@@ -57,6 +59,22 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
       this.critique[idx].answer = answer.text;
       this.saveCritiqueInProgress(this.critique);
     }
+    this.updateAbleToSubmit();
+  }
+
+  blank (str) {
+    return !str || !str.length || str.trim().length === 0;
+  }
+
+  updateAbleToSubmit () {
+    let able = true;
+    for (let c of this.critique) {
+      if (c.required && this.blank(c.answer)) {
+        able = false;
+        break;
+      }
+    }
+    this.ableToSubmit = able;
   }
 
   critiqueKey (): string {
@@ -73,6 +91,14 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
 
   submitCritique () {
     console.log('submitCritique');
+  }
+
+  deleteCritique () {
+    let del = window.confirm('Are you sure you want to delete this critique?');
+    if (del) {
+      this.storeService.local.remove(this.critiqueKey());
+      this.cancelled.next();
+    }
   }
 
 }

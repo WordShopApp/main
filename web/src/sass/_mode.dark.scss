@@ -252,6 +252,27 @@ body.dark {
     }
   }
 
+  .btn-wordshop-content-tab {
+    color: #838c91!important;
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 1px solid transparent;
+    border-radius: $ws-default-radius-btn;
+    cursor: pointer;
+    &:hover {
+      color: lighten($ws-base-color, 30%)!important;
+      background-color: darken($ws-base-color, 25%);
+      border-color: darken($ws-base-color, 25%);
+      border-bottom: 1px solid darken($ws-base-color, 25%);
+    }
+    &.active {
+      color: lighten($ws-base-color, 30%)!important;
+      background-color: darken($ws-base-color, 25%);
+      border-color: darken($ws-base-color, 25%);
+      border-bottom: 1px solid darken($ws-base-color, 25%);
+    }
+  }
+
   .ws-project-list {
     li {
       cursor: pointer;
@@ -297,6 +318,9 @@ body.dark {
   .ws-project-panel {
     .header, .footer {
       background-color: transparent;
+    }
+    .content-tabs {
+      background-color: darken($ws-base-color, 35%);
     }
     .content-container {
       background-color: darken($ws-base-color, 35%);

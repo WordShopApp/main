@@ -6,12 +6,17 @@
       <app-editor [maxWordCount]="500" [text]="c.answer" (textChanged)="textChanged(idx, $event)"></app-editor>
     </div>
   </div>
-  <hr>
-  <div class="action-buttons">
-    <button (click)="cancelCritique()" class="btn btn-wordshop-gray">Close</button>
-    <button (click)="submitCritique()" class="btn btn-wordshop" [ngClass]="{ 'disabled': !ableToSubmit, 'loading': submitInProgress }">
-      Submit Critique
-      <img src="/assets/images/ws-loading.svg">
-    </button>
+  <div class="action-area">
+    <hr>
+    <div class="buttons">
+      <button (click)="deleteCritique()" class="btn btn-wordshop-subtle-red trash-button mobile-hide">
+        <i class="fa fa-trash"></i>
+      </button>
+      <button (click)="cancelCritique()" class="btn btn-wordshop-gray">Close</button>
+      <button (click)="submitCritique()" class="btn btn-wordshop btn-critique-editor-save" [ngClass]="{ 'disabled': !ableToSubmit, 'loading': submitInProgress }">
+        Submit Critique
+        <img src="/assets/images/ws-loading.svg">
+      </button>
+    </div>
   </div>
 </div>

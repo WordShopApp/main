@@ -5,11 +5,15 @@
     <div class="spacer"></div>
     <h6 class="text-muted"><span class="text-highlight">{{project?.parts[0]?.versions[0]?.word_count}}</span></h6>
   </div>
+  <div class="content-tabs">
+    <button class="btn btn-sm btn-wordshop-content-tab active">Text</button>
+    <button class="btn btn-sm btn-wordshop-content-tab">Critiques</button>
+  </div>
   <div class="content-container">
     <div class="content" [innerHTML]="format(project?.parts[0]?.versions[0]?.text)"></div>
   </div>
   <div class="footer">
-    <button (click)="showCritiqueEditor = true" class="btn btn-block btn-wordshop" [ngClass]="{ hide: showCritiqueEditor }">Write a critique</button>
+    <button (click)="showCritiqueEditor = true" class="btn btn-block btn-wordshop" [ngClass]="{ hide: showCritiqueEditor }">Critique</button>
   </div>
 </div>
 <app-critique-editor *ngIf="showCritiqueEditor" (cancelled)="showCritiqueEditor = false" [project]="project" [part]="project?.parts[0]" [version]="project?.parts[0]?.versions[0]"></app-critique-editor>

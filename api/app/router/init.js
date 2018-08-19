@@ -17,6 +17,10 @@ module.exports = (app) => {
   app.put('/projects/:project_id/text', projectController.projectUpdateText);
   app.delete('/projects/:project_id', projectController.projectDelete);
 
+  // critiques
+  let critiqueController = require('../controllers/critiqueController');
+  app.post('/critiques', critiqueController.critiqueCreate);
+
   // user
   let userController = require('../controllers/userController');
   app.get('/users/:id', userController.show);
