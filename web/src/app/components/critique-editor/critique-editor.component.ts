@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { StoreService } from '../../services/store/store.service';
+import { CritiqueService } from '../../services/critique/critique.service';
+import { LoggerService } from '../../services/logger/logger.service';
 
 @Component({
   selector: 'app-critique-editor',
@@ -19,8 +21,11 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
   ableToSubmit: boolean;
   submitInProgress: boolean;
   maxQuestionLength = 500;
+  critiqueSubmitText = 'Submit Critique';
   
   constructor(
+    private critiqueService: CritiqueService,
+    private loggerService: LoggerService,
     private storeService: StoreService
   ) { }
 
@@ -89,8 +94,30 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
     this.cancelled.next();
   }
 
+  critiqueData () {
+    return {
+      project_id: this.project.project_id,
+      part_id: this.part.part_id,
+      version_id: this.version.version_id,
+      items: this.critique
+    };
+  }
+
   submitCritique () {
-    console.log('submitCritique');
+    if (!this.submitInProgress) {
+      this.submitInProgress = true;
+      this.critiqueSubmitText = 'Submitting';
+      this.critiqueService.create(this.critiqueData()).then(crit => {
+        this.storeService.local.remove(this.critiqueKey());
+        this.submitted.next(crit);
+        this.submitInProgress = false;
+        this.critiqueSubmitText = 'Submit Critique';
+      }).catch(err => {
+        this.submitInProgress = false;
+        this.critiqueSubmitText = 'Submit Critique';
+        this.loggerService.error(err);
+      });
+    }
   }
 
   deleteCritique () {

@@ -14,7 +14,7 @@
       </button>
       <button (click)="cancelCritique()" class="btn btn-wordshop-gray">Close</button>
       <button (click)="submitCritique()" class="btn btn-wordshop btn-critique-editor-save" [ngClass]="{ 'disabled': !ableToSubmit, 'loading': submitInProgress }">
-        Submit Critique
+        {{critiqueSubmitText}}
         <img src="/assets/images/ws-loading.svg">
       </button>
     </div>

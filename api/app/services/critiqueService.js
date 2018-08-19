@@ -13,6 +13,10 @@ function genShortId () {
   return shortid.generate();
 }
 
+function tableName () {
+  return 'WordShop';
+}
+
 function newCritParams (user, data) {
   let critId = genShortId();
   let now = genTimestamp();

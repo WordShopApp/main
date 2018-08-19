@@ -25,6 +25,7 @@ import { WordIconService } from './services/word-icon/word-icon.service';
 import { ProjectService } from './services/project/project.service';
 import { ImageService } from './services/image/image.service';
 import { S3Service } from './services/s3/s3.service';
+import { CritiqueService } from './services/critique/critique.service';
 
 // Components
 import { AboutComponent } from './components/about/about.component';
@@ -111,6 +112,7 @@ import { CookieService } from 'ng2-cookies';
     AuthService,
     CognitoService,
     CookieService,
+    CritiqueService,
     GravatarService,
     ImageService,
     LoggerService,

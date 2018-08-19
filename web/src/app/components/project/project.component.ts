@@ -55,4 +55,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
+  newCritiqueSubmitted (critique) {
+    console.log('new critique', critique);
+    this.showCritiqueEditor = false;
+  }
+
 }

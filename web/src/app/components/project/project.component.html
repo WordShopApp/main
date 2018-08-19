@@ -16,4 +16,4 @@
     <button (click)="showCritiqueEditor = true" class="btn btn-block btn-wordshop" [ngClass]="{ hide: showCritiqueEditor }">Critique</button>
   </div>
 </div>
-<app-critique-editor *ngIf="showCritiqueEditor" (cancelled)="showCritiqueEditor = false" [project]="project" [part]="project?.parts[0]" [version]="project?.parts[0]?.versions[0]"></app-critique-editor>
+<app-critique-editor *ngIf="showCritiqueEditor" (cancelled)="showCritiqueEditor = false" (submitted)="newCritiqueSubmitted($event)" [project]="project" [part]="project?.parts[0]" [version]="project?.parts[0]?.versions[0]"></app-critique-editor>

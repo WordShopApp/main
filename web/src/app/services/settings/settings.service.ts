@@ -7,6 +7,7 @@ export class SettingsService {
     profilePath: '/profile',
     usernameValidatePath: '/profile/validate-username/:username',
     projectPath: '/projects',
+    critiquePath: '/critiques',
     assetBaseUrl: 'https://store.wordshop.app'
   };
 
