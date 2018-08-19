@@ -40,9 +40,7 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
       this.critique = JSON.parse(existingCritique);
     } else {
       this.critique = [];
-      for (let q = 0; q < this.part.questions.length; q += 1) {
-        this.critique.push(this.critiqueItem(this.part.questions[q], null));
-      }
+      this.part.questions.map(q => this.critique.push(this.critiqueItem(q, null)));
       this.critique.push(this.critiqueItem('General Feedback', null));
     }
   }
