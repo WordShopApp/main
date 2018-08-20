@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, Output, OnInit, OnChanges, OnDestroy, S
 import { StoreService } from '../../services/store/store.service';
 import { CritiqueService } from '../../services/critique/critique.service';
 import { LoggerService } from '../../services/logger/logger.service';
+import { WordIconService } from '../../services/word-icon/word-icon.service';
+
+import * as he from 'he';
 
 @Component({
   selector: 'app-critique-editor',
@@ -17,6 +20,8 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
   @Output() cancelled = new EventEmitter<any>();
   @Output() submitted = new EventEmitter<any>();
 
+  palette: any;
+
   critique: any;
   ableToSubmit: boolean;
   submitInProgress: boolean;
@@ -26,18 +31,17 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private critiqueService: CritiqueService,
     private loggerService: LoggerService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private wordIconService: WordIconService
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges (changes: SimpleChanges) {
     if (!this.critique) this.initCritique();
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
   initCritique () {
     let existingCritique = this.storeService.local.get(this.critiqueKey());
@@ -48,7 +52,13 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
       this.part.questions.map(q => this.critique.push(this.critiqueItem(q, null, true)));
       this.critique.push(this.critiqueItem('General Feedback', null, false));
     }
+    this.updateCritiquePalette(this.critiqueHash());
     this.updateAbleToSubmit();
+  }
+
+  critiqueHash (): string {
+    let hash = this.critique.map(c => c.answer || '').join('');
+    return hash;
   }
 
   critiqueItem (question, answer, required) {
@@ -63,6 +73,7 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
     if (answer.word_count <= this.maxQuestionLength) {
       this.critique[idx].answer = answer.text;
       this.saveCritiqueInProgress(this.critique);
+      this.updateCritiquePalette(this.critiqueHash());
     }
     this.updateAbleToSubmit();
   }
@@ -126,6 +137,14 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
       this.storeService.local.remove(this.critiqueKey());
       this.cancelled.next();
     }
+  }
+
+  updateCritiquePalette (hash) {
+    this.palette = this.wordIconService.getPalette(hash);
+  }
+
+  stripHtml (html) {
+    return he.decode(html.replace(/<[^>]+>/g, ''));
   }
 
 }

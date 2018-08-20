@@ -146,6 +146,13 @@ trix-editor {
   }
 }
 
+.btn-word-icon {
+  img {
+    height: 20px;
+    margin-left: 2px;
+  }
+}
+
 .btn-wordshop {
   color: #fff!important;
   background-color: $ws-highlight-color;
@@ -252,7 +259,7 @@ $logo-size: 40px;
 }
 
 $wizard-logo-size: 30px;
-.ws-wizard-icon {
+.ws-wizard-icon, .ws-editor-icon {
   display: inline-block;
   text-align: right;
   line-height: initial;
@@ -953,6 +960,20 @@ $ws-wizard-padding-mobile: $ws-wizard-padding / 2;
   width: 100%;
   min-width: initial;
   max-width: initial;
+
+  .ws-editor-header {
+    display: flex;
+    line-height: $wizard-logo-size;
+    span {
+      flex: 1;
+    }
+  }
+
+  .critique-intro {
+    padding: 24px;
+    margin: 0;
+  }
+
   .critique-content {
     max-width: $ws-content-width;
     margin: auto;

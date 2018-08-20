@@ -13,7 +13,9 @@
     <div class="content" [innerHTML]="format(project?.parts[0]?.versions[0]?.text)"></div>
   </div>
   <div class="footer">
-    <button (click)="showCritiqueEditor = true" class="btn btn-block btn-wordshop" [ngClass]="{ hide: showCritiqueEditor }">Critique</button>
+    <button (click)="showCritiqueEditor = true" class="btn btn-block btn-wordshop btn-word-icon" [ngClass]="{ hide: showCritiqueEditor }">
+      Critique
+    </button>
   </div>
 </div>
 <app-critique-editor *ngIf="showCritiqueEditor" (cancelled)="showCritiqueEditor = false" (submitted)="newCritiqueSubmitted($event)" [project]="project" [part]="project?.parts[0]" [version]="project?.parts[0]?.versions[0]"></app-critique-editor>

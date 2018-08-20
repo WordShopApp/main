@@ -1,5 +1,13 @@
 <div class="card ws-form ws-critique-editor">
-  <h5 class="card-header ws-header">Critique Editor</h5>
+  <h5 class="card-header ws-header ws-editor-header">
+    <span>
+      Critique Editor
+    </span>
+    <span class="ws-editor-icon"><app-word-icon [type]="'critique'" [palette]="palette"></app-word-icon></span>
+  </h5>
+  <p class="text-muted critique-intro">
+    Please answer the following questions and then click <em>Submit Critique</em>. All questions are required except for <em>General Feedback</em>. Remember to be respectful, thoughtful, and above all <strong>encouraging</strong> in your response.
+  </p>
   <div class="critique-content">
     <div *ngFor="let c of critique; let idx = index" class="critique">
       <h6>{{c.question}}</h6>
