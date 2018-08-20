@@ -18,7 +18,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   profile$: Subscription;
 
   projects: any;
+  project$: Subscription;
   projectsLoading = false;
+
+  critiques: any;
+  critique$: Subscription;
 
   activeTab: string;
   activeTabKey = 'dashboardActiveTab';
@@ -34,15 +38,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.initActiveTab();
     this.setupSubscriptions();
     this.rosieService.cleanup();
-
-    this.projectsLoading = true;
-    this.projectService.all().then(p => {
-      this.projects = p;
-      this.projectsLoading = false;
-    }).catch(err => {
-      this.loggerService.error(err);
-      this.projectsLoading = false;
-    });
   }
 
   ngOnDestroy () {
@@ -60,10 +55,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private setupSubscriptions () {
     this.profile$ = this.storeService.subscribe(Props.App.Profile, p => this.profile = p && p.toJS());
+    this.project$ = this.storeService.subscribe(Props.App.Projects, p => this.projects = p && p.toJS());
+    this.critique$ = this.storeService.subscribe(Props.App.Critiques, c => this.critiques = c && c.toJS());
   }
 
   private teardownSubscriptions () {
     this.profile$.unsubscribe();
+    this.project$.unsubscribe();
+    this.critique$.unsubscribe();
   }
 
 }

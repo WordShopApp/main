@@ -27,8 +27,8 @@ module.exports = (app) => {
 
   // views
   let viewController = require('../controllers/viewController');
-  app.get('/views/dashboard', viewController.dashboard);
-  app.get('/views/project', viewController.project);
+  app.get('/views/init', viewController.init);
+  app.get('/views/project/:project_id', viewController.project);
   app.get('/@:username', viewController.profile);
 
   // root

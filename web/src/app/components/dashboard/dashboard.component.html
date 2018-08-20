@@ -18,11 +18,11 @@
       </li>
     </ul>
   </div>
-  <div *ngIf="!projects && projectsLoading">
+  <div *ngIf="!projects">
     <br>
     <app-loading></app-loading>
   </div>
-  <div *ngIf="(!projects || (projects && !projects.length)) && !projectsLoading" class="zero-state text-muted">
+  <div *ngIf="!projects || (projects && !projects.length)" class="zero-state text-muted">
     <p>You don't have any projects yet. Click on the button above to create one.</p>
   </div>
 </div>

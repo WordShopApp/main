@@ -29,6 +29,7 @@ function newCritParams (user, data) {
       version_id: data.version_id,
       user_id: user.user_id,
       items: data.items,
+      unread: true,
       created: now,
       updated: now,
       query_key_01: `crt:usr:${user.user_id}`,
@@ -39,11 +40,32 @@ function newCritParams (user, data) {
   };
 }
 
+function allCritsParams (userId) {
+  return {
+    TableName: 'WordShop',
+    IndexName: 'query_key_01-updated-index',
+    KeyConditionExpression: 'query_key_01 = :qk01',
+    ExpressionAttributeValues: {
+      ':qk01': `crt:usr:${userId}`
+    },
+    ScanIndexForward: false
+  };
+}
+
+
 function add (user, data) {
   return new Promise((resolve, reject) => {
-    let critParams = newCritParams(user, data);
     dynamodbService
-      .addItem(critParams)
+      .addItem(newCritParams(user, data))
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
+function all (userId) {
+  return new Promise((resolve, reject) => {
+    dynamodbService
+      .getItems(allCritsParams(userId))
       .then(resolve)
       .catch(reject);
   });

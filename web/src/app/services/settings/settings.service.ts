@@ -5,6 +5,9 @@ export class SettingsService {
 
   private appSettings = {
     profilePath: '/profile',
+    viewInitPath: '/views/init',
+    viewProfilePath: '/views/@:username',
+    viewProjectPath: '/views/project/:project_id',
     usernameValidatePath: '/profile/validate-username/:username',
     projectPath: '/projects',
     critiquePath: '/critiques',

@@ -1,7 +1,9 @@
 export const StoreProps = {
   App: {
-    Profile:  'App.Profile',
-    LoggedIn: 'App.LoggedIn'
+    Profile:    'App.Profile',
+    Projects:   'App.Projects',
+    Critiques:  'App.Critiques',
+    LoggedIn:   'App.LoggedIn'
   },
   UI: {
     ShowHomeIcon: 'UI.ShowHomeIcon'

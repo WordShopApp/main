@@ -8,6 +8,7 @@ import { NavService } from '../../services/nav/nav.service';
 import { StoreService } from '../../services/store/store.service';
 import { StoreActions as Actions } from '../../services/store/store.actions';
 import { StoreProps as Props } from '../../services/store/store.props';
+import { ViewService } from '../../services/view/view.service';
 
 @Injectable()
 export class RootResolver implements Resolve<any> {
@@ -17,21 +18,29 @@ export class RootResolver implements Resolve<any> {
     private authService: AuthService,
     private loggerService: LoggerService,
     private navService: NavService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private viewService: ViewService
   ) {}
 
   resolve () {
     return new Promise((resolve, reject) => {
+
       let prof = this.storeService.get(Props.App.Profile);
-      if (prof) return resolve();
+      let proj = this.storeService.get(Props.App.Projects);
+      let crit = this.storeService.get(Props.App.Critiques);
+      if (prof && proj && crit) return resolve();
       
-      this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
-      let p = this.accountService.getOrCreateProfile().then(profile => {
-        this.storeService.dispatch(Actions.Init.LoggedIn, true);
+      let pp = this.accountService.getOrCreateProfile();
+      let ip = this.viewService.init();
+      Promise.all([pp, ip]).then(res => {
+        let profile = res[0];
+        let projects = res[1].projects;
+        let critiques = res[1].critiques;
         this.storeService.dispatch(Actions.Init.Profile, profile);
-      });
-      Promise.all([p]).then(() => {
-        this.loggerService.info('RootResolver.resolve');
+        this.storeService.dispatch(Actions.Init.Projects, projects);
+        this.storeService.dispatch(Actions.Init.Critiques, critiques);
+        this.storeService.dispatch(Actions.UI.UpdateShowHomeIcon, true);
+        this.storeService.dispatch(Actions.Init.LoggedIn, true);
         resolve();
       }).catch(err => {
         this.authService.logout();
@@ -39,6 +48,7 @@ export class RootResolver implements Resolve<any> {
         this.loggerService.error(err);
         reject(err);
       });
+      
     });
   }
 }
