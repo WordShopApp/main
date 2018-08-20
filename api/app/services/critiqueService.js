@@ -72,5 +72,6 @@ function all (userId) {
 }
 
 module.exports = {
-  add: add
+  add: add,
+  all: all
 };
