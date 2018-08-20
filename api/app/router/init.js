@@ -25,6 +25,12 @@ module.exports = (app) => {
   let userController = require('../controllers/userController');
   app.get('/users/:id', userController.show);
 
+  // views
+  let viewController = require('../controllers/viewController');
+  app.get('/views/dashboard', viewController.dashboard);
+  app.get('/views/project', viewController.project);
+  app.get('/@:username', viewController.profile);
+
   // root
   let appController = require('../controllers/appController');
   app.get('/', appController.status);
