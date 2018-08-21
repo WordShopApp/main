@@ -83,6 +83,7 @@ function newProjItemParams (params) {
       project_id: projectId,
       user_id: params.userId,
       title: params.title,
+      palette: params.palette,
       categories: params.categories,
       private: params.private,
       created: now,
@@ -114,6 +115,7 @@ function newProjParams (user, data) {
   return newProjItemParams({
     userId: user.user_id,
     title: data[0].title,
+    palette: data[0].palette,
     partName: data[1].part_name,
     text: data[2].text,
     wordCount: data[2].word_count,

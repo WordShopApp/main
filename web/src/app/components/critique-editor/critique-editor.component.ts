@@ -110,6 +110,7 @@ export class CritiqueEditorComponent implements OnInit, OnChanges, OnDestroy {
       project_id: this.project.project_id,
       part_id: this.part.part_id,
       version_id: this.version.version_id,
+      palette: this.palette,
       items: this.critique
     };
   }

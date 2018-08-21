@@ -31,6 +31,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       name: 'Title',
       complete: null,
       title: null,
+      palette: null
     },
     {
       name: 'Multipart',
@@ -759,6 +760,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
 
   private updateProjectPalette (hash) {
     this.palette = this.wordIconService.getPalette(hash);
+    if (this.project) this.project[0].palette = this.palette;
   }
 
   private stepOne_titleChanged (title) {

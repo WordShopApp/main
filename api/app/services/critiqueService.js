@@ -29,6 +29,7 @@ function newCritParams (user, data) {
       version_id: data.version_id,
       user_id: user.user_id,
       items: data.items,
+      palette: data.palette,
       unread: true,
       created: now,
       updated: now,
