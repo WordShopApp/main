@@ -2,6 +2,7 @@ const http = require('../services/utils');
 const critiqueService = require('../services/critiqueService');
 const projectService = require('../services/projectService');
 const userService = require('../services/userService');
+const presenterService = require('../services/presenterService');
 
 function handleException (err, res, desc) {
   if (err.code === 'AccessDeniedException') {
@@ -30,7 +31,7 @@ module.exports.init = (req, res) => {
     data.projects = results[0];
     data.critiques = results[1];
     console.log(desc, 'Data', data);
-    
+
     // 2) send response
     res.status(http.codes.ok).send(data);
   }).catch(err => {
@@ -45,7 +46,7 @@ module.exports.profile = (req, res) => {
   // 1) first get user by username
   let data = {};
   userService.getByUsername(req.params.username).then(user => {
-    data.user = user;
+    data.user = presenterService.profileUser(user);
 
     // 2) next get projects and critiques by user_id
     let pp = projectService.all(user.user_id);
@@ -78,7 +79,7 @@ module.exports.project = (req, res) => {
     data.critiques = results[1];
 
     // 2) next get user
-    userService.get(proj.user_id).then(user => {
+    userService.get(data.project.user_id).then(user => {
       data.user = user;
 
      // 3) send response
