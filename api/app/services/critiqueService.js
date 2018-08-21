@@ -52,6 +52,17 @@ function allCritsParams (userId) {
   };
 }
 
+function allCritsByProjectIdParams (projectId) {
+  return {
+    TableName: 'WordShop',
+    IndexName: 'query_key_02-created-index',
+    KeyConditionExpression: 'query_key_02 = :qk02',
+    ExpressionAttributeValues: {
+      ':qk02': `crt:prj:${projectId}`
+    },
+    ScanIndexForward: false
+  };
+}
 
 function add (user, data) {
   return new Promise((resolve, reject) => {
@@ -71,7 +82,17 @@ function all (userId) {
   });
 }
 
+function allByProjectId (projectId) {
+  return new Promise((resolve, reject) => {
+    dynamodbService
+      .getItems(allCritsByProjectIdParams(projectId))
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
 module.exports = {
   add: add,
-  all: all
+  all: all,
+  allByProjectId: allByProjectId
 };

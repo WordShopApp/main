@@ -29,7 +29,7 @@ app.use((req, res, next) => {
         req.user = data.email;
         next();
       } else {
-        userService.get(data.email).then(user => {
+        userService.getByEmail(data.email).then(user => {
           req.user = user;
           next();
         }).catch(err => {
