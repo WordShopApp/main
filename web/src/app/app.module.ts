@@ -62,6 +62,7 @@ import { CropTesterComponent } from './components/crop-tester/crop-tester.compon
 import { WordImageComponent } from './components/word-image/word-image.component';
 import { CritiqueComponent } from './components/critique/critique.component';
 import { CritiqueEditorComponent } from './components/critique-editor/critique-editor.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 import { CookieService } from 'ng2-cookies';
 
@@ -99,7 +100,8 @@ import { CookieService } from 'ng2-cookies';
     CropTesterComponent,
     WordImageComponent,
     CritiqueComponent,
-    CritiqueEditorComponent
+    CritiqueEditorComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,7 @@ module.exports = (app) => {
   let viewController = require('../controllers/viewController');
   app.get('/views/init', viewController.init);
   app.get('/views/project/:project_id', viewController.project);
-  app.get('/@:username', viewController.profile);
+  app.get('/views/profile/:username', viewController.profile);
 
   // root
   let appController = require('../controllers/appController');
