@@ -728,7 +728,7 @@ export class ProjectWizardComponent implements OnInit, OnDestroy {
       this.creatingProject = true;
       this.wizardFinishText = 'Creating';
       this.projectService.create(this.project).then(proj => {
-        this.loggerService.info('new project', proj);
+        this.loggerService.log('new project', proj);
         this.accountService.updateProfile({ project_in_progress: null }).then(updated => {
           this.creatingProject = false;
           this.wizardFinishText = 'Finish';

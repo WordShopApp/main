@@ -123,12 +123,12 @@ export class AuthService {
   }
 
   getProvider () {
-    this.loggerService.info('AuthService', 'Getting Provider');
+    this.loggerService.log('AuthService', 'Getting Provider');
     return this.getData();
   }
 
   setProvider (provider) {
-    this.loggerService.info('AuthService', 'Setting Provider', provider);
+    this.loggerService.log('AuthService', 'Setting Provider', provider);
     this.clearData();
     this.setData(provider);
   }

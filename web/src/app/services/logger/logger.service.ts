@@ -22,14 +22,6 @@ export class LoggerService {
 
   noop = () => {};
 
-  get info () {
-    if (this._level > 3) {
-      return console.info.bind(console);
-    } else {
-      return this.noop;
-    }
-  }
-
   get log () {
     if (this._level > 2) {
       return console.log.bind(console);

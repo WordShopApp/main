@@ -66,4 +66,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.showCritiqueEditor = false;
   }
 
+  onCritiqueClicked () {
+    this.showCritiqueEditor = true;
+    document.getElementById('js-critique-editor').scrollIntoView();
+  }
+
 }

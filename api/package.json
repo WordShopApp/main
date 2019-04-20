@@ -14,21 +14,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.279.1",
+    "aws-sdk": "^2.441.0",
     "body-parser": "^1.18.3",
-    "compression": "^1.7.3",
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.22.2",
-    "serverless-http": "^1.6.0",
-    "shortid": "^2.2.12"
+    "moment": "^2.24.0",
+    "serverless-http": "^2.0.0",
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "serverless-dynamodb-local": "^0.2.30",
-    "serverless-offline": "^3.25.6"
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "serverless-dynamodb-local": "^0.2.37",
+    "serverless-offline": "^4.9.4"
   }
 }

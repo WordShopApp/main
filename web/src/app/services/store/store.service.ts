@@ -51,7 +51,7 @@ export class StoreService {
   }
 
   dispatch (action: string, newData) {
-    this.loggerService.info('StoreService.dispatch', action, newData);
+    this.loggerService.log('StoreService.dispatch', action, newData);
     let results = this.reducer.apply(action, this.store, newData);
     this.set(results.prop, results.state);
   }

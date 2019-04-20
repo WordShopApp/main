@@ -331,19 +331,21 @@ export class ProjectConfigComponent implements OnInit, OnDestroy {
   }
 
   setupImageCropper () {
-    let el = document.getElementById('ui-image-crop');
-    this.imageCropper = new window['Croppie'](el, {
-      enableExif: true,
-      viewport: {
-        width: 200,
-        height: 200,
-        type: 'circle'
-      },
-      boundary: {
-        width: 200,
-        height: 200
-      }
-    });
+    if (!this.imageCropper) {
+      let el = document.getElementById('ui-image-crop');
+      this.imageCropper = new window['Croppie'](el, {
+        enableExif: true,
+        viewport: {
+          width: 200,
+          height: 200,
+          type: 'circle'
+        },
+        boundary: {
+          width: 200,
+          height: 200
+        }
+      });
+    }
   }
 
   deleteProject () {
