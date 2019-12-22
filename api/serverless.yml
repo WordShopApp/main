@@ -13,7 +13,7 @@ custom:
 provider:
   name: aws
   stage: prod
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   region: us-east-1
   iamRoleStatements:
     - Effect: Allow
