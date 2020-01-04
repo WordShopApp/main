@@ -1,8 +1,10 @@
+
+
 # install node modules
-npm install
+NG_CLI_ANALYTICS=ci npm install
 
 # install angular cli
-sudo npm install -g @angular/cli
+NG_CLI_ANALYTICS=ci sudo npm install -g @angular/cli
 
 # build project
 ng build --prod --base-href /

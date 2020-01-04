@@ -25,7 +25,7 @@ jobs:
           name: Build Wordshop Web and Api
           command: ./build.sh
           environment:
-            NG_CLI_ANALYTICS: false
+            NG_CLI_ANALYTICS: "ci"
       - deploy:
           name: Deploy Wordshop Web and Api
           command: |
