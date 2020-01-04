@@ -21,11 +21,14 @@ jobs:
       - run:
           name: Lint Wordshop Web and Api
           command: ./lint.sh
+      - run:
+          name: Build WordShop Api
+          command: ./api/build.sh
       - run: 
-          name: Build Wordshop Web and Api
+          name: Build Wordshop Web
           environment:
             NG_CLI_ANALYTICS: "ci"
-          command: ./build.sh
+          command: cd ./web && npm install && sudo npm install -g @angular/cli && ng build --prod --base-href / && cd ..
       - deploy:
           name: Deploy Wordshop Web and Api
           command: |
