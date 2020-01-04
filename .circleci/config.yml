@@ -28,7 +28,7 @@ jobs:
           name: Build Wordshop Web
           environment:
             NG_CLI_ANALYTICS: "ci"
-          command: cd ./web && npm install && ng build --prod --base-href / && cd ..
+          command: cd ./web && npm install && ./node_modules/@angular/cli/bin/ng build --prod --base-href / && cd ..
       - deploy:
           name: Deploy Wordshop Web and Api
           command: |
