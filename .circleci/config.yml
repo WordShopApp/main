@@ -23,9 +23,9 @@ jobs:
           command: ./lint.sh
       - run: 
           name: Build Wordshop Web and Api
-          command: ./build.sh
           environment:
             NG_CLI_ANALYTICS: "ci"
+          command: ./build.sh
       - deploy:
           name: Deploy Wordshop Web and Api
           command: |
