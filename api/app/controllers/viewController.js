@@ -72,7 +72,7 @@ module.exports.project = (req, res) => {
 
   // 1) first get project and critiques by project_id
   let data = {};
-  let pp = projectService.get(req.params.project_id, true);
+  let pp = projectService.get(req.params.project_id);
   let cp = critiqueService.allByProjectId(req.params.project_id);
   Promise.all([pp, cp]).then(results => {
     data.project = results[0];
