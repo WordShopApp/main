@@ -162,6 +162,7 @@ function textUploadParams (proj, text) {
 }
 
 function textUpdateParams (userId, projId, partId, verId, text) {
+  console.log('textUpdateParams', textUploadKey(userId, projId, partId, verId));
   return {
     ACL: textUploadAcl(), 
     Body: text,
