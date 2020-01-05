@@ -13,7 +13,7 @@ import { StoreActions as Actions } from '../../services/store/store.actions';
 })
 export class IconTesterComponent implements OnInit {
 
-  @ViewChild('textInput') textInput: ElementRef;
+  @ViewChild('textInput', { static: true }) textInput: ElementRef;
 
   type: any;
   palette: any;

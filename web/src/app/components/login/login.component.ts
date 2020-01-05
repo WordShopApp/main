@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   loading = false;
   buttonText = 'Log in';
 
-  @ViewChild('emailInput') emailInput: ElementRef;
-  @ViewChild('passwordInput') passwordInput: ElementRef;
+  @ViewChild('emailInput', { static: true }) emailInput: ElementRef;
+  @ViewChild('passwordInput', { static: true }) passwordInput: ElementRef;
 
   constructor(
     private authService: AuthService,

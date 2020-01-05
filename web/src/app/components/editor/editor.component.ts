@@ -1,11 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent implements OnInit, OnDestroy {
+export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   wordCount: number;
   justPasted: boolean;
@@ -14,7 +14,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @Input() showWordCount: boolean;
   @Input() maxWordCount: number;
 
-  @ViewChild('trix') trix: ElementRef;
+  @ViewChild('trix', { static: false }) trix: ElementRef;
 
   @Output() textChanged = new EventEmitter<any>();
 
@@ -25,8 +25,11 @@ export class EditorComponent implements OnInit, OnDestroy {
   constructor () { }
 
   ngOnInit() {
-    this.initText();
     this.setupSubscriptions();
+  }
+
+  ngAfterViewInit() {
+    this.initText();
   }
 
   ngOnDestroy () {

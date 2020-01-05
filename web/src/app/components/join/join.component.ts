@@ -16,9 +16,9 @@ import { StoreActions as Actions } from '../../services/store/store.actions';
 })
 export class JoinComponent implements OnInit {
 
-  @ViewChild('emailInput') emailInput: ElementRef;
-  @ViewChild('passwordInput') passwordInput: ElementRef;
-  @ViewChild('joinMailingListInput') joinMailingListInput: ElementRef;
+  @ViewChild('emailInput', { static: true }) emailInput: ElementRef;
+  @ViewChild('passwordInput', { static: true }) passwordInput: ElementRef;
+  @ViewChild('joinMailingListInput', { static: true }) joinMailingListInput: ElementRef;
 
   showPassword = false;
   

@@ -53,8 +53,8 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
 
   showOldPassword = false;
   showNewPassword = false;
-  @ViewChild('newPasswordInput') newPasswordInput: ElementRef;
-  @ViewChild('oldPasswordInput') oldPasswordInput: ElementRef;
+  @ViewChild('newPasswordInput', { static: false }) newPasswordInput: ElementRef;
+  @ViewChild('oldPasswordInput', { static: false }) oldPasswordInput: ElementRef;
 
   constructor (
     private route: ActivatedRoute,
