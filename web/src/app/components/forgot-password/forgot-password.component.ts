@@ -14,9 +14,9 @@ import { StoreActions as Actions } from '../../services/store/store.actions';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  @ViewChild('emailInput') emailInput: ElementRef;
-  @ViewChild('passwordInput') passwordInput: ElementRef;
-  @ViewChild('codeInput') codeInput: ElementRef;
+  @ViewChild('emailInput', { static: false }) emailInput: ElementRef;
+  @ViewChild('passwordInput', { static: false }) passwordInput: ElementRef;
+  @ViewChild('codeInput', { static: false }) codeInput: ElementRef;
 
   email: string;
   pswd: string;

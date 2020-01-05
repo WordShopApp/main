@@ -14,7 +14,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   @Input() showWordCount: boolean;
   @Input() maxWordCount: number;
 
-  @ViewChild('trix') trix: ElementRef;
+  @ViewChild('trix', { static: true }) trix: ElementRef;
 
   @Output() textChanged = new EventEmitter<any>();
 
